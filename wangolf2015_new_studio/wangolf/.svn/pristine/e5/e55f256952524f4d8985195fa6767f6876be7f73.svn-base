@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/layout_title_bar" />
+
+    <LinearLayout
+        android:id="@+id/comm_li"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title_bar"
+        android:orientation="vertical" >
+
+ <view
+        android:id="@+id/pull_refresh_list"
+        style="@style/listview_style"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        class="me.wangolf.utils.viewUtils.PullToRefreshListView"
+        android:cacheColorHint="@color/all_bg_color"
+        android:dividerHeight="0dp"
+        android:fadingEdge="none"
+        android:fastScrollEnabled="false"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false"
+        android:scrollbars="none"
+        android:divider="#CCCCCC" 
+        android:smoothScrollbar="true" />
+    </LinearLayout>
+
+</RelativeLayout>

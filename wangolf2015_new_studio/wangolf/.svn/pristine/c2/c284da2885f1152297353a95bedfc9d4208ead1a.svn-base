@@ -1,0 +1,124 @@
+package me.wangolf.newfragment;
+
+import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.TextView;
+
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
+import com.meigao.mgolf.R;
+
+import me.wangolf.ConstantValues;
+import me.wangolf.base.BaseActivity;
+
+/**
+ * Created by Administrator on 2015/6/16.
+ */
+public class DaydayGiftActivity extends BaseActivity implements View.OnClickListener {
+
+    @ViewInject(R.id.common_back)
+    private TextView mBack;
+    @ViewInject(R.id.common_title)
+    private TextView mTitle;
+    @ViewInject(R.id.webView)
+    private WebView mWeb;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.ac_daydaygift);
+        ViewUtils.inject(this);
+        initData();
+
+    } @Override
+      public void getData() {
+        super.getData();
+    }
+
+    @Override
+    public void initData() {
+        mBack.setVisibility(View.VISIBLE);
+        mTitle.setVisibility(View.VISIBLE);
+        mTitle.setText("天天有礼");
+        mBack.setOnClickListener(this);
+        WebSettings setting = mWeb.getSettings();
+        //mWeb.loadData(info, "text/html; charset=UTF-8", null);
+        setting.setUseWideViewPort(true);
+        setting.setJavaScriptEnabled(true);
+        String user_id= ConstantValues.UID;
+        String passowd=ConstantValues.PASSWORD;
+        String Url= "http://www.wangolf.me/webApp/purchase/daydayGift.html?user_id="+user_id+"&password="+passowd;
+        mWeb.loadUrl(Url);
+        mWeb.setWebViewClient(new webViewClient());
+
+
+        //点击后退按钮,让WebView后退一页(也可以覆写Activity的onKeyDown方法)
+        mWeb.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK && mWeb.canGoBack()) {  //表示按返回键
+
+
+                        mWeb.goBack();   //后退
+
+                        //webview.goForward();//前进
+                        return true;    //已处理
+                    }
+                }
+                return false;
+            }
+        });
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.common_back:
+                mWeb.goBack();
+                if (4 == KeyEvent.KEYCODE_BACK && mWeb.canGoBack()) {  //表示按返回键
+
+                    mWeb.goBack();   //后退
+                }else {
+                finish();}
+                break;
+
+            default:
+                break;
+        }
+
+    }
+
+    //Web视图
+    private class webViewClient extends WebViewClient {
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            return true;
+        }
+    }
+    // 设置回退
+
+    // 覆盖Activity类的onKeyDown(int keyCoder,KeyEvent event)方法
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && mWeb.canGoBack()) {
+
+            mWeb.goBack(); // goBack()表示返回WebView的上一页面
+
+            return true;
+
+        }
+
+        return super.onKeyDown(keyCode,event);
+
+    }
+}
+
+

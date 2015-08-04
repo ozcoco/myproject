@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="vertical"
+    android:padding="@dimen/layout_height_10">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/IV_ico"
+android:clickable="true"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ic_launcher"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/layout_height_10"
+            android:layout_toEndOf="@+id/IV_ico"
+            android:layout_toRightOf="@+id/IV_ico"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="标题"
+                android:textColor="@color/common_text" />
+
+            <TextView
+                android:id="@+id/tv_Nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="昵称"
+                android:textColor="@color/common_text"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_Time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/layout_height_10"
+                android:text="5分钟前"
+                android:textColor="@color/common_text" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/layout_height_10"
+            android:layout_marginTop="@dimen/layout_height_10"
+            android:text="111111111111111111111"
+            android:textColor="@color/common_text" />
+
+        <me.wangolf.utils.NoScrollGridView
+            android:id="@+id/gv_images"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:listSelector="@color/white"
+
+            android:verticalSpacing="@dimen/layout_height_10"></me.wangolf.utils.NoScrollGridView>
+
+        <TextView
+            android:drawableLeft="@drawable/navigate"
+            android:id="@+id/tv_Address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_height_10"
+            android:text=""
+            android:textColor="@color/common_text" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_praise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="已赞"
+                android:textColor="@color/common_text"
+                android:visibility="gone" />
+
+            <me.wangolf.utils.NoScrollGridView
+                android:id="@+id/gv_ico"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></me.wangolf.utils.NoScrollGridView>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_marginBottom="@dimen/layout_height_10"
+            android:layout_marginTop="@dimen/layout_height_10"
+            android:background="@color/linecolor"></View>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/bt_praise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="点赞"
+                android:textColor="@color/common_text" />
+
+            <TextView
+                android:id="@+id/tv_reply_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="123"
+                android:textColor="@color/common_text" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

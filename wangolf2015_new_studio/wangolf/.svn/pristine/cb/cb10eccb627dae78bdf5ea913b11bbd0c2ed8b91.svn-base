@@ -1,0 +1,161 @@
+<resources>
+
+    <color name="transparent">#00000000</color>
+    <color name="black_overlay">#66000000</color>
+    <color name="gray_background">#ffececec</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="red">#E51A18</color>
+    <color name="line_color">#523E2E</color>
+    <color name="title_bg_color">#ce4d2a</color>
+    <color name="search_tab_nomarl">#363636</color>
+    <color name="search_tab_select">#E82926</color>
+    <color name="menu_item_text_color">#CE4C2A</color>
+    <color name="txt_gray">#999999</color>
+    <color name="news_item_has_read_textcolor">#828282</color>
+    <color name="news_item_no_read_textcolor">#363636</color>
+    <color name="blue">#8BACF8</color>
+    <!-- ************shop相关********** -->
+    <color name="txt_orage">#FF5301</color>
+    <color name="txt_orage_1">#FA772F</color>
+    <color name="all_bg_color">#F2F6F7</color>
+    <!-- <color name="all_bg_color">#F2F6F7</color> -->
+    <color name="txt_green">#41a98b</color>
+    <color name="txt_green_1">#ce4d2a</color>
+    <color name="gray_light">#efefef</color>
+    <color name="select_color">#5CACEE</color>
+    <color name="txt_sort_bg">#b0000000</color>
+    <!-- bt_red drawable -->
+    <drawable name="bt_red">#ff5301</drawable>
+    <drawable name="bt_red_presss">#b23a01</drawable>
+    <drawable name="bg_clor_gray_light">#999999</drawable>
+    <drawable name="draw_orage">#FF5301</drawable>
+    <drawable name="draw_listview_select">#30808080</drawable>
+    <drawable name="draw_gray_light">@color/gray_light</drawable>
+    <drawable name="draw_white_light">@color/white</drawable>
+    <drawable name="draw_all_bg">#f1fbf9</drawable>
+    <drawable name="draw_white_bg">@color/white</drawable>
+    <drawable name="draw_black_bg">@color/black</drawable>
+
+    <!-- *****学院相关****** -->
+    <color name="co_list_title">#545454</color>
+    <color name="common_white">#ffffff</color>
+    <color name="common_white_shadow">#414141</color>
+    <color name="common_white_disabled">#e7e7e7</color>
+    <!-- For main texts -->
+    <color name="common_dark">#3d5562</color>
+    <color name="common_dark_shadow">#dedede</color>
+    <color name="common_dark_disabled">#9aa7af</color>
+    <!-- For secondary texts -->
+    <color name="common_grey">#8496a0</color>
+    <color name="common_grey_disabled">#aabbc4</color>
+    <!-- For danger cases, such as virus, file delete... -->
+    <color name="common_red">#e62f2f</color>
+    <!-- For warning cases, such as trashes... -->
+    <color name="common_yellow">#f1930d</color>
+    <!-- For safe cases -->
+    <color name="common_green">#60990c</color>
+    <!-- For suggestions -->
+    <color name="common_blue">#4b8bbd</color>
+    <color name="tab_indicator_text_selected">@color/txt_green</color>
+    <color name="tab_indicator_text_unselected">@color/txt_gray</color>
+    <color name="page_viewer_margin_color">#007800</color>
+    <color name="calendar_background">#FFFFFF</color>
+    <!-- 优惠购 end -->
+
+    <color name="gray">#aaaaaa</color>
+    <color name="gray_h1">#B9B5B4</color>
+       <color name="gray_h">#918F92</color>
+    <color name="light_blue">#6593cb</color>
+    <color name="bg_black_color">#1e2028</color>
+    <color name="bt_bg_color">#154f8a</color>
+    <color name="redpack_color_red">#E5423D</color>
+    <color name="redpackcolor0">#e84368</color>
+    <color name="redpackcolor1">#81ae23</color>
+    <color name="redpackcolor2">#43abd6</color>
+    <color name="redpackcolor3">#f7a20e</color>
+    <color name="yellow">#f0941c</color>
+    <color name="green">#22b883</color>
+    <color name="green_deep">#1D7C57</color>
+    <color name="txt_red">#f37200</color>
+    <color name="line_gray_light">#DFE0E1</color>
+    <color name="main_uscolor">#575557</color>
+    <color name="main_scolor">#383638</color>
+    <color name="txt_dialog">#555555</color>
+    <color name="calendar_zhe_day">#FF5301</color>
+    <color name="Text">#603b07</color>
+    <!-- 绿色 selection -->
+    <color name="selection">#019b79</color>
+
+    <!-- 通用色 -->
+    <color name="common_text">#333333</color>
+    <color name="common_address">#a0a0a0</color>
+    <color name="community_name">#8d8d8d</color>
+    <color name="common_bt">#999999</color>
+    <color name="common_text_h1">#666666</color>
+    <color name="main_text">#969696</color>
+    <color name="main_text_select">#CE4D2A</color>
+    <color name="common_text_h2">#A9A9A4</color>
+    <color name="common_bg_color">#000000</color>
+    <color name="common_orange">#f5631d</color>
+
+    <!-- 练习场 -->
+    <color name="prac_text">#E51A18</color>
+    <color name="prac_support">#F37200</color>
+    <color name="popup_main_background">#20000000</color>
+    <color name="coach_main_background">#40000000</color>
+    <color name="choose_eara_item_press_color">#f4f4f4</color>
+    <color name="no_color">#00000000</color>
+
+    <item name="subscribe_item_text_color_normal_night" type="color">@color/default_text_night</item>
+
+    <color name="default_text_night">#ff747474</color>
+    <color name="subscribe_item_text_color_pressed_night">#ff303030</color>
+    <color name="subscribe_item_selected_stroke_night">#ffbc494d</color>
+    <color name="subscribe_item_drag_stroke">#ffd2d2d2</color>
+    <color name="subscribe_item_drag_bg">#fff5f5f5</color>
+    <color name="subscribe_item_selected_bg">#ffffffff</color>
+    <color name="subscribe_item_selected_stroke">#ffcc3131</color>
+    <color name="subscribe_item_disabled_stroke">#ffd9d9d9</color>
+    <color name="subscribe_item_disabled_bg">#ffefefef</color>
+    <color name="subscribe_item_pressed_stroke">#ffcdcdcd</color>
+    <color name="subscribe_item_pressed_bg">#fff9f9f9</color>
+    <color name="subscribe_item_normal_stroke">#ffcdcdcd</color>
+    <color name="subscribe_item_normal_bg">#fff5f5f5</color>
+
+    <item name="subscribe_item_text_color_normal" type="color">@color/default_text</item>
+
+    <color name="default_text">#ff454545</color>
+    <color name="subscribe_item_text_color_pressed">#ffb9b9b9</color>
+    <color name="category_subscribe_text">#ffffffff</color>
+    <color name="drawer_item_bg">#ff5d5d5d</color>
+    <color name="drawer_line_color">#ff444444</color>
+    <color name="title_text_color">#ffffffff</color>
+    <color name="subscribe_tip_text">#ff2e2e2e</color>
+    <color name="subscribe_activity_bg">#ffefefef</color>
+    <color name="subscribe_bg">#fff5f5f5</color>
+    <color name="subscribe_seperate_line">#ffcdcdcd</color>
+    <color name="bt_red">#FF5301</color>
+    <!-- 社区 -->
+    <color name="tx_c_d_level0">#DBE0E3</color>
+    <color name="tx_c_d_level">#EFEFEF</color>
+    <color name="light_gray">#FFA0A0A0</color>
+    <color name="linecolor">#30808080</color>
+    <color name="main_linecolor">#939393</color>
+
+    <color name="hot_posts_title">#E1610A</color>
+    <color name="posts_input_bg">#EEEFF3</color>
+
+    <!-- 首页新增 -->
+    <color name="index_practice">#ce4d2a</color>
+    <color name="index_knowledge">#7abf19</color>
+    <color name="index_classroom">#069ee2</color>
+    <color name="index_bag">#ff5555</color>
+    <color name="dialog_white_bg">#fbfbfb</color>
+    <color name="tag_0">#3cd9f5</color>
+    <color name="tag_1">#ee774a</color>
+    <color name="tag_2">#3587e4</color>
+    <color name="tag_3">#c754e0</color>
+    <color name="tag_4">#6ed823</color>
+    <color name="tag_5">#bcbcbc</color>
+</resources>

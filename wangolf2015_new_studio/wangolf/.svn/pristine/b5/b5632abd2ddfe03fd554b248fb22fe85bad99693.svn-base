@@ -1,0 +1,55 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black" >
+
+    <include
+        android:id="@+id/common_bar"
+        layout="@layout/layout_title_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/common_bar"
+        android:background="@color/all_bg_color" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <EditText
+                    android:id="@+id/ed_ball_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/layout_height_200"
+                    android:background="@drawable/textlines_all"
+                    android:ems="13"
+                    android:gravity="top"
+                    android:hint="请输入备注内容"
+                    android:maxLength="150"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingTop="16dp"
+                    android:singleLine="false"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="@dimen/m_font" />
+
+                <ImageView
+                    android:id="@+id/ivdel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="8dp"
+                    android:src="@drawable/close_dilog" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

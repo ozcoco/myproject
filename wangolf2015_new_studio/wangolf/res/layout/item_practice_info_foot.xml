@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="相关配置"
+            android:textColor="@color/common_text" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/linecolor" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_tee_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="打位个数"
+                android:padding="7dp"
+                android:background="@drawable/tv_gray_selector"
+                android:textColor="@color/common_text_h1" />
+
+            <TextView
+                android:padding="7dp"
+                android:background="@drawable/tv_gray_selector"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/tv_tee_floor_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/tv_tee_num"
+                android:text="打位层数"
+                android:textColor="@color/common_text_h1" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/linecolor" />
+
+        <TextView
+            android:id="@+id/tv_supporting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="相关会所、餐厅、专卖店"
+            android:textColor="@color/common_text_h1" />
+
+        <TextView
+            android:id="@+id/tv_summy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="相关会所、餐厅、专卖店"
+            android:textColor="@color/common_text_h1" />
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:id="@+id/rl_coach"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:padding="10dp">
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="教练"
+            android:textColor="@color/common_text" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/xiaojiangtou" />
+    </RelativeLayout>
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="介简"
+            android:textColor="@color/common_text" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/linecolor"></View>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

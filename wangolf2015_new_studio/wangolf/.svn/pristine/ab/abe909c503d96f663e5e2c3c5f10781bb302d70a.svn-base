@@ -1,0 +1,293 @@
+package me.wangolf.newfragment;
+
+import android.annotation.TargetApi;
+import android.app.Dialog;
+import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
+import com.meigao.mgolf.R;
+
+import java.util.ArrayList;
+
+import me.wangolf.ConstantValues;
+import me.wangolf.adapter.CommunityIndexAdapter;
+import me.wangolf.adapter.CommunityIndexHotAdapter;
+import me.wangolf.base.BaseFragment;
+import me.wangolf.bean.community.CommunityHotPostsEntity;
+import me.wangolf.bean.community.CommunityPostsEntity;
+import me.wangolf.community.AlbumEditActivity;
+import me.wangolf.community.CommunityDetailActivity;
+import me.wangolf.factory.ServiceFactory;
+import me.wangolf.service.IOAuthCallBack;
+import me.wangolf.usercenter.LoginActivity;
+import me.wangolf.utils.CommonUtil;
+import me.wangolf.utils.DialogUtil;
+import me.wangolf.utils.GsonTools;
+import me.wangolf.utils.MyListView;
+import me.wangolf.utils.ToastUtils;
+import me.wangolf.utils.viewUtils.PullToRefreshBase;
+import me.wangolf.utils.viewUtils.PullToRefreshListView;
+
+/**
+ * Created by Administrator on 2015/4/2.
+ */
+public class CommunityFra extends BaseFragment {
+    @ViewInject(R.id.common_title)
+    private TextView common_title;
+    @ViewInject(R.id.common_img)
+    private ImageView common_img;
+    @ViewInject(R.id.comm_hot_list)
+    private MyListView comm_hot_list;
+    @ViewInject(R.id.pull_refresh_list)
+    private PullToRefreshListView mPullList;
+    private CommunityIndexHotAdapter adapter_hot;
+    private CommunityIndexAdapter adapter_list;
+    private String user_id;//用户ID
+    private int page = 1;//页数
+    private int number = 10;//分页外数
+    private boolean isRefresh;// 是否下拉刷新
+    private Dialog dialog;//加载页
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.ac_community, null);
+        ViewUtils.inject(this, view);
+        View head = inflater.inflate(R.layout.comm_head, null);
+        ViewUtils.inject(this, head);
+        if (adapter_hot == null) {
+            adapter_hot = new CommunityIndexHotAdapter(getActivity());
+        }
+        if (adapter_list == null) {
+            adapter_list = new CommunityIndexAdapter(getActivity());
+        }
+        adapter_list.notifyDataSetChanged();
+        adapter_hot.notifyDataSetChanged();
+        comm_hot_list.setAdapter(adapter_hot);
+        mPullList.getRefreshableView().addHeaderView(comm_hot_list);
+        mPullList.getRefreshableView().setAdapter(adapter_list);
+
+        initData();
+        return view;
+    }
+
+
+    @Override
+    public void initData() {
+        initView();//视图数据
+        setHotOnclick();//hot点击事件
+        getHotData();//hot数据
+        getListData();//列表数据;
+        initRefreshableView();//下拉刷新
+        dialog = DialogUtil.getDialog(getActivity());
+        dialog.show();
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    @Override
+    public void initView() {
+        common_title.setText("社区");
+        common_img.setVisibility(View.VISIBLE);
+        common_img.setBackground(getActivity().getResources().getDrawable(R.drawable.r2_c6));
+        common_img.setOnClickListener(this);
+    }
+
+
+    // 置顶数据
+    public void getHotData() {
+        try {
+            ServiceFactory.getCommunityEngineInstatice().getHotPosts(new IOAuthCallBack() {
+
+                @Override
+                public void getIOAuthCallBack(String result) {
+                    if (result.equals(ConstantValues.FAILURE)) {
+                        ToastUtils.showInfo(getActivity(), ConstantValues.NONETWORK);
+                    } else {
+                        CommunityHotPostsEntity bean = GsonTools.changeGsonToBean(result, CommunityHotPostsEntity.class);
+                        if ("1".equals(bean.getStatus())) {
+                            ArrayList<CommunityHotPostsEntity> data = bean.getData();
+                            adapter_hot.setHot_list(data);
+                            adapter_hot.notifyDataSetChanged();
+
+                        }
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    // 列表数据
+    public void getListData() {
+        try {
+            ServiceFactory.getCommunityEngineInstatice().getPostsList(user_id, page, number, new IOAuthCallBack() {
+
+                @Override
+                public void getIOAuthCallBack(String result) {
+
+                    if (result.equals(ConstantValues.FAILURE)) {
+                        ToastUtils.showInfo(getActivity(), ConstantValues.NONETWORK);
+                    } else {
+                        CommunityPostsEntity bean = GsonTools.changeGsonToBean(result, CommunityPostsEntity.class);
+                        if ("1".equals(bean.getStatus())) {
+                            ArrayList<CommunityPostsEntity> data = bean.getData();
+                            ArrayList<CommunityPostsEntity> mList = adapter_list.getPosts_list();
+                            if (data.size() == 0) {
+                                // 没有更多数据
+                                ToastUtils.showInfo(getActivity(), ConstantValues.NOMORE);
+                                adapter_list.notifyDataSetChanged();
+                                dialog.cancel();
+                                onLoaded();
+                                return;
+                            }
+                            if (isRefresh) {
+                                // 下拉刷新
+                                isRefresh = false;
+                                if(mList!=null)
+                                mList.clear();
+                                adapter_list.setPosts_list(data);
+                            } else {
+                                // mList == null初始化。mList ！= null 加载更多
+                                if (mList == null) {
+                                    adapter_list.setPosts_list(data);
+                                } else {
+                                    mList.addAll(data);
+                                }
+                            }
+                            adapter_list.notifyDataSetChanged();
+                        }
+
+                    }
+                    dialog.cancel();
+                    onLoaded();
+                }
+            });
+        } catch (Exception e) {
+            dialog.cancel();
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.common_img:
+                if (ConstantValues.ISLOGIN) {
+                    // 登录成功
+                    toEditPosts();
+                } else {
+                    // 去登录
+                    Intent toLogin = new Intent(getActivity(), LoginActivity.class);
+                    toLogin.putExtra("flag", "orderPrac");
+                    ((FragmentActivity) getActivity()).startActivityForResult(toLogin, ConstantValues.ORDERPRAC);
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    //=============下拉刷新=============
+    @Override
+    public void initRefreshableView() {
+        mPullList.setPullLoadEnabled(false);
+        // 滚动到底自动加载可用
+        mPullList.setScrollLoadEnabled(true);
+        // 得到实际的ListView 设置点击
+        mPullList.getRefreshableView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (CommonUtil.isNetworkAvailable(getActivity()) == 0) {
+                    ToastUtils.showInfo(getActivity(), ConstantValues.NONETWORK);
+                } else {
+                    CommunityPostsEntity bean = (CommunityPostsEntity) adapter_list.getItem(position - 1);
+                    Intent intent = new Intent(getActivity(), CommunityDetailActivity.class);
+                    intent.putExtra("posts_id", bean.getId() + "");
+                    getActivity().startActivity(intent);
+                }
+            }
+        });
+
+        // 设置下拉刷新的listener
+        mPullList.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
+
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+
+                isRefresh = true;
+                page = 1;
+                getListData();
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+
+                page++;
+                getListData();
+
+            }
+        });
+    }
+
+
+    //置顶点击事件
+    public void setHotOnclick() {
+        comm_hot_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+
+                if (CommonUtil.isNetworkAvailable(getActivity()) == 0) {
+                    ToastUtils.showInfo(getActivity(), ConstantValues.NONETWORK);
+                } else {
+                    CommunityHotPostsEntity bean = (CommunityHotPostsEntity) adapter_hot.getItem(position);
+                    Intent intent = new Intent(getActivity(), CommunityDetailActivity.class);
+                    intent.putExtra("posts_id", bean.getId() + "");
+                    getActivity().startActivity(intent);
+                }
+
+            }
+        });
+    }
+
+    // 去发帖
+    public void toEditPosts() {
+        Intent send = new Intent(getActivity(), AlbumEditActivity.class);
+        getActivity().startActivityForResult(send, 105);
+
+    }
+
+    // 关闭刷新
+    private void onLoaded() {
+        mPullList.onPullDownRefreshComplete();
+        mPullList.onPullUpRefreshComplete();
+    }
+
+    @Override
+    public void onResume() {
+
+        if (ConstantValues.isSendPosts) {
+            isRefresh = true;
+            page = 1;
+            getListData();
+            ConstantValues.isSendPosts = false;
+        }
+        super.onResume();
+    }
+
+}

@@ -1,0 +1,88 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:orientation="vertical" >
+
+    <include layout="@layout/layout_title_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:background="@color/all_bg_color" >
+
+        <LinearLayout
+            android:id="@+id/layout1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/layout_height_75"
+            android:background="@color/all_bg_color"
+            android:gravity="center_vertical" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/textlines_all" >
+
+                <AutoCompleteTextView
+                    android:id="@+id/auto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_toLeftOf="@+id/bt_ok"
+                    android:background="@null"
+                    android:completionHint="最近的5条记录"
+                    android:completionThreshold="1"
+                    android:dropDownHeight="wrap_content"
+                    android:dropDownHorizontalOffset="0dp"
+                    android:hint="@string/cityname_tip"
+                    android:paddingLeft="8dp" >
+
+                    <requestFocus />
+                </AutoCompleteTextView>
+
+                <Button
+                    android:id="@+id/bt_ok"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="1px"
+                    android:background="@drawable/bt_red_queding_selector"
+                    android:text="@string/wheel_ok"
+                    android:textColor="@color/white"
+                    android:textSize="13sp" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+
+            <ExpandableListView
+                android:id="@+id/elist"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_alignParentLeft="true"
+                android:childDivider="@android:color/transparent"
+                android:divider="@android:color/transparent"  
+                android:cacheColorHint="@android:color/transparent"
+               
+                android:groupIndicator="@null" />
+
+            <me.wangolf.city.AssortView
+                android:id="@+id/assort"
+                android:layout_width="20dip"
+                android:layout_height="fill_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="-2dp"
+                android:background="#b6b6b6" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

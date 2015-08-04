@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp" >
+
+    <LinearLayout
+        android:id="@+id/layout_left"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/tv_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Medium Text"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/common_text"
+            android:textSize="@dimen/m_font" />
+
+        <TextView
+            android:layout_marginTop="@dimen/layout_height_10"
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:text="日期"
+            android:textColor="@color/common_text" />
+
+    </LinearLayout>
+<TextView
+    android:layout_centerVertical="true"
+    android:layout_alignParentRight="true"
+    android:id="@+id/tv_price"
+    android:gravity="left"
+    android:text="￥50"
+    android:textStyle="bold"
+    android:textColor="@color/common_text_h1"
+    android:textSize="@dimen/b16_font"
+    android:layout_width="70dp"
+    android:layout_height="wrap_content" />
+</RelativeLayout>

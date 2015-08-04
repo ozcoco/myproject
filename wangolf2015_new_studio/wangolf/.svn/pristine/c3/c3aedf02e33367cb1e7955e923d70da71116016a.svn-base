@@ -1,0 +1,82 @@
+package me.wangolf.usercenter;
+
+import android.app.Dialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
+import com.meigao.mgolf.R;
+
+import org.apache.commons.codec.digest.DigestUtils;
+
+import me.wangolf.ConstantValues;
+import me.wangolf.base.BaseActivity;
+import me.wangolf.bean.InfoEntity;
+import me.wangolf.factory.ServiceFactory;
+import me.wangolf.service.IOAuthCallBack;
+import me.wangolf.utils.CheckUtils;
+import me.wangolf.utils.DialogUtil;
+import me.wangolf.utils.GsonTools;
+import me.wangolf.utils.ToastUtils;
+
+public class UserAccountSet extends BaseActivity implements OnClickListener {
+    @ViewInject(R.id.common_back)
+    private Button common_back; // 后退
+    @ViewInject(R.id.common_title)
+    private TextView common_title;// 标题
+    @ViewInject(R.id.tv_phone)
+    private TextView mPhone;
+    @ViewInject(R.id.tv_wx)
+    private TextView mWx;
+    @ViewInject(R.id.my_pwd)
+    private  RelativeLayout  mUserPwd;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.ac_account_set);
+        ViewUtils.inject(this);
+        initData();
+    }
+
+    @Override
+    public void initData() {
+        common_back.setVisibility(View.VISIBLE);
+        common_title.setText("我的账号");
+        common_back.setOnClickListener(this);
+        mPhone.setText(ConstantValues.USER_MOBILE);
+        mWx.setText(ConstantValues.ISWXlOGIN?"已绑定":"未绑定");
+        mUserPwd.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void getData() {
+
+    }
+
+
+
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+            case R.id.common_back:
+                finish();
+                break;
+            case R.id.my_pwd:
+                Intent upPwd = new Intent(this,UpDataPassword.class);
+                startActivity(upPwd);
+                break;
+            default:
+                break;
+        }
+    }
+}

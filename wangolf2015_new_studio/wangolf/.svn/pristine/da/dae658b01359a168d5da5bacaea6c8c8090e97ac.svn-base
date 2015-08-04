@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/all_bg_color"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_centerHorizontal="true"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_height_40"
+
+        >
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/playsuccess"
+            android:layout_gravity="center" />
+        <TextView
+            android:gravity="center"
+            android:id="@+id/tv_success_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="这里是标题"
+            android:textSize="14dp"
+            android:textColor="@color/white"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/textView1"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center" />
+        <TextView
+            android:gravity="center"
+            android:id="@+id/tv_success_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="这里是内容"
+            android:textSize="12dp"
+            android:textColor="@color/white"
+             android:layout_marginTop="10dp"
+            android:layout_below="@+id/tv_success_title"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="支付成功"
+            android:textColor="#F7C612"
+
+            android:textSize="@dimen/layout_height_20"
+
+            android:layout_gravity="center"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="105dp" />
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl"
+        android:layout_marginTop="@dimen/layout_height_20"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/tv_share"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/layout_height_40"
+            android:layout_margin="@dimen/layout_height_8"
+            android:background="@drawable/bt_green_yuan_all_selector"
+            android:text="立即分享"
+            android:textColor="@color/white"
+            android:textSize="@dimen/m_font" />
+
+        <Button
+            android:id="@+id/tv_close_share"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/layout_height_40"
+            android:layout_margin="@dimen/layout_height_8"
+            android:background="@drawable/bt_gray_gray_selector"
+            android:text="取消分享"
+            android:textColor="@color/white"
+            android:textSize="@dimen/m_font" />
+    </LinearLayout>
+</RelativeLayout>

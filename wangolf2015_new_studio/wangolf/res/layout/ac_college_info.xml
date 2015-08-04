@@ -1,0 +1,208 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentBottom="true"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/layout_title_bar" />
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/title_bar"
+        android:background="#EDEDED"
+        android:fillViewport="true" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="220dp" >
+
+                <ImageView
+                    android:id="@+id/ivpic"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_launcher" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/layout_height_50"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="@dimen/h11"
+                android:background="@drawable/textlines_all"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="1dp" >
+
+                <TextView
+                    android:id="@+id/TextView02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="学院名称："
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/common_text" />
+
+                <TextView
+                    android:id="@+id/tvname"
+                    android:singleLine="true"
+                      android:textColor="@color/common_text" 
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:text="" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/layout_height_50"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="-2dp"
+                android:background="@drawable/textlines_all"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="1dp" >
+
+                <TextView
+                    android:id="@+id/TextView03"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="学院地址："
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/common_text" />
+
+                <TextView
+                    android:id="@+id/tvaddress"
+                      android:textColor="@color/common_text" 
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="-2dp"
+                android:background="@drawable/textlines_all"
+                android:orientation="vertical"
+                android:padding="1dp" >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-2dp"
+                    android:background="@drawable/gray_light_selector"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/layout_height_8" >
+
+                    <LinearLayout
+                        android:id="@+id/layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:id="@+id/TextView06"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="学院教练："
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="@color/common_text" />
+
+                        <TextView
+                            android:id="@+id/tvcoachnum"
+                            android:layout_width="wrap_content"
+                            android:layout_height="55dp"
+                            android:gravity="center_vertical"
+                            android:text="0名"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/common_text"
+                            android:textSize="@dimen/b18_font" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/go_coach"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toRightOf="@+id/layout"
+                        android:layout_weight="0.48"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="15dp" >
+
+                        <ImageView
+                            android:id="@+id/imageView1"
+                            android:layout_width="@dimen/layout_height_65"
+                            android:layout_height="@dimen/layout_height_65" />
+
+                        <ImageView
+                            android:id="@+id/imageView2"
+                            android:layout_width="@dimen/layout_height_65"
+                            android:layout_height="@dimen/layout_height_65"
+                            android:layout_marginLeft="8dp" />
+
+                        <ImageView
+                            android:id="@+id/imageView3"
+                            android:layout_width="@dimen/layout_height_65"
+                            android:layout_height="@dimen/layout_height_65"
+                            android:layout_marginLeft="8dp" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/ImageView01"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/xiaojiangtou" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/table_frame_gray"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:padding="8dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/layout_height_30"
+                    android:gravity="center_vertical"
+                    android:text="学院介绍："
+                    android:textColor="@color/common_text" />
+
+                <TextView
+                    android:id="@+id/tvintroduce"
+                    android:lineSpacingExtra="3dp"
+                      android:textColor="@color/common_text" 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ball_lab_summy" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

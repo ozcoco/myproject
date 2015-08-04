@@ -1,0 +1,365 @@
+package me.wangolf.service;
+
+import java.util.ArrayList;
+
+/**
+ * ============================================================
+ * 
+ * 版权 ：美高传媒 版权所有 (c) 2015年3月5日
+ * 
+ * 作者:copy
+ * 
+ * 版本 ：1.0
+ * 
+ * 创建日期 ： 2015年3月5日
+ * 
+ * 描述 ： 社区接口
+ * 
+ * 
+ * 
+ * 修订历史 ：
+ * 
+ * ============================================================
+ **/
+public interface ICommunityService {
+	/**
+	 * 1置顶接口
+	 * 
+	 * @param iOAuthCallBack
+	 * @throws Exception
+	 */
+	public void getHotPosts(IOAuthCallBack iOAuthCallBack) throws Exception;
+
+	/**
+	 * 2帖子列表接口
+	 * 
+	 * @param user_id
+	 *            为空代表获取首页全部帖子，否则获取个人发布帖子
+	* @param tags_id 标签ID(传入1接口的标签id)不填写则获取所有帖子
+	 * @param page
+	 *            页数
+	 * @param number
+	 *            每页显示数目
+	 * @param iOAuthCallBack
+	 * @throws Exception
+	 */
+	public void getPostsList(String user_id,String praise_user_id,String tags_id,int page, int number, IOAuthCallBack iOAuthCallBack) throws Exception;
+
+	/**
+	 * 3帖子详情接口
+	 * 
+	 * @param posts_id
+	 *            帖子ID
+	 * @param iOAuthCallBack
+	 * @throws Exception
+	 */
+	public void getPostsDetail(String posts_id,String user_id, IOAuthCallBack iOAuthCallBack) throws Exception;
+
+	/**
+	 * 4举报接口
+	 * 
+	 * @param user_id
+	 *            用户id
+	 * @param posts_id
+	 *            帖子id
+	 * @param reson
+	 *            原因
+	 * @param iOAuthCallBack
+	 * @throws Exception
+	 */
+	public void toComplain(String user_id, String posts_id, String reson, IOAuthCallBack iOAuthCallBack) throws Exception;
+
+	/**
+	 * 5发帖接口
+	 * 
+	 * @param user_id
+	 *            发评论人id
+	 * @param content
+	 *            内容
+	 * @param title
+	 *            标题
+	 * @param address
+	 *            地址
+	 * @param img_list
+	 *            图片列表
+	 * @param iOAuthCallBack
+	 * @throws Exception
+	 */
+	public void sendPosts(String user_id, String content, String title, String address,String longitude,String latitude,String tags_id,String tags_name, String img_list, IOAuthCallBack iOAuthCallBack)
+			throws Exception;
+
+	/**
+	 * 图片上传
+	 * 
+	 * @param avatar_file
+	 * @param iOAuthCallBack
+	 * @throws Exception
+	 */
+	public void loadPostsImg(ArrayList<String> avatar_file, int i, IOAuthCallBack iOAuthCallBack) throws Exception;
+
+	/**
+	 * 6帖子回复接口
+	 * 
+	 * @param user_id
+	 *            发评论人id
+	 * @param posts_user_id
+	 *            id 楼主id
+	 * @param posts_id
+	 *            帖子id
+	 * @param content
+	 *            内容
+	 * @param img_list
+	 *            图片列表
+	 * @param iOAuthCallBack
+	 * @throws Exception
+	 */
+	public void toPostsReply(String user_id, int posts_user_id, String posts_id, String content, String img_list, IOAuthCallBack iOAuthCallBack)
+			throws Exception;
+
+	/**
+	 * 7评论回复接口
+	 * 
+	 * @param user_id
+	 *            发评论人id
+	 * @param receive_id
+	 *            接收评论人id
+	 * @param reply_id
+	 *            评论id
+	 * @param content
+	 *            内容
+	 * @param img_list
+	 *            图片列表
+	 * @param iOAuthCallBack
+	 * @throws Exception
+	 */
+	public void toMommentReply(String user_id, int receive_id, int reply_id, String content, String img_list, IOAuthCallBack iOAuthCallBack)
+			throws Exception;
+
+	/**
+	 * 8通知列表接口
+	 * 
+	 * @param user_id
+	 *            用户id
+	 * @param page
+	 *            页数
+	 * @param number
+	 *            每页显示数目
+	 * @throws Exception
+	 */
+	public void getNotification(String user_id, int page, int number, IOAuthCallBack iOAuthCallBack) throws Exception;
+
+	/**
+	 * 9留言列表接口
+	 * 
+	 * @param user_id
+	 *            用户id
+	 * @param page
+	 *            页数
+	 * @param number
+	 *            每页显示数目
+	 * @param iOAuthCallBack
+	 * @throws Exception
+	 */
+	public void getLeaveMessageList(String user_id, int page, int number, IOAuthCallBack iOAuthCallBack) throws Exception;
+
+	/**
+	 * 10留言详情接口
+	 * 
+	 * @param user_id
+	 *            用户id
+	 * @param friend_id
+	 *            好友ID
+	 * @param page
+	 *            页数
+	 * @param number
+	 *            每页显示数目
+	 * @param iOAuthCallBack
+	 * @throws Exception
+	 */
+	public void getLeaveMessageDetail(String user_id, int friend_id, int page, int number, IOAuthCallBack iOAuthCallBack) throws Exception;
+
+	/**
+	 * 11清除留言接口
+	 * 
+	 * @param user_id
+	 *            用户id
+	 * @param friend_id
+	 *            好友ID
+	 * @param iOAuthCallBack
+	 * @throws Exception
+	 */
+	public void clearMessage(String user_id, int friend_id, IOAuthCallBack iOAuthCallBack) throws Exception;
+
+	/**
+	 * 12写留言接口
+	 * 
+	 * @param user_id
+	 *            用户id
+	 * @param friend_id
+	 *            好友ID
+	 * @param content
+	 *            内容
+	 * @param img_list
+	 *            图片地址
+	 * @param iOAuthCallBack
+	 * @throws Exception
+	 */
+
+	public void writeMessage(String user_id, int friend_id, String content, String img_list, IOAuthCallBack iOAuthCallBack) throws Exception;
+
+	/**
+	 * 13关注好友接口
+	 * 
+	 * @param user_id
+	 *            用户id
+	 * @param friend_id
+	 *            好友ID
+	 * @param iOAuthCallBack
+	 * @throws Exception
+	 */
+	public void toAttentionFriends(String user_id, int friend_id, IOAuthCallBack iOAuthCallBack) throws Exception;
+
+	/**
+	 * 14取消关注好友接口
+	 * 
+	 * @param user_id
+	 *            用户id
+	 * @param friend_id
+	 *            好友ID
+	 * @param iOAuthCallBack
+	 * @throws Exception
+	 */
+	public void CancelFriends(String user_id, int friend_id, IOAuthCallBack iOAuthCallBack) throws Exception;
+
+	/**
+	 * 15关注列表接口
+	 * 
+	 * @param user_id
+	 *            用户id
+	 * @param page
+	 * 
+	 * @param number
+	 *            每页显示数目
+	 * @param iOAuthCallBack
+	 * @throws Exception
+	 */
+	public void getFriendsList(String user_id, int page, int number, IOAuthCallBack iOAuthCallBack) throws Exception;
+
+	/**
+	 * 16粉丝列表接口
+	 * 
+	 * @param user_id
+	 *            用户id
+	 * @param page
+	 *            分页数
+	 * @param number
+	 *            每页显示数目
+	 * @param iOAuthCallBack
+	 * @throws Exception
+	 */
+	public void getFansList(String user_id, int page, int number, IOAuthCallBack iOAuthCallBack) throws Exception;
+
+	/**
+	 * 17用户中心接口
+	 * 
+	 * @param user_id
+	 *            用户id
+	 * @param page
+	 *            分页数
+	 * @param number
+	 *            每页显示数目
+	 * @param iOAuthCallBack
+	 * @throws Exception
+	 */
+	public void getUserInfo(String user_id, int friend_id, int page, int number, IOAuthCallBack iOAuthCallBack) throws Exception;
+
+
+	/**
+	 * 18编辑信息接口
+	 * 
+	 * @param user_id
+	 *            用户id
+	 * @param my_intro
+	 *            我的简介
+	 * @param gender
+	 *            性别0代表女，1代表男
+	 * @param nick_name
+	 *            昵称
+	 * @param iOAuthCallBack
+	 * @throws Exception
+	 */
+	public void upUserInfo(String user_id, String my_intro, int gender, String nick_name, IOAuthCallBack iOAuthCallBack) throws Exception;
+
+	/**
+	 * 19我的回复接口
+	 * 
+	 * @param user_id
+	 * @param page
+	 * @param number
+	 * @param iOAuthCallBack
+	 * @throws Exception
+	 */
+	public void getMyReply(String user_id, int page, int number, IOAuthCallBack iOAuthCallBack) throws Exception;
+
+	/**
+	 * 20上传相册接口
+	 * 
+	 * @param user_id
+	 *            用户id
+	 * @param images
+	 *            相册路径(上传多图以半角逗号隔开)
+	 * @param iOAuthCallBack
+	 * @throws Exception
+	 */
+	public void upDateImages(String user_id, String images, IOAuthCallBack iOAuthCallBack) throws Exception;
+
+	/**
+	 * 21删除相册接口
+	 * 
+	 * @param user_id
+	 *            用户id
+	 * @param images_id
+	 *            相册ID(删除多个以半角逗号隔开)
+	 * @param iOAuthCallBack
+	 * @throws Exception
+	 */
+	public void deleteImages(String user_id, int images_id, IOAuthCallBack iOAuthCallBack) throws Exception;
+
+	/**
+	 * 1社区标签列表
+	 * @param iOAuthCallBack
+	 * @throws Exception
+	 */
+	public void getTagsList(IOAuthCallBack iOAuthCallBack)throws Exception;
+
+	/**
+	 * 4点赞（取消）接口
+	 * @param user_id
+	 * @param posts_id
+	 * @param type
+	 * @param iOAuthCallBack
+	 * @throws Exception
+	 */
+	public void toPraise(String user_id,int posts_id,String type,IOAuthCallBack iOAuthCallBack)throws Exception;
+
+	/**
+	 * 4赞列表接口
+	 * @param posts_id
+	 * @param iOAuthCallBack
+	 * @throws Exception
+	 */
+	public void getPraiseList(int posts_id,IOAuthCallBack iOAuthCallBack)throws Exception;
+
+	/**
+	 * 5获取练习场地址接口
+	 * @param city_id
+	 * @param longitude
+	 * @param latitude
+	 * @param iOAuthCallBack
+	 * @throws Exception
+	 */
+	public void getRangeName(String city_id,String longitude,String latitude,IOAuthCallBack iOAuthCallBack)throws Exception;
+
+
+
+}

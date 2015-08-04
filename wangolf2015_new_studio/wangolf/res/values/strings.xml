@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="no_data">没有找到符合条件的房源</string>
+    <string name="app_name">打球</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">dummy_content</string>
+    <string name="tab_index">首页</string>
+    <string name="tab_shop">商城</string>
+    <string name="tab_college">学院</string>
+    <string name="tab_ball">球场</string>
+    <string name="tab_user">我的</string>
+    <string name="tab_setting">社区</string>
+    <string name="share_content">非常的好</string>
+    <string name="removeItem">删除</string>
+    <string name="title_activity_shop_pro">ShopProActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <!-- 球场搜索 -->
+        <string name="normal">普通</string>
+    <string name="statellite">卫星图</string>
+    <string name="ball_a_prac_search">球场预定</string>
+    <string name="tabball">球场搜索</string>
+    <string name="tabprac">练习场搜索</string>
+    <string name="ballsearch">球场搜索</string>
+    <string name="ofen">常打</string>
+    <string name="ballcity">选择城市</string>
+    <string name="current_address">当前位置</string>
+    <string name="login_title">登录</string>
+    <string name="balldate">选择日期</string>
+    <string name="balltime">选择时间</string>
+    <string name="ballname">选择球场</string>
+    <string name="tv_ballname">输入名称</string>
+    <string name="btsearch">立即查询</string>
+    <string name="special_time">特惠球场</string>
+    <string name="group_purchase">精选团购</string>
+    <string name="bt_back">返回</string>
+    <string name="ballmap">地图</string>
+    <string name="tv_ball_map">请选择球场</string>
+    <string name="title_activity_ball_acitivity">BallAcitivity</string>
+    <string name="title_activity_balls">BallsActivity</string>
+    <string name="title_activity_balls_map">BallsMapActivity</string>
+    <string name="title_activity_special_time">特价时间段</string>
+    <string name="title_activity_group_purchase">精选团购</string>
+    <string name="ballname_tip">请输入球场名称</string>
+    <!-- CalenderView    TimeDialog   start -->
+    <string name="txt_cancle">取消</string>
+    <string name="wheel_cancle">取消</string>
+    <string name="wheel_ok">确定</string>
+    <string name="cityname_tip">请输入城市名称</string>
+    <string name="current_gp_purchase">精选团购</string>
+    <string name="monday">周一</string>
+    <string name="tuesday">周二</string>
+    <string name="wedday">周三</string>
+    <string name="thuday">周四</string>
+    <string name="friday">周五</string>
+    <string name="staday">周六</string>
+    <string name="sunday">周日</string>
+
+    <!-- 球场信息 -->
+    <string name="bt_share">分享</string>
+    <string name="daohang">导航</string>
+    <string name="item_tv_yuding">预定 </string>
+    <string name="tv_ball_img">图片浏览</string>
+    <string name="ball_info_time">时间:</string>
+    <string name="ball_tag">标签:</string>
+    <string name="detial">详情</string>
+    <string name="lable_head_address">信息:</string>
+    <string name="ball_tag_title">球场信息</string>
+    <string name="tv_ball_weather">球场天气</string>
+    <string name="ball_lab_mode">球场模式</string>
+    <string name="ball_lab_create_date">建立时间</string>
+    <string name="ball_lab_aera">球场面积</string>
+    <string name="ball_lab_fairwaylen">球道长度</string>
+    <string name="ball_lab_desinger">设计师    \t</string>
+    <string name="ball_lab_grasstype">果岭草种</string>
+    <string name="ball_lab_holetype">球洞分类</string>
+    <string name="ball_lab_fwgtype">球道草种</string>
+    <string name="ball_lab_bkdata">球场数据</string>
+    <string name="ball_lab_related">相关配套</string>
+    <string name="ball_lab_phone">球场电话</string>
+    <string name="ball_lab_summy">球场图片</string>
+    <string name="ball_lab_summy_tip">球场简介</string>
+    <string name="ball_addfrind">添加打球人</string>
+    <string name="share">打球</string>
+    <string name="gp_list">套餐详情</string>
+
+    <!-- CalenderView    TimeDialog   end -->
+
+
+    <!-- 练习场 -->
+    <string name="practice_search">练习场搜索</string>
+
+    <!-- 登录 -->
+    <string name="title_activity_login">登录</string>
+    <string name="bt_login">登录</string>
+    <string name="tv_regist">注册</string>
+    <string name="phone_num_tip">手机号：</string>
+    <string name="pass_tip">密码：</string>
+    <string name="login_other">使用合作网站账号登录</string>
+    <string name="forgot_pwd">忘记密码?</string>
+    <string name="tv_prac_map">请选择练习场</string>
+
+    <!-- 注册| 修改密码 -->
+    <string name="title_activity_regist">注册</string>
+    <string name="tv_regist_tip1">1.输入手机号</string>
+    <string name="tv_regist_tip2">2.输入验证码</string>
+    <string name="tv_regist_tip3">3.设置密码</string>
+    <string name="tv_phone_tip">请输入手机号码</string>
+    <string name="bt_reg_getchecknum">获取验证码</string>
+    <string name="re_getchecknum">重新获取</string>
+    <string name="send_check_pone">验证</string>
+    <string name="tv_pwd_tip">输入密码</string>
+    <string name="bt_reg_check">确认</string>
+    <string name="reg_code_hint">请输入验证码</string>
+    <string name="bt_main">主页</string>
+    <string name="update_pwd_title">找回密码</string>
+    <string name="update_pwd_hint">设置密码</string>
+    <string name="title_activity_ac_main">首页</string>
+    <string name="bt_back_main">返\t\t回\t\t首\t\t页</string>
+    <string name="title_activity_update_pwd">修改密码</string>
+    <string name="title_activity_ball_tag_detail">球场详情</string>
+    <string name="title_activity_acc">Acc</string>
+    <string name="title_activity_prac_map">PracMapActivity</string>
+
+    <!-- 优惠购 -->
+    <string name="fnewonline">最新上线</string>
+    <string name="fnballtool">球具</string>
+    <string name="fdress">服饰</string>
+    <string name="fgolfattac">高尔夫附件</string>
+    <string name="fother">其他</string>
+    <string name="search">搜索</string>
+    <string name="prebuy_search_tip">请输入搜索的关键字</string>
+
+    <!-- 具体产品分类 -->
+    <string name="clapro">具体产品分类</string>
+    <string name="info_pro">商品详情</string>
+
+    <!-- Labels -->
+    <string name="label_activity_examples">Activity Examples</string>
+    <string name="menu_item_clear_memory_cache">Clear memory cache</string>
+    <string name="menu_item_clear_disc_cache">Clear disc cache</string>
+    <string name="menu_item_pause_on_scroll">Pause on scroll</string>
+    <string name="menu_item_pause_on_fling">Pause on fling</string>
+    <string name="info_pro_evapro">商品评论</string>
+    <string name="descr_image">Image</string>
+
+    <!-- 活动 -->
+    <string name="eventfree">免费活动</string>
+    <string name="eventonline">线上</string>
+    <string name="eventoffline">线下</string>
+
+    <!-- 活动详细页面 -->
+    <string name="event_detail_title">活动详情</string>
+    <string name="event_add_comm_tip">亲，你的评价对大家很有帮助！</string>
+
+    <!-- 新手入门 -->
+    <string name="beginner_title">新手入门</string>
+    <!--
+    <string name="beginner_">专享礼包</string>
+    <string name="beginner_title">球技知识</string>
+    <string name="beginner_title">高球生活</string>
+
+
+
+
+
+    -->
+
+
+    <!-- 我的信息 -->
+    <string name="my_order">我的订单</string>
+    <string name="pay_online">在线支付</string>
+    <string name="vouchers_title">我的代金券</string>
+    <string name="title">title</string>
+
+    <!-- 提示 -->
+    <string name="net_tip">网络不给力，请检查！</string>
+    <string name="share_sucess">分享成功</string>
+    <string name="share_fail">分享失败请重试</string>
+    <string name="data_null_tip">暂时没有相关数据</string>
+    <string name="or_null_tip">您还没有订单</string>
+
+    <!-- 拨号相关 -->
+
+    <string name="phone_dialog_list_title">客服电话列表</string>
+    <string name="remote_call_failed">Failure calling remote service</string>
+    <string name="trasfer_phone_tip">请输入收款人手机号码</string>
+    <string name="trasfer_money_tip">请输入转账金额</string>
+    <string name="cash_money_tip">请输入提现金额</string>
+    <string name="cash_select_tip">请选择</string>
+    <string name="trs_conf_phone_tip">收款人手机号码</string>
+    <string name="trs_conf_money_tip">转账金额</string>
+    <string name="cash_to_name_tip">请填写开户人姓名</string>
+    <string name="cash_to_card_tip">请填写开户卡卡号</string>
+    <string name="buychongzhi">在线充值</string>
+    <string name="buyballorder">球场预定</string>
+    <string name="buyballpackage">球场套餐</string>
+    <string name="buypracorder">练习场场预定</string>
+    <string name="buyproduct">商品购买</string>
+    <string name="buyopenmember">开通会员</string>
+    <string name="buyevent">活动</string>
+    <string name="title_activity_ti_yan">公测回馈报告</string>
+    <string name="title_activity_main_now">主页</string>
+    <string name="pull_to_refresh">下拉刷新</string>
+    <string name="release_to_refresh">释放立即刷新</string>
+    <string name="refreshing">正在刷新...</string>
+    <string name="refresh_succeed">刷新成功</string>
+    <string name="refresh_fail">刷新失败</string>
+    <string name="pullup_to_load">上拉加载更多</string>
+    <string name="release_to_load">释放立即加载</string>
+    <string name="loading">正在加载...</string>
+    <string name="load_succeed">加载成功</string>
+    <string name="load_fail">加载失败</string>
+    <string name="title_activity_coach_info">CoachInfoActivity</string>
+    <string name="title_activity_collegeinfo_acitvity">CollegeinfoAcitvity</string>
+    <string name="title_activity_college_coach_list">CollegeCoachList</string>
+    <string name="title_activity_shop_img">ShopImgActivit</string>
+    <string name="title_activity_base">BaseActivity</string>
+    <string name="drawer_btn_rss">频道管理</string>
+    <string name="subscribe_my_category">我的频道</string>
+<string name="subscribe_more_category">更多频道</string>
+<string name="subscribe_manager_category_info">单击增删频道</string>
+<string name="subscribe_manager_category_info_2">单击选择频道，双击增删频道，长按拖拽排序频道</string>
+<string name="album_all">All Photos</string>
+
+    <!-- 新版个人中心 -->
+<string name="nick_name">昵称 :</string>
+<string name="nick_name_hint">这里输入</string>
+<string name="gender">性别 :</string>
+<string name="my_intro">个性化签名:</string>
+<string name="userinfo_enter">确定修改</string>
+<string name="send_message">发消息</string>
+
+    <string name="login_with_msg">用手机号码登录</string>
+    <string name="login_with_weixin">用微信登录</string>
+    <string name="login_with_sina_weibo">用新浪微博登录</string>
+    <string name="login_with_qzone">用QQ空间登录</string>
+    <string name="login_with_other_plat">其他帐号登录</string>
+    <string name="userid_found">用户信息已存在，正在跳转登录操作…</string>
+    <string name="logining">使用%s帐号登录中…</string>
+    <string name="auth_cancel">授权操作已取消</string>
+    <string name="auth_error">授权操作遇到错误 \n 如微信登录，需要微信客户端</string>
+    <string name="auth_complete">授权成功!</string>
+    <string name="if_register_needed">如果您需要注册功能…</string>
+    <string name="after_auth">一般来说第三方登录时，第三方平台已经为您完成用户身份校验，您可以放心让用户登录。\n\n但如果您需要判断用户是否为新用户，可以在授权操作完成后，将用户的信息通过字段“HashMap userInfo”携带给login方法。客户端通过“String userId”执行登录请求，如果服务端判定此userId为未注册用户，可以将userInfo发送给注册接口，获取用户在此平台上的昵称、头像等数据，然后执行注册</string>
+</resources>

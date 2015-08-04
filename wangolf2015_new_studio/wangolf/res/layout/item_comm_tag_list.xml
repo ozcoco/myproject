@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<me.wangolf.utils.CheckableLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+        <TextView
+            android:id="@+id/comm_hot_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:singleLine="true"
+            android:text="打球"
+            android:gravity="center_vertical"
+            android:textColor="@color/hot_posts_title" />
+
+</me.wangolf.utils.CheckableLinearLayout>

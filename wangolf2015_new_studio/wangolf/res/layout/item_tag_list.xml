@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/layout_height_10"
+    android:paddingLeft="@dimen/layout_height_10">
+
+    <TextView
+        android:id="@+id/tag_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/praise_avatar"
+        android:text="标签"
+        android:textColor="@color/common_text" />
+<LinearLayout
+    android:layout_marginTop="@dimen/layout_height_10"
+    android:layout_below="@+id/tag_name"
+    android:layout_width="match_parent"
+    android:layout_height="0.1dp"
+    android:background="@color/linecolor"/>
+</RelativeLayout>

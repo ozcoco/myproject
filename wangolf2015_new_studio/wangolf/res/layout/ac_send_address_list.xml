@@ -1,0 +1,23 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
+
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/layout_title_bar" />
+
+    <ListView
+
+        android:background="@color/white"
+        android:layout_below="@+id/title_bar"
+        android:id="@+id/lsit_tag"
+        android:layout_width="match_parent"
+        android:listSelector="@drawable/listview_selector"
+        android:dividerHeight="0.1dp"
+        android:divider="@color/linecolor"
+
+        android:layout_height="match_parent"></ListView>
+
+</RelativeLayout>

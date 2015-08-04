@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/all_bg_color"
+    android:gravity="center_vertical" >
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/linecolor" />
+
+    <LinearLayout
+        android:id="@+id/item_comm_hot_li"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+        <TextView
+            android:id="@+id/comm_list_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:text=""
+            android:textColor="@color/common_text"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/comm_list_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:maxLines="3"
+            android:text=""
+            android:textColor="@color/common_text_h1" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/linecolor" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/comm_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/posts_n"
+                android:drawableRight="@drawable/posts_line"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:text=""
+                android:textColor="@color/common_text_h1"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/comm_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/posts_time"
+                android:drawablePadding="3dp"
+                android:drawableRight="@drawable/posts_line"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:text=""
+                android:textColor="@color/common_text_h1"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/comm_visit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/comm_r10_c4"
+                android:drawablePadding="6dp"
+                android:drawableRight="@drawable/posts_line"
+                android:gravity="center_vertical"
+                android:text="100"
+                android:textColor="@color/common_text_h1"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/comm_reply"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/comm_r8_c6"
+                android:drawablePadding="6dp"
+                android:gravity="center_vertical"
+                android:text="10"
+                android:textColor="@color/common_text"
+                android:textSize="12dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/item_comm_hot_li"
+        android:background="@color/linecolor" />
+
+</RelativeLayout>

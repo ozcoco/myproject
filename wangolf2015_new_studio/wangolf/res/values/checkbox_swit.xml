@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources  parent="@android:style/Widget.CompoundButton.CheckBox">
+    <style name="CheckBoxStyles_Switch">  
+         <item name="android:button">@drawable/cbox_swit_selector</item>  
+        <item name="android:layout_margin">10dp</item>  
+        <item name="android:layout_weight">1</item>   
+    </style> 
+    
+</resources>
