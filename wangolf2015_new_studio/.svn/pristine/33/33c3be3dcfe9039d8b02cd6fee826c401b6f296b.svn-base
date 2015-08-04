@@ -1,0 +1,81 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000" >
+
+    <include
+        android:id="@+id/common_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        layout="@layout/layout_title_bar" />
+
+    <RelativeLayout
+        android:id="@+id/chzz_playfull"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#E7E7E7" >
+
+        <RelativeLayout
+            android:id="@+id/view_holder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/chzz_play_cache"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="cache" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/controller_holder"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" >
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/chzz_playseting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="5dp"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/chzz_play_fullButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/player_ads_btn_changesmall_normal" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_web"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/chzz_playfull"
+        android:orientation="vertical" >
+
+        <WebView
+            android:id="@+id/chzz_news_content_webview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/txt_gray"
+            android:textSize="@dimen/s_font" />
+    </LinearLayout>
+
+</RelativeLayout>

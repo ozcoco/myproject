@@ -1,0 +1,113 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:id="@+id/tab_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#FAFAFA"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/tab_bg_view"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/tab_select_bg" />
+        <LinearLayout
+            android:id="@+id/ll_line"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:orientation="horizontal"
+            android:background="@color/main_linecolor"/>
+        <LinearLayout
+            android:layout_below="@+id/ll_line"
+            android:id="@+id/tab_item_container"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:paddingTop="5dp"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tab_tv_1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:contentDescription="@null"
+                android:drawableTop="@drawable/main_index_select"
+                android:gravity="center"
+                android:text="@string/tab_index"
+                android:textColor="@color/main_text_select" />
+
+
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/tab_tv_3"
+                android:layout_width="0sp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:contentDescription="@null"
+                android:drawableTop="@drawable/main_shop"
+                android:gravity="center"
+                android:text="@string/tab_shop"
+                android:textColor="@color/white" />
+
+
+            <TextView
+                android:id="@+id/tab_tv_4"
+                android:layout_width="0sp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:contentDescription="@null"
+                android:drawableTop="@drawable/main_community"
+                android:gravity="center"
+                android:text="@string/tab_setting"
+                android:textColor="@color/main_text" />
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/tab_tv_2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:contentDescription="@null"
+                android:drawableTop="@drawable/main_ballprac"
+                android:gravity="center"
+                android:text="@string/tab_ball"
+                android:textColor="@color/main_text" />
+            <TextView
+                android:id="@+id/tab_tv_5"
+                android:layout_width="0sp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:contentDescription="@null"
+                android:drawableTop="@drawable/main_user"
+                android:gravity="center"
+                android:text="@string/tab_user"
+                android:textColor="@color/main_text" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/content_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/tab_container"
+        android:orientation="vertical"></LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/content_container2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/tab_container"
+        android:orientation="vertical"></LinearLayout>
+
+</RelativeLayout>

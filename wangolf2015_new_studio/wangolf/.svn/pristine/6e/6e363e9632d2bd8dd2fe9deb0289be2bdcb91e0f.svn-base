@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <style name="pull_refresh_style">
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:listSelector">@drawable/listview_selector</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:cacheColorHint">#00000000</item>
+        <item name="android:divider">#999999</item>
+        <item name="android:dividerHeight">0.0dp</item>
+    </style>
+</resources>

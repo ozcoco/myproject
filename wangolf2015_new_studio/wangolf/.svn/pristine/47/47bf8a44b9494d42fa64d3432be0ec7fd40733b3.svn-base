@@ -1,0 +1,445 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black" >
+
+    <include
+        android:id="@+id/common_bar"
+        layout="@layout/layout_title_bar" />
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/common_bar"
+        android:background="@color/all_bg_color" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="8dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp" >
+
+                    <TableRow
+                        android:id="@+id/tableRow1"
+                        style="@style/ball_tag_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/layout_height_50" >
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/layout_height_50"
+                            android:layout_weight="1"
+                            android:background="@drawable/table_frame_gray"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingLeft="8dp" >
+
+                            <TextView
+                                android:id="@+id/textView1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/ball_lab_mode"
+                                android:textColor="@color/common_text" />
+
+                            <TextView
+                                android:id="@+id/tv_mode"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:text="" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/layout_height_50"
+                            android:layout_weight="1"
+                            android:background="@drawable/table_frame_gray"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingLeft="8dp" >
+
+                            <TextView
+                                android:id="@+id/TextView02"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/ball_lab_create_date"
+                               android:textColor="@color/common_text" />
+
+                            <TextView
+                                android:id="@+id/tv_date"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:text="" />
+                        </LinearLayout>
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/TableRow01"
+                        style="@style/ball_tag_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-1dp" >
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/layout_height_50"
+                            android:layout_weight="1"
+                            android:background="@drawable/table_frame_gray"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingLeft="8dp" >
+
+                            <TextView
+                                android:id="@+id/TextView04"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/ball_lab_aera"
+                              android:textColor="@color/common_text" />
+
+                            <TextView
+                                android:id="@+id/tv_aera"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:text="" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/layout_height_50"
+                            android:layout_weight="1"
+                            android:background="@drawable/table_frame_gray"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingLeft="8dp" >
+
+                            <TextView
+                                android:id="@+id/TextView05"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/ball_lab_fairwaylen"
+                              android:textColor="@color/common_text" />
+
+                            <TextView
+                                android:id="@+id/tv_fairwaylen"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:text="" />
+                        </LinearLayout>
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/TableRow02"
+                        style="@style/ball_tag_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-1dp" >
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/layout_height_50"
+                            android:layout_weight="1"
+                            android:background="@drawable/table_frame_gray"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingLeft="8dp" >
+
+                            <TextView
+                                android:id="@+id/TextView10"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/ball_lab_desinger"
+                              android:textColor="@color/common_text" />
+
+                            <TextView
+                                android:id="@+id/tv_desinger"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:text="" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/layout_height_50"
+                            android:layout_weight="1"
+                            android:background="@drawable/table_frame_gray"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingLeft="8dp" >
+
+                            <TextView
+                                android:id="@+id/TextView11"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/ball_lab_grasstype"
+                                android:textColor="@color/common_text" />
+
+                            <TextView
+                                android:id="@+id/tv_grasstype"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:text="" />
+                        </LinearLayout>
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/TableRow03"
+                        style="@style/ball_tag_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-1dp" >
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/layout_height_50"
+                            android:layout_weight="1"
+                            android:background="@drawable/table_frame_gray"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingLeft="8dp" >
+
+                            <TextView
+                                android:id="@+id/TextView12"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/ball_lab_holetype"
+                               android:textColor="@color/common_text" />
+
+                            <TextView
+                                android:id="@+id/tv_holetype"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:text="" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/layout_height_50"
+                            android:layout_weight="1"
+                            android:background="@drawable/table_frame_gray"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingLeft="8dp" >
+
+                            <TextView
+                                android:id="@+id/TextView13"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/ball_lab_fwgtype"
+                               android:textColor="@color/common_text" />
+
+                            <TextView
+                                android:id="@+id/tv_fwgtype"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:text="" />
+                        </LinearLayout>
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/TableRow04"
+                        style="@style/ball_tag_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-1dp" >
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/layout_height_50"
+                            android:layout_weight="1"
+                            android:background="@drawable/table_frame_gray"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingLeft="8dp" >
+
+                            <TextView
+                                android:id="@+id/TextView16"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/ball_lab_bkdata"
+                                android:textColor="@color/common_text" />
+
+                            <TextView
+                                android:id="@+id/tv_bkdata"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:text="" />
+                        </LinearLayout>
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/TableRow05"
+                        style="@style/ball_tag_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="-1dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/table_frame_gray"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingLeft="8dp" >
+
+                            <TextView
+                                android:id="@+id/TextView18"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/ball_lab_related"
+                              android:textColor="@color/common_text" />
+
+                            <TextView
+                                android:id="@+id/tv_related"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:gravity="center_vertical"
+                                android:minHeight="@dimen/layout_height_50"
+                                android:padding="3dp"
+                                android:text="" />
+                        </LinearLayout>
+                    </TableRow>
+                </TableLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp" >
+
+                    <RelativeLayout
+                        android:id="@+id/ontel"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/layout_height_50"
+                        android:background="@drawable/table_frame_gray"
+                        android:clickable="true"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingLeft="8dp" >
+
+                        <TextView
+                            android:id="@+id/TextView03"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:text="@string/ball_lab_phone"
+                           android:textColor="@color/common_text" />
+
+                        <TextView
+                            android:id="@+id/tv_phone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="8dp"
+                            android:layout_toRightOf="@+id/TextView03"
+                            android:textColor="@color/txt_orage" />
+
+                        <ImageView
+                            android:id="@+id/imageView5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/xiaojiangtou" />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layoput_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/table_frame_gray"
+                        android:clickable="true"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingLeft="8dp" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/ball_lab_summy"
+                            android:textColor="@color/common_text" />
+
+                        <LinearLayout
+                            android:layout_width="258dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.48"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="15dp" >
+
+                            <ImageView
+                                android:id="@+id/img_1"
+                                android:layout_width="@dimen/layout_height_65"
+                                android:layout_height="@dimen/layout_height_65" />
+
+                            <ImageView
+                                android:id="@+id/img_2"
+                                android:layout_width="@dimen/layout_height_65"
+                                android:layout_height="@dimen/layout_height_65"
+                                android:layout_marginLeft="8dp" />
+
+                            <ImageView
+                                android:id="@+id/img_3"
+                                android:layout_width="@dimen/layout_height_65"
+                                android:layout_height="@dimen/layout_height_65"
+                                android:layout_marginLeft="8dp" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:id="@+id/imageView4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/xiaojiangtou" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/table_frame_gray"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:padding="8dp" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/layout_height_30"
+                            android:gravity="center_vertical"
+                            android:text="@string/ball_lab_summy_tip"
+                            android:textColor="@color/txt_gray" />
+
+                        <TextView
+                            android:id="@+id/tv_summy"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/ball_lab_summy" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

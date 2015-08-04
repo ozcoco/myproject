@@ -1,0 +1,128 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".UpdatePwdActivity" >
+
+    <include
+        android:id="@+id/common_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/layout_title_bar" />
+
+    <LinearLayout
+        android:layout_below="@+id/common_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/all_bg_color"
+        android:orientation="vertical" >
+<TextView
+    android:id="@+id/tv_pop"
+    android:layout_width="0.1dp"
+    android:layout_height="0.1dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/all_bg_color"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_margin="@dimen/layout_height_8"
+                android:background="@drawable/bg_option_scucess"
+                android:orientation="vertical" >
+
+                <FrameLayout
+                    android:id="@+id/frameLayout1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="14dp" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center" >
+
+                        <ImageView
+                            android:id="@+id/imageView1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/select_icon" />
+
+                        <TextView
+                            android:id="@+id/tv_tip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="提示" />
+                    </LinearLayout>
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/frameLayout1"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="@dimen/layout_height_30"
+                    android:text=""
+                    android:textColor="@color/common_text" />
+
+                <LinearLayout
+                    android:id="@+id/ball_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/layout_height_50"
+                    android:layout_alignBottom="@id/tv_message"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignRight="@+id/tv_message"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone" >
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" >
+
+                        <TextView
+                            android:id="@+id/textView1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="商家提示："
+                            android:textColor="@color/txt_orage"
+                            android:textSize="@dimen/m_font" />
+
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="\t\t\t\t\t\t\t\t非工作时间(18:00到9:00之间)提交订单，需要等待工作时间发送确定信息"
+                            android:textColor="@color/txt_gray"
+                            android:textSize="@dimen/m_font" />
+                    </FrameLayout>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/btok"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/layout_height_40"
+                android:layout_margin="@dimen/layout_height_8"
+                android:background="@drawable/bt_green_yuan_all_selector"
+                android:text="查看订单"
+                android:textColor="@color/white"
+                android:textSize="@dimen/m_font" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

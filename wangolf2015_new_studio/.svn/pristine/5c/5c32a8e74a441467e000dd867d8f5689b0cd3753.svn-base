@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+     >
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_height="237dp"
+        android:background="#d35431"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        >
+<TextView
+    android:layout_marginTop="35dp"
+    android:layout_marginBottom="25dp"
+    android:id="@+id/tv_amount"
+    android:text="0.00"
+    android:textStyle="bold"
+    android:gravity="center"
+    android:background="@drawable/tv_yuan"
+    android:textColor="@color/common_orange"
+    android:textSize="@dimen/b18_font"
+    android:layout_width="129dp"
+    android:layout_height="129dp"
+    android:layout_centerInParent="true"
+    />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:textSize="12dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/white"
+            android:layout_marginBottom="@dimen/layout_height_20"
+        android:text="您获得的红包将全部存入账户余额里面，可用于所有消费。"/>
+    </LinearLayout>
+    <LinearLayout
+        android:paddingTop="@dimen/layout_height_10"
+        android:paddingBottom="5dp"
+        android:layout_below="@+id/ll"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:background="@color/linecolor"
+            android:layout_height="0.1dp"></View>
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="红包明细"
+            android:layout_marginLeft="@dimen/layout_height_10"
+            android:layout_marginRight="@dimen/layout_height_10"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:background="@color/linecolor"
+            android:layout_height="0.1dp"></View>
+    </LinearLayout>
+</RelativeLayout>

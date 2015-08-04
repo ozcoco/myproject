@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/popwin"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/coach_main_background"
+    android:gravity="center" >
+
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rb_white_selector"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:text="选择性别"
+            android:textColor="@color/common_text_h1" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_marginBottom="1dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/linecolor" />
+
+        <TextView
+            android:id="@+id/gender_m"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+           
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="男"
+            android:textColor="@color/common_text_h1" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_margin="1dp"
+            android:background="@color/linecolor" />
+
+        <TextView
+            android:id="@+id/gender_w"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="女"
+            android:textColor="@color/common_text_h1" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -59,7 +59,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name de.hdodenhof.circleimageview:border_color
         */
-        public static final int CircleImageView_border_color = 1;
+        public static int CircleImageView_border_color = 1;
         /**
           <p>This symbol is the offset where the {@link de.hdodenhof.circleimageview.R.attr#border_width}
           attribute's value can be found in the {@link #CircleImageView} array.
@@ -75,6 +75,6 @@ theme attribute (in the form
 containing a value of this type.
           @attr name de.hdodenhof.circleimageview:border_width
         */
-        public static final int CircleImageView_border_width = 0;
+        public static int CircleImageView_border_width = 0;
     };
 }

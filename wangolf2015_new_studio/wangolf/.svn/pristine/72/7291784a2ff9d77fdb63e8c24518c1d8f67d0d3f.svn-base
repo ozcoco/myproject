@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:orientation="vertical"
+    >
+
+
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/rb_notification"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/notification"
+            android:drawablePadding="@dimen/layout_height_10"
+            android:gravity="left|center_vertical"
+            android:padding="@dimen/layout_height_10"
+            android:text="通知"
+            android:textColor="@color/common_text" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/linecolor"></View>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/layout_height_10"
+        android:layout_marginTop="@dimen/layout_height_10"
+        android:layout_marginBottom="5dp"
+        android:textColor="@color/common_text_h1"
+        android:text="最近联系人" />
+
+</LinearLayout>

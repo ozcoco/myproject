@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white" >
+
+    <View
+        android:id="@+id/line0"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/all_bg_color" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/line0"
+        android:padding="10dp" >
+
+        <RelativeLayout
+            android:id="@+id/reply_r"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/reply_r"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="3dp"
+            android:paddingTop="15dp" >
+
+            <TextView
+                android:id="@+id/reply_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="谁XX"
+                android:textColor="@color/common_text_h1" />
+
+            <TextView
+                android:id="@+id/reply_content_tiem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/reply_content"
+                android:layout_marginTop="10dp"
+                android:text="2015"
+                android:textSize="10dp" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/posts_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/reply_r"
+            android:layout_marginTop="3dp"
+            android:text="XXXX"
+            android:textColor="@color/common_text"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/posts_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/posts_title"
+            android:layout_marginTop="7dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="XXXX"
+            android:textColor="@color/common_text_h1" />
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_below="@+id/posts_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/linecolor" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line" >
+
+            <TextView
+                android:drawablePadding="3dp"
+                android:drawableLeft="@drawable/posts_n"
+                android:id="@+id/posts_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="昵称" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/posts_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/line_1"
+                android:text="03-13" >
+            </TextView>
+
+            <View
+                android:id="@+id/line_1"
+                android:layout_width="0.1dp"
+                android:layout_height="16dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@+id/reply_count"
+                android:background="@color/linecolor" />
+
+            <TextView
+                android:drawableLeft="@drawable/reply_count"
+                android:drawablePadding="2dp"
+                android:id="@+id/reply_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="100" >
+            </TextView>
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

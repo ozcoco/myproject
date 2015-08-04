@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/tv_ball_name"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_height_50"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/layout_height_8"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceMedium" 
+        android:textColor="#000"
+		android:textSize="16sp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#D9D9D9" />
+
+</LinearLayout>

@@ -1,0 +1,258 @@
+package me.wangolf;
+
+/**
+ * ============================================================
+ *
+ * 版权 ：美高传媒 版权所有 (c) 下午4:04:00
+ *
+ * 作者:copy
+ *
+ * 版本 ：1.0
+ *
+ * 创建日期 ： 下午4:04:00
+ *
+ * 描述 ：程序主入口 
+ *
+ *
+ * 修订历史 ：
+ *
+ * ============================================================
+ **/
+
+import java.io.File;
+
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.HttpHandler;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.view.annotation.ViewInject;
+import com.meigao.mgolf.R;
+import com.umeng.analytics.AnalyticsConfig;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.message.PushAgent;
+import com.umeng.message.UmengRegistrar;
+
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+
+import me.wangolf.base.BaseActivity;
+import me.wangolf.bean.usercenter.ApkInfo;
+import me.wangolf.factory.ServiceFactory;
+import me.wangolf.newfragment.*;
+import me.wangolf.service.IOAuthCallBack;
+import me.wangolf.utils.CheckUtils;
+import me.wangolf.utils.CommonUtil;
+import me.wangolf.utils.GsonTools;
+import me.wangolf.utils.ToastUtils;
+import me.wangolf.utils.Wecome_CheckApkUtils;
+
+public class WeComeActivity extends BaseActivity 
+{
+    private String download_url;
+    
+    private int version;
+    
+    @ViewInject(R.id.load_apk)
+    private TextView load_apk;
+    
+    private String urls;
+    
+    @SuppressLint("HandlerLeak")
+    private Handler handler = new Handler() 
+    {
+        @Override
+        public void handleMessage(Message msg) 
+        {
+            super.handleMessage(msg);
+            
+            if (CommonUtil.isNetworkAvailable(getApplicationContext()) == 0)
+            {
+                ToastUtils.showInfo(WeComeActivity.this, ConstantValues.NONETWORK);
+                
+                handler.sendEmptyMessageDelayed(1, 2000); //延时4000毫秒改为2000毫秒         
+            } 
+            else 
+            {
+                Intent start = null;
+                
+                if (!CheckUtils.checkEmpty(urls))
+                {
+                    start = new Intent(getApplicationContext(), SplashActivity.class);
+                    
+                    start.putExtra("urls", urls);
+                    
+                } 
+                else 
+                {
+                    start = new Intent(getApplicationContext(), me.wangolf.newfragment.MainActivity.class);
+                }
+                
+                startActivity(start);
+                
+                finish();
+                
+            }
+
+        }
+
+    };
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.ac_wecome);
+        ViewUtils.inject(this);
+        // 开启推送****
+        PushAgent mPushAgent = PushAgent.getInstance(this);
+        mPushAgent.enable();
+
+        // ********友盟统计加密***
+
+        MobclickAgent.updateOnlineConfig(this);// 发送策略
+        AnalyticsConfig.enableEncrypt(true);// 加密发送
+        // ************************
+        toCheckup();// 检查更新
+    }
+
+    // 进入主页
+    public void goHome() {
+        handler.sendEmptyMessageDelayed(1, 2000);
+    }
+
+    // 检查是否有新版本
+    public void toCheckup() {
+        try {
+            ServiceFactory.getIUserEngineInstatice().getVersion(new IOAuthCallBack() {
+
+                @Override
+                public void getIOAuthCallBack(String result) {
+
+                    if (result.equals(ConstantValues.FAILURE)) {
+                        handler.sendEmptyMessageDelayed(1, 2000);
+                        ToastUtils.showInfo(WeComeActivity.this, ConstantValues.NONETWORK);
+                    } else {
+                        ApkInfo bean = GsonTools.changeGsonToBean(result, ApkInfo.class);
+                        if ("1".equals(bean.getStatus())) {
+                            ApkInfo data = bean.getData().get(0);
+                            download_url = data.getVerUrl();
+                            urls = data.getIcon_url();
+                            version = data.getVerCode();
+                            if (version != 0 & version > getVersionCode()) {
+                                ToastUtils.showInfo(WeComeActivity.this, "有新的版本");
+                                Wecome_CheckApkUtils.CheckApi(WeComeActivity.this);
+                            } else {
+                                // ToastUtils.showInfo(WeComeActivity.this,
+                                // "已经是最新版本");
+                                handler.sendEmptyMessageDelayed(1, 2000);
+                            }
+                        } else {
+                            handler.sendEmptyMessageDelayed(1, 2000);
+                            ToastUtils.showInfo(WeComeActivity.this, bean.getInfo());
+                        }
+                    }
+
+                }
+            });
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+    }
+
+    // 下载APK，并且替换安装
+    @SuppressLint("SdCardPath")
+    public void loadApk() {
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            // sdcard存在
+            // afnal
+            HttpUtils http = new HttpUtils();
+            int p = download_url.lastIndexOf("/");
+            String apkname = download_url.substring(p);
+            File file = new File("/sdcard/" + apkname);
+            if (file.isFile() && file.exists()) {
+                file.delete();
+            }
+
+            @SuppressWarnings({"unused", "rawtypes"})
+            HttpHandler hand = http.download(download_url, "/sdcard/" + apkname, true, // 如果目标文件存在，接着未完成的部分继续下载。服务器不支持RANGE时将从新下载。
+                    true, // 如果从请求返回信息中获取到文件名，下载完成后自动重命名。
+                    new RequestCallBack<File>() {
+
+                        @Override
+                        public void onStart() {
+                            load_apk.setVisibility(View.VISIBLE);
+                            load_apk.setText("开始下载");
+
+                        }
+
+                        @Override
+                        public void onLoading(long total, long current, boolean isUploading) {
+                            load_apk.setText(current + "/" + total);
+                        }
+
+                        @Override
+                        public void onSuccess(ResponseInfo<File> responseInfo) {
+                            load_apk.setText("下载完成");
+                            installAPK(responseInfo.result);
+                        }
+
+                        @Override
+                        public void onFailure(HttpException error, String msg) {
+                            load_apk.setText("下载出错");
+
+                        }
+
+                        /**
+                         * 安装APK
+                         *
+                         * @param t
+                         */
+                        private void installAPK(File t) {
+                            Intent intent = new Intent();
+                            intent.setAction("android.intent.action.VIEW");
+                            intent.addCategory("android.intent.category.DEFAULT");
+                            intent.setDataAndType(Uri.fromFile(t), "application/vnd.android.package-archive");
+                            startActivity(intent);
+
+                        }
+                    });
+        } else {
+            ToastUtils.showInfo(this, "没有sdcard，请安装上在试");
+            return;
+        }
+
+    }
+
+    /**
+     * 得到应用程序的版本名称
+     */
+
+    private int getVersionCode() {
+        // 用来管理手机的APK
+        PackageManager pm = getPackageManager();
+
+        try {
+            // 得到知道APK的功能清单文件
+            PackageInfo info = pm.getPackageInfo(getPackageName(), 0);
+            ConstantValues.versionCode = info.versionCode + "";
+            return info.versionCode;
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+}

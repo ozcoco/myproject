@@ -1,0 +1,138 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:orientation="vertical" >
+
+    <include layout="@layout/layout_title_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/all_bg_color"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/textlines_all"
+                    android:orientation="vertical"
+                    android:padding="1dp" >
+
+                    <RelativeLayout
+                        android:id="@+id/my_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/layout_height_50"
+                        android:background="@drawable/gray_light_selector"
+                        android:clickable="true"
+                        android:gravity="center_vertical"
+                        android:padding="8dp" >
+
+                        <TextView
+                            android:id="@+id/TextView03"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="修改个人资料"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="@color/common_text"
+                            android:textSize="@dimen/m_font" />
+
+                        <ImageView
+                            android:id="@+id/ImageView04"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentTop="true"
+                            android:src="@drawable/xiaojiangtou" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-2dp"
+                    android:background="@drawable/textlines_all"
+                    android:orientation="vertical"
+                    android:padding="1dp" >
+
+                    <RelativeLayout
+                        android:id="@+id/reupphto"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/layout_height_50"
+                        android:background="@drawable/gray_light_selector"
+                        android:clickable="true"
+                        android:gravity="center_vertical"
+                        android:padding="8dp" >
+
+                        <TextView
+                            android:id="@+id/TextView02"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="上传头像"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="@color/common_text"
+                            android:textSize="@dimen/m_font" />
+
+                        <ImageView
+                            android:id="@+id/ImageView02"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentTop="true"
+                            android:src="@drawable/xiaojiangtou" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-2dp"
+                    android:background="@drawable/textlines_all"
+                    android:orientation="vertical"
+                    android:padding="1dp" >
+
+                    <RelativeLayout
+                        android:id="@+id/remypwd"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/layout_height_50"
+                        android:background="@drawable/gray_light_selector"
+                        android:clickable="true"
+                        android:gravity="center_vertical"
+                        android:padding="8dp" >
+
+                        <TextView
+                            android:id="@+id/TextView01"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="修改密码"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="@color/common_text"
+                            android:textSize="@dimen/m_font" />
+
+                        <ImageView
+                            android:id="@+id/ImageView01"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentTop="true"
+                            android:src="@drawable/xiaojiangtou" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

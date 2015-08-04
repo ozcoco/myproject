@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <style name="CheckBoxStyles">  
+        <item name="android:button">@drawable/cbox_frind_selector</item>  
+        <item name="android:layout_marginLeft">8dp</item>  
+    </style> 
+</resources>

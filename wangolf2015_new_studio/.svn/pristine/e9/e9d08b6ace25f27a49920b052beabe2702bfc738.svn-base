@@ -1,0 +1,21 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <include
+        android:id="@+id/common_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/layout_title_bar" />
+
+    <WebView
+        android:id="@+id/shop_pro_webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/common_bar"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/txt_gray"
+        android:textSize="@dimen/s_font" />
+
+</RelativeLayout>

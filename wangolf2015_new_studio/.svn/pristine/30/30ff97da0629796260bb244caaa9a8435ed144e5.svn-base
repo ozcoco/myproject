@@ -1,0 +1,181 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:orientation="vertical"
+    tools:context=".Reg" >
+
+    <include layout="@layout/layout_title_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/all_bg_color"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:padding="14dp" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <EditText
+                android:id="@+id/ednickname"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/layout_height_40"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/textView2"
+                android:background="@drawable/tv_all_round"
+                android:hint="请输入姓名"
+                android:inputType="textPersonName"
+                android:paddingLeft="8dp"
+                android:textSize="@dimen/m_font" >
+            </EditText>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <RadioGroup
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_weight="3"
+                android:background="@drawable/bt_red_yuan_all_selector"
+                android:checkedButton="@+id/rdman"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/rdman"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bt_red_rdman"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="男"
+                    android:textColor="@color/white" />
+
+                <RadioButton
+                    android:id="@+id/rdwoman"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/transparent"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="女"
+                    android:textColor="@color/common_text" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/relaytoshowDate"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/layout_height_50"
+            android:clickable="true"
+            android:visibility="gone" >
+
+            <TextView
+                android:id="@+id/TextView03"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="生日:"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/tvbirthday"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/layout_height_40"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/TextView03"
+                android:background="@drawable/tv_all_round"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:hint="未选择"
+                android:inputType="textPersonName"
+                android:paddingLeft="8dp"
+                android:textSize="@dimen/m_font" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/layout_height_50"
+            android:visibility="gone" >
+
+            <TextView
+                android:id="@+id/TextView04"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="球龄:"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <EditText
+                android:id="@+id/edballage"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/layout_height_40"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/TextView04"
+                android:background="@drawable/tv_all_round"
+                android:ems="10"
+                android:hint="未填写"
+                android:inputType="number"
+                android:paddingLeft="8dp"
+                android:textSize="@dimen/m_font" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:visibility="gone" >
+
+            <EditText
+                android:id="@+id/edsummy"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/layout_height_40"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/TextView05"
+                android:background="@drawable/tv_all_round"
+                android:ems="13"
+                android:hint="未填写"
+                android:inputType="textMultiLine"
+                android:paddingLeft="8dp"
+                android:textSize="@dimen/m_font" />
+
+            <TextView
+                android:id="@+id/TextView05"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="签名:"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btsave"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/layout_height_40"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bt_red_selector"
+            android:text="保存"
+            android:textColor="@color/white"
+            android:textSize="@dimen/m_font" />
+    </LinearLayout>
+
+</LinearLayout>

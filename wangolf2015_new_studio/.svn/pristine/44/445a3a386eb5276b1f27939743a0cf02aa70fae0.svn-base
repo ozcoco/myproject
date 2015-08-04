@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/all_bg_color"
+    android:gravity="center_vertical"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h115"
+        android:gravity="center_vertical"
+        android:padding="8dp" >
+
+        <LinearLayout
+            android:layout_width="@dimen/h90"
+            android:layout_height="@dimen/h90"
+            android:padding="1px" >
+
+            <!-- <ImageView -->
+            <!-- android:id="@+id/item_proimg" -->
+            <!-- android:layout_width="@dimen/h90" -->
+            <!-- android:layout_height="@dimen/h90" -->
+            <!-- android:scaleType="centerCrop" -->
+            <!-- android:src="@drawable/ic_launcher" /> -->
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/item_proimg"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="@dimen/layout_height_8"
+                android:layout_marginTop="24dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/user_bg_photo" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.4"
+            android:gravity="center_vertical"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/LinearLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/item_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_weight="1"
+                    android:text="Medium"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/co_list_title"
+                    android:textSize="@dimen/m_font"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/item_distance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="距离"
+                    android:textColor="@color/txt_gray"
+                    android:textSize="@dimen/s_font" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/item_sex"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:gravity="right"
+                    android:text="男"
+                    android:textColor="@color/txt_gray"
+                    android:textSize="@dimen/s_font"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="8dp"
+                    android:src="@drawable/icon_zan"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/item_praise"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:gravity="right"
+                    android:text="25人点赞"
+                    android:textColor="@color/common_orange"
+                    android:textSize="@dimen/s_font" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="0dp"
+                    android:text="人点赞"
+                    android:textSize="@dimen/s_font" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_marginLeft="8dp"
+                    android:id="@+id/item_badges"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="职业教练"
+                    android:textColor="@color/txt_gray"
+                    android:textSize="@dimen/s_font" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="15dp"
+                    android:text="教龄"
+                    android:textColor="@color/txt_gray"
+                    android:textSize="@dimen/s_font" />
+
+                <TextView
+                    android:id="@+id/item_ballage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:text=""
+                    android:textColor="@color/common_orange"
+                    android:textSize="@dimen/s_font" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:text="年"
+                    android:textColor="@color/txt_gray"
+                    android:textSize="@dimen/s_font" />
+
+                <TextView
+                    android:id="@+id/item_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="20dp"
+                    android:singleLine="true"
+                    android:text="1500元/课时dddd"
+                    android:textColor="@color/common_orange"
+                    android:textSize="@dimen/s_font" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginBottom="1dp"
+        android:background="#999999" />
+
+</LinearLayout>

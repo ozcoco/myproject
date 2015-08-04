@@ -1,0 +1,555 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.meigao.mgolf"
+    android:versionCode="18"
+    android:versionName="1.8">
+    <!--  需测试的包  -->
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="19" />
+
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.BAIDU_LOCATION_SERVICE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCES_MOCK_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_GPS" />
+    <!--
+     SDK1.5需要android.permission.GET_TASKS权限判断本程序是否为当前运行的应用?
+    -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <!--  来电消音  -->
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.ACCESS_GPS" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <!--  允许应用读取低级别的系统日志文件  -->
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <application
+        android:name="me.wangolf.LocationApplication"
+        android:allowBackup="true"
+        android:debuggable="false"
+        android:icon="@drawable/app_logo"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.NoTitleBar">
+        <!--
+         *************************************** 友盟统计及推送 **************************
+        -->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="5513c925fd98c51680000514" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="Test" />
+        <meta-data
+            android:name="UMENG_MESSAGE_SECRET"
+            android:value="f27b532e8aac23423fee58311817aa82" />
+        <!--  ****** 友盟推送 ****  -->
+        <receiver
+            android:name="com.umeng.message.NotificationProxyBroadcastReceiver"
+            android:exported="false" />
+        <receiver android:name="com.umeng.message.RegistrationReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                <data android:scheme="package" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.umeng.message.UmengBroadcastReceiver">
+            <intent-filter>
+                <action android:name="org.agoo.android.intent.action.RECEIVE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.meigao.mgolf.intent.action.COMMAND" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="org.agoo.android.intent.action.RE_ELECTION_V2" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.umeng.message.BootBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.umeng.message.UmengService"
+            android:exported="true"
+            android:label="WangolfService"
+            android:process=":pushService_v1">
+            <intent-filter>
+                <action android:name="com.meigao.mgolf.intent.action.START" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.meigao.mgolf.intent.action.COCKROACH" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="org.agoo.android.intent.action.PING" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="org.android.agoo.service.ElectionService"
+            android:exported="true"
+            android:process=":pushService_v1">
+            <intent-filter>
+                <action android:name="org.agoo.android.intent.action.ELECTION_V2" />
+            </intent-filter>
+        </service>
+        <service android:name="com.umeng.message.UmengIntentService" />
+        <!--  V1.3.0添加的service，负责下载通知的资源  -->
+        <service android:name="com.umeng.message.UmengDownloadResourceService" />
+        <!--
+         *************************************** 友盟统计结束****************************
+        -->
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
+        <service
+            android:name="com.baidu.navi.location.f"
+            android:enabled="true" />
+        <!--  指定引用测试用的包  -->
+        <uses-library android:name="android.test.runner" />
+        <!--  meta-data需要写在application中  -->
+        <!--
+         ******************************百度地度key_正式====================
+        -->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="QWFjh3XdhjvsZYTZU985StsP" />
+        <!-- ****************************百度地度key_测试 -->
+        <!-- <meta-data -->
+        <!-- android:name="com.baidu.lbsapi.API_KEY" -->
+        <!-- android:value="dtNpXT1eGt0msj8w409EgPse" /> -->
+        <activity
+            android:name="me.wangolf.WeComeActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="me.wangolf.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.PageIndicatorDefaults" />
+        <activity
+            android:name="me.wangolf.newfragment.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.PageIndicatorDefaults" />
+        <activity
+            android:name="me.wangolf.shop.ShopProActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.college.CollegePageContent"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.usercenter.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.college.CoachInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.college.CollegeinfoAcitvity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.college.CollegeCoachList"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.newfragment.DaydayGiftActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.newfragment.SaleExchangeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.shop.ShopImgActivit"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.base.BaseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.shop.ProImgDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.shop.ProAtrrActivity"
+            android:launchMode="standard"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.usercenter.AddressListActivity"
+            android:launchMode="standard"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.ballprac.BallMainActivity"
+            android:launchMode="standard"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.usercenter.UserNotificationMessageNewActivity"
+            android:launchMode="standard"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.usercenter.OrPreferButAddActivity"
+            android:launchMode="standard"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.practice.PracticeListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.practice.PracticeInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.practice.PracTagDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.city.CityActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.practice.OrderDialogPractice"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyOrDialogTheme" />
+        <activity
+            android:name="me.wangolf.ballprac.BallListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.calender.CalendarView"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyDialogTheme" />
+        <activity
+            android:name="me.wangolf.time.TimeSingleActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyDialogTheme" />
+        <activity
+            android:name="me.wangolf.ballprac.BallnameActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.ballprac.BallInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.ballprac.BallTagDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.event.EventMainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.event.EventDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.ballprac.OrderDialog"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyOrDialogTheme" />
+        <activity
+            android:name="me.wangolf.event.EventJoinPersonsListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.example.topnewgrid.ShopChannelActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.shop.ShopIndexActivity"
+            android:theme="@style/Theme.PageIndicatorDefaults"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.example.topnewgrid.ChannelActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.play.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name="me.wangolf.usercenter.OrderListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.practice.PracToBuyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.usercenter.OrderPayActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.usercenter.OrderScuessActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.usercenter.AddressEditActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.ballprac.BallToBuyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.usercenter.RegistActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.usercenter.GetUserPwdActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.usercenter.RegistProtocolActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.usercenter.UserSet"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.usercenter.UserComment"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.usercenter.AboutActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.usercenter.UserAccountActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.usercenter.ConsumerDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.usercenter.VouchersListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.usercenter.RechargeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.usercenter.RedPackListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.usercenter.OrderInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.usercenter.UserBindMobileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.usercenter.UserEventListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.event.EventEnrolingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.event.EventSendActivity_1"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.event.EventSendActivity_2"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.usercenter.UpDataUserInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.example.topnewgrid.KnowledgeChannelActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.usercenter.UpDataMyInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.usercenter.UpDataPassword"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.SplashActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name="me.wangolf.event.EventnNoticeActivity" />
+        <activity
+            android:name="me.wangolf.college.CollegePage"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.PageIndicatorDefaults" />
+        <activity
+            android:name="me.wangolf.knowledge.KnowledgePageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.PageIndicatorDefaults" />
+        <activity
+            android:name="me.wangolf.time.ProCityXianActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyDialogTheme" />
+        <!--  用户微信回调的 activity  -->
+        <activity
+            android:name="com.meigao.mgolf.wxapi.WXEntryActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+             />
+        <activity
+            android:name=".wxapi.SendWXActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            />
+        <activity
+            android:name="com.meigao.mgolf.wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.fragment.RoutePlan"
+            android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.usercenter.VoucherAddDialog"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyDialogTheme"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="me.wangolf.time.YeMoDaDialog"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyDialogTheme" />
+        <!--  ================分享============  -->
+        <activity
+            android:name="cn.sharesdk.framework.ShareSDKUIShell"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <intent-filter>
+                <data android:scheme="tencent100371282" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <!--  ============== 社区  -->
+        <activity
+            android:name="me.wangolf.community.CommunityDetailActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="me.wangolf.community.CommunitySendActivity"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.community.AlbumEditActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.community.AlbumActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.community.AlbumChanceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.community.ImageDelActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.community.CommunityImgActivit"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.community.SelectPicPopupWindow"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyDialogStyleBottom" />
+        <activity
+            android:name="me.wangolf.community.CommunityPostsComplain"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyDialogStyleBottom_r_to_l" />
+        <activity
+            android:name="me.wangolf.community.CommunityPostsListActivity"
+            android:screenOrientation="portrait"
+             />
+        <activity
+            android:name="me.wangolf.community.CommunityPostsPraiseActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name="me.wangolf.community.CommunityPostsTagActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name="me.wangolf.community.CommunitySendPostsTagActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name="me.wangolf.community.CommunitySendPostsAddressActivity"
+            android:screenOrientation="portrait"
+            />
+        <!--  个人中心新增  -->
+        <activity
+            android:name="me.wangolf.usercenter.UserNotificationMessageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.usercenter.UserAccountSet"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.usercenter.UserMessageDetail"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.usercenter.UserInfoNewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.usercenter.UserMyReplyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.usercenter.UserMyfriendsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.usercenter.UserMyfansActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.usercenter.UserInfoEditInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.usercenter.UserMyPostsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+        android:name="me.wangolf.usercenter.UserFriendsInfoActivity"
+        android:screenOrientation="portrait" />
+        <activity
+            android:name="me.wangolf.usercenter.UserMessageClearActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyDialogStyleBottom" />
+        <activity
+            android:name="me.wangolf.usercenter.UserCancelFriendsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyDialogStyleBottom" />
+        <activity
+            android:name="me.wangolf.usercenter.UserImagesClearActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyDialogStyleBottom" />
+        <activity
+            android:name="me.wangolf.usercenter.SelectPhotoImages"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyDialogStyleBottom" />
+        <activity
+            android:name="me.wangolf.community.CommunityPostsShare"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyDialogStyleBottom" />
+    </application>
+
+</manifest>

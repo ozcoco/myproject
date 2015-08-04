@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center_vertical"
+    android:padding="10dp" >
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/c_d_avatar"
+        android:layout_width="50dp"
+        android:clickable="true"
+        android:layout_height="50dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/user_bg_photo" >
+    </de.hdodenhof.circleimageview.CircleImageView>
+
+    <TextView
+        android:id="@+id/c_d_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/c_d_avatar"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/c_d_avatar"
+        android:text=""
+        android:textColor="@color/common_text" />
+
+    <ImageView
+        android:id="@+id/c_d_level0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/c_d_avatar"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="7dp"
+        android:layout_toRightOf="@+id/c_d_name"
+        android:background="@drawable/comm_r3_c4" />
+
+    <LinearLayout
+        android:id="@+id/c_d_li"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/c_d_avatar"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/c_d_avatar" >
+
+        <TextView
+            android:id="@+id/c_d_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text=""
+            android:visibility="gone" />
+
+        <TextView
+            android:textSize="12dp"
+            android:id="@+id/c_d_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="" />
+    </LinearLayout>
+ <TextView
+   android:id="@+id/tv_tagName"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:textColor="@color/community_name"
+     android:text=""
+     android:textSize="12dp"
+     android:layout_alignBottom="@+id/c_d_level0"
+     android:layout_alignRight="@+id/linearLayout"
+     android:layout_alignEnd="@+id/linearLayout"
+     android:layout_marginRight="1dp"
+     android:layout_marginEnd="22dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/c_d_li"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:id="@+id/linearLayout">
+
+        <TextView
+            android:id="@+id/c_d_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/common_text" />
+
+        <TextView
+            android:id="@+id/c_d_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text=" "
+            android:textSize="14dp"
+            android:textColor="@color/common_text_h1" />
+
+        <me.wangolf.utils.NoScrollGridView
+            android:id="@+id/c_d_gv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:horizontalSpacing="3dp"
+            android:numColumns="3"
+            android:verticalSpacing="10dp" >
+        </me.wangolf.utils.NoScrollGridView>
+
+        <TextView
+           android:gravity="center"
+            android:drawablePadding="5dp"
+            android:id="@+id/c_d_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/common_text_h1"
+            android:drawableLeft="@drawable/comm_d_r6_c2"
+            android:text="地址" />
+
+        <LinearLayout
+            android:id="@+id/ll_ico"
+            android:background="#f4f4f4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_praise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="已赞"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/common_text"
+                android:visibility="gone" />
+
+            <me.wangolf.utils.NoScrollGridView
+                android:id="@+id/gv_ico"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></me.wangolf.utils.NoScrollGridView>
+
+            <ImageView
+                android:scaleType="centerCrop"
+                android:id="@+id/tv_praise_more"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text=""
+                android:visibility="gone"
+                android:background="@drawable/praise_more"></ImageView>
+        </LinearLayout>
+        <View
+            android:visibility="gone"
+            android:id="@+id/line_praise"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_marginBottom="@dimen/layout_height_10"
+            android:layout_marginTop="@dimen/layout_height_10"
+            android:background="@color/linecolor"></View>
+    </LinearLayout>
+
+</RelativeLayout>

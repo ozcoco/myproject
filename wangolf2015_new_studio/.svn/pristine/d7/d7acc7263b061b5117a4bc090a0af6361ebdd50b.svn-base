@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<me.wangolf.utils.NoScrollGridView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/community_tag"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/all_bg_color"
+    android:listSelector="@color/transparent"
+    android:numColumns="3"
+    android:padding="@dimen/layout_height_10"
+   >
+
+</me.wangolf.utils.NoScrollGridView>

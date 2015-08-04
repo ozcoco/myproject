@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:gravity="center_vertical"
+    android:paddingBottom="2dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp" >
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/c_d_avatar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/user_bg_photo" >
+    </de.hdodenhof.circleimageview.CircleImageView>
+
+    <TextView
+        android:id="@+id/c_d_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/c_d_avatar"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/c_d_avatar"
+        android:text=""
+        android:textColor="@color/common_text" />
+
+    <ImageView
+        android:id="@+id/c_d_level_ico"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/c_d_name"
+        android:src="@drawable/comm_r3_c4" />
+
+    <TextView
+        android:id="@+id/c_d_level0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/c_d_avatar"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="7dp"
+        android:text="评论"
+        android:textColor="@color/blue" />
+
+    <LinearLayout
+        android:id="@+id/c_d_li"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/c_d_avatar"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/c_d_avatar" >
+
+        <TextView
+            android:id="@+id/c_d_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/c_d_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/c_d_li_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/c_d_name"
+        android:layout_below="@+id/c_d_li"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/c_d_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=","
+            android:textColor="@color/common_text" />
+
+        <me.wangolf.utils.NoScrollGridView
+            android:id="@+id/c_d_gv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:horizontalSpacing="3dp"
+            android:numColumns="3"
+            android:verticalSpacing="3dp"
+            android:visibility="gone" >
+        </me.wangolf.utils.NoScrollGridView>
+
+        <View
+            android:id="@+id/c_d_line"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="#cccccc"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/c_d_level_li"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/more_receive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="更多回复..."
+            android:textColor="@color/blue" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_below="@+id/c_d_li_1"
+        android:layout_marginTop="5dp"
+        android:background="#cccccc" />
+
+</RelativeLayout>

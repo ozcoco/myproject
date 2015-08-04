@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CommitComments></CommitComments>
+<CommitComments>	<CommitComment>1、练习场详情里面相关配置，有个错误：打个层数，应该改为打位层数(如图)
+2、缩短进入首页的时间
+</CommitComment>
+</CommitComments>

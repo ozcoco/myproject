@@ -1,0 +1,19 @@
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android" android:oneshot="false">
+    <item android:drawable="@drawable/loadding1" android:duration="200" />
+    <item android:drawable="@drawable/loadding2" android:duration="200" />
+    <item android:drawable="@drawable/loadding3" android:duration="200" />
+    <item android:drawable="@drawable/loadding4" android:duration="200" />
+    <item android:drawable="@drawable/loadding5" android:duration="200" />
+    <item android:drawable="@drawable/loadding6" android:duration="200" />
+    <item android:drawable="@drawable/loadding7" android:duration="200" />
+    <item android:drawable="@drawable/loadding8" android:duration="200" />
+    <item android:drawable="@drawable/loadding9" android:duration="200" />
+    <item android:drawable="@drawable/loadding10" android:duration="200" />
+    <item android:drawable="@drawable/loadding11" android:duration="200" />
+    <item android:drawable="@drawable/loadding12" android:duration="200" />
+    <item android:drawable="@drawable/loadding13" android:duration="200" />
+    <item android:drawable="@drawable/loadding14" android:duration="200" />
+    <item android:drawable="@drawable/loadding15" android:duration="200" />
+</animation-list> 
+<!-- android:oneshot="false" 循环播放    true  播放一次
+duration为每张逐帧播放间隔-->

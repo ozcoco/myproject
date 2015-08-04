@@ -1,0 +1,5 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+02 	            <item android:drawable="@drawable/radiobutton_d" android:state_checked="true" android:state_enabled="true"/>
+06 	            <item android:drawable="@drawable/radiobutton_n" android:state_checked="false" android:state_enabled="true"/>
+10 	
+</selector>

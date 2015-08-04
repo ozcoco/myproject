@@ -1,0 +1,59 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".PracTagDetailActivity" >
+
+    <include
+        android:id="@+id/common_bar"
+        layout="@layout/layout_title_bar" />
+
+    <LinearLayout
+        android:id="@+id/relayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/prefer_buy_bttom"
+        android:gravity="center"
+        android:visibility="gone"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp" >
+
+        <Button
+            android:id="@+id/bt_event"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/bt_yellow_selector"
+            android:padding="5dp"
+            android:text=""
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/joinEventList"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="16dp"
+            android:layout_weight="1"
+            android:background="@drawable/bt_green_yuan_all_selector"
+            android:padding="5dp"
+            android:text="报名人列表"
+            android:textColor="@color/white"
+            android:textSize="@dimen/m_font" />
+    </LinearLayout>
+
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/relayout"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/common_bar"
+        android:background="@color/common_white"
+        android:scrollbars="vertical" />
+
+</RelativeLayout>
