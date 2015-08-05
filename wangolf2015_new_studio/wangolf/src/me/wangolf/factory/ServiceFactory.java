@@ -34,7 +34,8 @@ public class ServiceFactory {
 	 * 
 	 * @return
 	 */
-	public static IPracService getPracEngineInstatice() {
+	public static IPracService getPracEngineInstatice()
+	{
 		return new PracServiceImpl();
 
 	}

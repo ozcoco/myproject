@@ -1,5 +1,6 @@
 package me.wangolf;
 
+import me.wangolf.practice.PracticeListActivity;
 import me.wangolf.utils.CheckUtils;
 import me.wangolf.utils.CommonUtil;
 import me.wangolf.utils.ToastUtils;
@@ -12,12 +13,14 @@ import com.baidu.mapapi.BMapManager;
 import com.baidu.mapapi.MKGeneralListener;
 import com.baidu.mapapi.map.MKEvent;
 import com.example.topnewgrid.db.SQLHelper;
+import com.umeng.common.message.Log;
 
 import android.app.Application;
 import android.app.Service;
 import android.content.Context;
 import android.os.Vibrator;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class LocationApplication extends Application 
 {
@@ -74,48 +77,83 @@ public class LocationApplication extends Application
 	{
 
 		@Override
-		public void onReceiveLocation(BDLocation location) {
+		public void onReceiveLocation(BDLocation location)
+		{
 			// Receive Location
 			StringBuffer sb = new StringBuffer(256);
+			
 			sb.append("time : ");
+			
 			sb.append(location.getTime());
+			
 			sb.append("\nerror code : ");
+			
 			sb.append(location.getLocType());
+			
 			sb.append("\nlatitude : ");
+			
 			sb.append(location.getLatitude());
+			
 			sb.append("\nlontitude : ");
+			
 			sb.append(location.getLongitude());
+			
 			sb.append("\nradius : ");
+			
 			sb.append(location.getRadius());
-			if (location.getLocType() == BDLocation.TypeGpsLocation) {
+			
+			if (location.getLocType() == BDLocation.TypeGpsLocation) 
+			{
 				sb.append("\nspeed : ");
+				
 				sb.append(location.getSpeed());
+				
 				sb.append("\nsatellite : ");
+				
 				sb.append(location.getSatelliteNumber());
+				
 				sb.append("\ndirection : ");
-				sb.append("\naddr : ");
-				sb.append(location.getAddrStr());
+				
 				sb.append(location.getDirection());
-			} else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {
+				
 				sb.append("\naddr : ");
+				
 				sb.append(location.getAddrStr());
+								
+			} 
+			else if (location.getLocType() == BDLocation.TypeNetWorkLocation) 
+			{
+				sb.append("\naddr : ");
+				
+				sb.append(location.getAddrStr());				
+				
 				sb.append("\noperationers : ");
+				
 				sb.append(location.getOperators());
 			}
+			
 			logMsg(sb.toString());
+			
 			ConstantValues.LATITUDE = location.getLatitude() + "";// 初始化定位坐标
 			ConstantValues.LONGITUDE = location.getLongitude() + "";
-			String add = location.getAddrStr();
-			if (!CheckUtils.checkEmpty(add)) {
+			final String add = location.getAddrStr();
+			if (!CheckUtils.checkEmpty(add)) 
+			{				
+				
 				ConstantValues.loactionadd = add.substring(add.indexOf("省") + 1);
+				
+				ConstantValues.LOACTIONCITY = location.getCity().replace("市", "");
+				
 			}
+			
 			ConstantValues.isloaction = true;
-
+			
 		}
 
 	}
 
-	public static LocationApplication getInstance() {
+	public static LocationApplication getInstance()
+	{
 		return mAppApplication;
 	}
 
@@ -174,8 +212,11 @@ public class LocationApplication extends Application
 		try 
 		{
 			if (mLocationResult != null)
+				
 				mLocationResult.setText(str);
-		} catch (Exception e) {
+		} 
+		catch (Exception e) 
+		{
 			e.printStackTrace();
 		}
 	}
@@ -191,9 +232,11 @@ public class LocationApplication extends Application
 	{
 		if (sqlHelper == null)
 			sqlHelper = new SQLHelper(mAppApplication);
+		
 		return sqlHelper;
 	}
 
+	
 	/** 摧毁应用进程时候调用 */
 	public void onTerminate() 
 	{

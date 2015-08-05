@@ -6,23 +6,51 @@ import me.wangolf.service.IOAuthCallBack;
 import me.wangolf.service.IPracService;
 import me.wangolf.utils.Xutils;
 
-public class PracServiceImpl implements IPracService {
+public class PracServiceImpl implements IPracService
+{
 	public RequestParams params = null;
 
-	@Override
-	public void findPracticeSearch(String cityid, String rgname, String longitude, String latitude, String type, IOAuthCallBack iOAuthCallBack) {
+	@Override	
+	public void findPracticeSearch(String cityId, String rangeName, String longitude, String latitude, IOAuthCallBack iOAuthCallBack)
+	{
 		params = new RequestParams();
-		params.addBodyParameter("m", "Range");
-		params.addBodyParameter("a", "rgsearch");
-		params.addBodyParameter("cityid", cityid);
-		params.addBodyParameter("rgname", rgname);
+		
+		params.addBodyParameter("cityid", cityId);
+		
+		params.addBodyParameter("rgname", rangeName);
+		
 		params.addBodyParameter("longitude", longitude);
+		
 		params.addBodyParameter("latitude", latitude);
+		
+		Xutils.getDataFromServerByGet("webRange/list", params, iOAuthCallBack);
+	}
+	
+	
+	@Override
+	public void findPracticeSearch(String cityid, String rgname, String longitude, String latitude, String type, IOAuthCallBack iOAuthCallBack)
+	{
+		params = new RequestParams();
+		
+		params.addBodyParameter("m", "Range");
+		
+		params.addBodyParameter("a", "rgsearch");
+		
+		params.addBodyParameter("cityid", cityid);
+		
+		params.addBodyParameter("rgname", rgname);
+		
+		params.addBodyParameter("longitude", longitude);
+		
+		params.addBodyParameter("latitude", latitude);
+		
 		params.addBodyParameter("type", type);
+		
 		Xutils.getDataFromServer(params, iOAuthCallBack);
-
 	}
 
+	
+	
 	@Override
 	public void getPracticeInfo(String rgid, IOAuthCallBack iOAuthCallBack) {
 		params = new RequestParams();

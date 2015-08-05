@@ -1,6 +1,24 @@
 package me.wangolf.service;
 
-public interface IPracService extends BaseService {
+public interface IPracService extends BaseService 
+{
+	
+	/**
+	 * 练习场搜索
+	 * 
+	 * @param cityId
+	 *            城市id
+	 * @param rangeName
+	 *            球场名称(模糊搜索)
+	 * @param longitude
+	 *            经度
+	 * @param latitude
+	 *            纬度
+	 * @param iOAuthCallBack
+	 */
+	public void findPracticeSearch(String cityId, String rangeName, String longitude, String latitude, IOAuthCallBack iOAuthCallBack);
+	
+	
 	/**
 	 * 练习场搜索
 	 * 

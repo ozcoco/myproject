@@ -167,39 +167,63 @@ public class LoginActivity extends Activity implements OnClickListener,PlatformA
     }
 
     // 用户登录
-    public void login() {
+    public void login() 
+    {
         User u = new User();
+        
         u.setUsername(phone);
+        
         u.setPassword(password);
-        try {
-            ServiceFactory.getIUserEngineInstatice().UserLogin(u, new IOAuthCallBack() {
+        
+        try 
+        {
+            ServiceFactory.getIUserEngineInstatice().UserLogin(u, new IOAuthCallBack() 
+            {
 
                 @Override
-                public void getIOAuthCallBack(String result) {
+                public void getIOAuthCallBack(String result) 
+                {
                     //Log.i("wangolf", result);
-                    if (result.equals(ConstantValues.FAILURE)) {
+                    if (result.equals(ConstantValues.FAILURE))
+                    {
                         ToastUtils.showInfo(LoginActivity.this, ConstantValues.NONETWORK);
-                    } else {
+                    } 
+                    else 
+                    {
                         UserInfoEntity user = GsonTools.changeGsonToBean(result, UserInfoEntity.class);
-                        if ("1".equals(user.getStatus())) {
+                        
+                        if ("1".equals(user.getStatus())) 
+                        {
                             UserInfoEntity userinfo = user.getData().get(0);
+                            
                             ConstantValues.ISLOGIN = true;
+                            
                             ConstantValues.USER_MOBILE = phone;
+                            
                             if( !CheckUtils.checkEmpty(userinfo.getWeixin_open_id()))
                                 ConstantValues.ISWXlOGIN =true;
                             else
                                 ConstantValues.ISWXlOGIN =false;
+                            
                             ConstantValues.UID = userinfo.getUid() + "";
+                            
                             ConstantValues.PASSWORD=password;
+                            
                             ToastUtils.showInfo(LoginActivity.this, "登录成功");
+                            
                             setCache("mgolf_n", phone);//缓存用户名
+                            
                             setCache("mgolf_p", password);//缓存密码
+                            
                             loginResult();
+                            
                             if(!CheckUtils.checkEmpty(userinfo.getNickname())&!CheckUtils.checkEmpty(userinfo.getPhoto()))
                                 ConstantValues.ISCOMPLETEINFO = true;
                             else
                                 ConstantValues.ISCOMPLETEINFO = false;
-                        } else if (user.getStatus().equals("-1")) {
+                        } 
+                        else if (user.getStatus().equals("-1")) 
+                        {
                             ShowPickUtils.ShowDialog(LoginActivity.this, user.getInfo());
                             // ToastUtils.showInfo(LoginActivity.this, user.getInfo());
                         }
@@ -209,7 +233,9 @@ public class LoginActivity extends Activity implements OnClickListener,PlatformA
 
             });
 
-        } catch (Exception e) {
+        } 
+        catch (Exception e) 
+        {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
@@ -286,14 +312,22 @@ public class LoginActivity extends Activity implements OnClickListener,PlatformA
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
+    public void onClick(View v) 
+    {
+        switch (v.getId()) 
+        {
             case R.id.bt_login:
+            	
                 phone = ed_phone.getText().toString().trim();
+                
                 password = DigestUtils.md5Hex(ed_pwd.getText().toString().trim());
+                
                 dialog.show();
+                
                 login();
+                
                 break;
+                
             case R.id.common_back:
 
                 setResult(99);

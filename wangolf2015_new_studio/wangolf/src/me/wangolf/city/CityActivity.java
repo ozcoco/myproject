@@ -81,31 +81,52 @@ public class CityActivity extends Activity implements OnChildClickListener, OnCl
 	private String type;
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) 
+	{
 		super.onCreate(savedInstanceState);
+		
 		setContentView(R.layout.ac_search_city);
+		
 		ViewUtils.inject(this);
+		
 		initData();
 
 	}
 
-	private void initData() {
+	private void initData() 
+	{
 		LinearLayout head_city = (LinearLayout) View.inflate(this, R.layout.head_city, null);
+		
 		ViewUtils.inject(this, head_city);
+		
 		elist.addHeaderView(head_city);
+		
 		dialog = new Dialog(this, R.style.MyDialogTheme);
+		
 		common_title.setText(ConstantValues.SELECT_CITY);
+		
 		common_back.setVisibility(View.VISIBLE);
+		
 		getData();
+		
 		type = getIntent().getStringExtra("type");
+		
 		common_back.setOnClickListener(this);
+		
 		elist.setOnChildClickListener(this);
+		
 		bt_ok.setOnClickListener(this);
+		
 		tv_sz.setOnClickListener(this);
+		
 		tv_gz.setOnClickListener(this);
+		
 		tv_bj.setOnClickListener(this);
+		
 		tv_sh.setOnClickListener(this);
+		
         mAview.setOnTouchAssortListener(this);
+        
 	}
 
 	public void getData() {
@@ -124,12 +145,16 @@ public class CityActivity extends Activity implements OnChildClickListener, OnCl
 						names = Arrays.asList(data.get(0).getName().split(","));
 
 					}
+					
 					adapter = new PinyinAdapter(getApplicationContext(), names);
 					// adapter.setStrList(names);
 					elist.setAdapter(adapter);
-					for (int i = 0, length = adapter.getGroupCount(); i < length; i++) {
+					
+					for (int i = 0, length = adapter.getGroupCount(); i < length; i++)
+					{
 						elist.expandGroup(i);
 					}
+					
 					adapter.notifyDataSetChanged();
 
 				}
@@ -238,8 +263,10 @@ public class CityActivity extends Activity implements OnChildClickListener, OnCl
 	}
 
 	@Override
-	public boolean onChildClick(ExpandableListView arg0, View arg1, int arg2, int arg3, long arg4) {
+	public boolean onChildClick(ExpandableListView arg0, View arg1, int arg2, int arg3, long arg4)
+	{
 		String ChildText = (String) adapter.getChild(arg2, arg3);
+		
 		autoCompleteTextView.setText(ChildText);
 		// getIDFromDatabase(ChildText) ;
 		return false;
@@ -251,14 +278,20 @@ public class CityActivity extends Activity implements OnChildClickListener, OnCl
 	 * @param cityname
 	 *            ] 城市名称
 	 */
-	public void getIDFromDatabase(String cityname) {
+	public void getIDFromDatabase(String cityname) 
+	{
 		DbUtils db = DbUtils.create(this, "mgolf.db3");
+		
 		db.configAllowTransaction(true);
+		
 		db.configDebug(true);
 
-		try {
+		try 
+		{
 			parent = db.findFirst(Selector.from(CityEntity.class).where("name", "=", cityname));
-		} catch (DbException e) {
+		} 
+		catch (DbException e) 
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -290,22 +323,38 @@ public class CityActivity extends Activity implements OnChildClickListener, OnCl
 		}
 	}
 
-	public void cityResult() {
-		if ("parcity".equals(type)) {
+	public void cityResult() 
+	{
+		if ("parcity".equals(type))
+		{
 			getIDFromDatabase(autoCompleteTextView.getText().toString());
-			if (parent != null) {
+			
+			if (parent != null) 
+			{
 				Intent in = new Intent(this, CityActivity.class);
+				
 				in.putExtra("city", parent);
+				
 				setResult(ConstantValues.CITY_CODE, in);
+				
 				finish();
-			} else {
+				
+			} 
+			else 
+			{
 
                 ToastUtils.showInfo(CityActivity.this,"没有该城市相关信息！");
 			}
-		} else if ("ballcity".equals(type)) {
+			
+		} 
+		else if ("ballcity".equals(type)) 
+		{
 			getIDFromDatabase(autoCompleteTextView.getText().toString());
-			if (parent != null) {
+			
+			if (parent != null) 
+			{
 				Intent in = new Intent(this, CityActivity.class);
+				
 				in.putExtra("city", parent);
 				setResult(ConstantValues.CITY_CODE, in);
 				ConstantValues.cityname = parent.getName();

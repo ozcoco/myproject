@@ -97,16 +97,6 @@
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:id="@+id/tv_coach"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:text=""
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/txt_gray"
-                    android:textSize="@dimen/m_font" />
-
-                <TextView
                     android:id="@+id/item_distance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -115,6 +105,18 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/txt_gray"
                     android:textSize="@dimen/m_font" />
+                
+                <TextView
+                    android:id="@+id/tv_coach"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="无教练"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/txt_gray"
+                    android:textSize="@dimen/m_font" />
+
+                
             </LinearLayout>
         </LinearLayout>
 

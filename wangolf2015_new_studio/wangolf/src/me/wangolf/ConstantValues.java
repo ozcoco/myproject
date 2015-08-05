@@ -1,46 +1,89 @@
 package me.wangolf;
 
-public class ConstantValues {
+public class ConstantValues
+{
 	public static final int ERROR = 100;
+	
 	public static final String ENCODING = "utf-8";
+	
 	public static final String IMAGE_PATH = null;
+	
 	public static int SUCCESS = 200;
+	
 	public static String CITYNAME;// 初始化城市名称
+	
 	public static int CITYID;// 初始化城市名称
+	
 	// ==================全局=============
 	public static String versionCode;
+	
 	public static String WX_UID="";
+	
 	public static String UID="";
+	
 	public static String OPEN_ID="";
+	
 	public static String PASSWORD="";
+	
 	public static boolean ISLOGIN;
+	
 	public static boolean ISWXlOGIN;
+	
 	public static boolean ISCOMPLETEINFO;
+	
 	public static boolean HOME_ISLOGIN;
+	
 	public static boolean USERCENT_ISLOGIN;
+	
 	public static String USER_MOBILE;
+	
 	public static String UUID = "";
+	
 	public static boolean newsTags;
+	
 	public static boolean ballTags;
+	
 	public static int SCREENWIDTH;
+	
 	public static int SCREENHEIGHT;
+	
 	public static final int ADDRESS_CODE = 11;
+	
 	public static final int CITY_CODE = 12;
+	
 	public static final int dateCode = 13;
+	
 	public static final int timeCode = 14;
 	public static final int nameCode = 15;
+	
 	public static final int NEWSTAGS = 16;
+	
 	public static final int ORDERPRAC = 17;
+	
 	public static final int USERLOGIN = 18;
+	
 	public static final int USERREGIST = 19;
+	
 	public static final int VOUCHERSCODE = 20;
+	
 	public static final String SORT = "排序";
+	
 	public static final String SHARE = "分享";
+	
 	public static final String TEL_PHONE = "13302311999";
+	
 	public static String LATITUDE = "22.556715"; // 纬度
+	
 	public static String LONGITUDE = "114.051021";// 经度
+	
 	public static String loactionadd = "深圳";
+	
+	public static String LOACTIONCITY = "深圳";
+	
+	public static String LOACTIONCITYCODE = "77";
+	
 	public static boolean isloaction;
+	
 	// ===================写死的标题啊=======================
 	// ---------学院相关-------------
 	public static final String[] COLLEGE_TITLE = { "装备", "技巧", "教程", "视频", "教练", "学院" };
@@ -120,7 +163,7 @@ public class ConstantValues {
 
 	// -------------------球场搜索暂用---------
 	public static String cityname = null;
-	public static int cityid;
+	public static int cityid = 77;
 	public static String ballname = null;
 	public static String dateStr = null;
 	public static String showDate = null;

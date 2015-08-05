@@ -1,7 +1,9 @@
 package me.wangolf.bean.practice;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
+
+import me.wangolf.test.Practice;
 
 /**
  * 练习场
@@ -9,164 +11,225 @@ import java.util.ArrayList;
  * @author Administrator
  * 
  */
-public class PracticeEntity implements Serializable {
+public class PracticeEntity implements Serializable,Cloneable{
 
 	private static final long serialVersionUID = 1L;
 
-	private int rgid;
-	private String rgname;// 球场名称;
-	private String rgtname;// 练习场缩写名称”
-	private String rgaddr;// 球场地址;
-	private String rglogo;// 球场logo;
-	private String distance;// 距离;
-	private String longitude;// 经度
-	private String latitude;// 纬度
-	private String rgtag;// 练习场标签
-	private String book;// 练习场预定说明
-	private String support_buy;// 0不支持在线预订 1支持在线预订
-	private String min_price;// 最低价格
-	private String status;
-	private String info;
-	private String mobile;
-	private int coach;
-	private ArrayList<PracticeEntity> data;
-
-	public String getBook() {
-		return book;
+//	private int rgid;
+//	private String rgname;// 球场名称;
+//	private String rgtname;// 练习场缩写名称”
+//	private String rgaddr;// 球场地址;
+//	private String rglogo;// 球场logo;
+//	private String distance;// 距离;
+//	private String longitude;// 经度
+//	private String latitude;// 纬度
+//	private String rgtag;// 练习场标签
+//	private String book;// 练习场预定说明
+//	private String support_buy;// 0不支持在线预订 1支持在线预订
+//	private String min_price;// 最低价格
+//	private String status;
+//	private String info;
+//	private String mobile;
+//	private int coach;
+//	private ArrayList<PracticeEntity> data;
+	
+	private static PracticeEntity mPractice = new PracticeEntity();
+	
+	public final static Practice newPractice() throws CloneNotSupportedException
+	{
+		return (Practice) mPractice.clone();
 	}
+	
+    /**
+     * status : 1
+     * data :
+     * info : 成功
+     */
+    private int status;
+    
+    private List<DataEntity> data;
+    
+    private String info;
 
-	public int getCoach() {
-		return coach;
-	}
-
-	public void setCoach(int coach) {
-		this.coach = coach;
-	}
-
-    public String getMin_price() {
-        return min_price;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
-    public void setMin_price(String min_price) {
-        this.min_price = min_price;
+    public void setData(List<DataEntity> data) {
+        this.data = data;
     }
 
-    public String getMobile() {
-		return mobile;
-	}
+    public void setInfo(String info) {
+        this.info = info;
+    }
 
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
+    public int getStatus() {
+        return status;
+    }
 
+    public List<DataEntity> getData() {
+        return data;
+    }
 
+    public String getInfo() {
+        return info;
+    }
 
-	public void setBook(String book) {
-		this.book = book;
-	}
+    public static class DataEntity {
+        /**
+         * icon : http://www.wangolf.me/public/court/20150610142754350527913.jpg
+         * has_message : 70个打位/2层
+         * range_name : 香蜜湖高尔夫练习场
+         * tee_floor_num : 2
+         * tee_num : 70
+         * city : 77
+         * id : 8
+         * distance : 12.0千米
+         * min_price : 0
+         * area : 705
+         * address : 广东省-深圳市-福田区
+         * province : 6
+         * longitude : 114.039907
+         * latitude : 22.555559
+         * mobile : 075582722225
+         */
+        private String icon;
+        private String has_message;
+        private String range_name;
+        private String tee_floor_num;
+        private String tee_num;
+        private String city;
+        private String id;
+        private String distance;
+        private String min_price;
+        private String area;
+        private String address;
+        private String province;
+        private String longitude;
+        private String latitude;
+        private String mobile;
 
-	public String getRgtag() {
-		return rgtag;
-	}
+        public void setIcon(String icon) {
+            this.icon = icon;
+        }
 
-	public void setRgtag(String rgtag) {
-		this.rgtag = rgtag;
-	}
+        public void setHas_message(String has_message) {
+            this.has_message = has_message;
+        }
 
-	public int getRgid() {
-		return rgid;
-	}
+        public void setRange_name(String range_name) {
+            this.range_name = range_name;
+        }
 
-	public void setRgid(int rgid) {
-		this.rgid = rgid;
-	}
+        public void setTee_floor_num(String tee_floor_num) {
+            this.tee_floor_num = tee_floor_num;
+        }
 
-	public String getRgname() {
-		return rgname;
-	}
+        public void setTee_num(String tee_num) {
+            this.tee_num = tee_num;
+        }
 
-	public void setRgname(String rgname) {
-		this.rgname = rgname;
-	}
+        public void setCity(String city) {
+            this.city = city;
+        }
 
-	public String getRgtname() {
-		return rgtname;
-	}
+        public void setId(String id) {
+            this.id = id;
+        }
 
-	public void setRgtname(String rgtname) {
-		this.rgtname = rgtname;
-	}
+        public void setDistance(String distance) {
+            this.distance = distance;
+        }
 
-	public String getRgaddr() {
-		return rgaddr;
-	}
+        public void setMin_price(String min_price) {
+            this.min_price = min_price;
+        }
 
-	public void setRgaddr(String rgaddr) {
-		this.rgaddr = rgaddr;
-	}
+        public void setArea(String area) {
+            this.area = area;
+        }
 
-	public String getRglogo() {
-		return rglogo;
-	}
+        public void setAddress(String address) {
+            this.address = address;
+        }
 
-	public void setRglogo(String rglogo) {
-		this.rglogo = rglogo;
-	}
+        public void setProvince(String province) {
+            this.province = province;
+        }
 
-	public String getDistance() {
-		return distance;
-	}
+        public void setLongitude(String longitude) {
+            this.longitude = longitude;
+        }
 
-	public void setDistance(String distance) {
-		this.distance = distance;
-	}
+        public void setLatitude(String latitude) {
+            this.latitude = latitude;
+        }
 
-	public String getLongitude() {
-		return longitude;
-	}
+        public void setMobile(String mobile) {
+            this.mobile = mobile;
+        }
 
-	public void setLongitude(String longitude) {
-		this.longitude = longitude;
-	}
+        public String getIcon() {
+            return icon;
+        }
 
-	public String getLatitude() {
-		return latitude;
-	}
+        public String getHas_message() {
+            return has_message;
+        }
 
-	public void setLatitude(String latitude) {
-		this.latitude = latitude;
-	}
+        public String getRange_name() {
+            return range_name;
+        }
 
-	public String getStatus() {
-		return status;
-	}
+        public String getTee_floor_num() {
+            return tee_floor_num;
+        }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+        public String getTee_num() {
+            return tee_num;
+        }
 
-	public String getInfo() {
-		return info;
-	}
+        public String getCity() {
+            return city;
+        }
 
-	public void setInfo(String info) {
-		this.info = info;
-	}
+        public String getId() {
+            return id;
+        }
 
-	public ArrayList<PracticeEntity> getData() {
-		return data;
-	}
+        public String getDistance() {
+            return distance;
+        }
 
-	public void setData(ArrayList<PracticeEntity> data) {
-		this.data = data;
-	}
+        public String getMin_price() {
+            return min_price;
+        }
 
-	public String getSupport_buy() {
-		return support_buy;
-	}
+        public String getArea() {
+            return area;
+        }
 
-	public void setSupport_buy(String support_buy) {
-		this.support_buy = support_buy;
-	}
+        public String getAddress() {
+            return address;
+        }
+
+        public String getProvince() {
+            return province;
+        }
+
+        public String getLongitude() {
+            return longitude;
+        }
+
+        public String getLatitude() {
+            return latitude;
+        }
+
+        public String getMobile() {
+            return mobile;
+        }
+    }
+	
+	
 
 }

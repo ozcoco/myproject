@@ -2,4 +2,13 @@
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="me.wangolf.newfragment.MainActivity"/>
 <fullyQualifiedTypeName name="de.hdodenhof.circleimageview.CircleImageView"/>
+<fullyQualifiedTypeName name="com.umeng.common.message.Log"/>
+<fullyQualifiedTypeName name="android.widget.Toast"/>
+<fullyQualifiedTypeName name="me.wangolf.test.Practice"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="me.wangolf.utils.Xutils"/>
+<fullyQualifiedTypeName name="me.wangolf.service.IOAuthCallBack"/>
+<fullyQualifiedTypeName name="java.net.URL"/>
+<fullyQualifiedTypeName name="java.io.BufferedInputStream"/>
+<fullyQualifiedTypeName name="me.wangolf.bean.practice.PracticeEntity.DataEntity"/>
 </qualifiedTypeNameHistroy>

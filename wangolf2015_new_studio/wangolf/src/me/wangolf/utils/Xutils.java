@@ -26,6 +26,8 @@ public class Xutils
     
     private static int statusCode;
 
+    private static String BASE_URL = "http://192.168.1.222/golf/";
+    
     /**
      * 上传文件 或者提交数据 到服务器（post方法）
      *
@@ -35,8 +37,11 @@ public class Xutils
     public static void getDataFromServer(RequestParams params, final IOAuthCallBack iOAuthCallBack) 
     {
         params.addBodyParameter("terminal", "1"); // 共用的parames 写在这里吧
+        
+        params.addBodyParameter("user_id", ConstantValues.UID); 
+        
         HttpUtils http = new HttpUtils();
-       // Log.i("wangolf",GlobalConsts.BASE_URL);
+        // Log.i("wangolf",GlobalConsts.BASE_URL);
         http.send(HttpRequest.HttpMethod.POST, GlobalConsts.BASE_URL, params, new RequestCallBack<String>() 
         {
 
@@ -69,9 +74,60 @@ public class Xutils
 
     }
 
+    
+    /**
+     * 上传文件 或者提交数据 到服务器（get方法）
+     *
+     * @param params         参数
+     * @param iOAuthCallBack 回调服务器回来的结果
+     */
+    public static void getDataFromServerByGet(String api, RequestParams params, final IOAuthCallBack iOAuthCallBack) 
+    {
+        params.addBodyParameter("terminal", "1"); // 共用的parames 写在这里吧
+        
+        params.addBodyParameter("user_id", ConstantValues.UID);
+        
+        HttpUtils http = new HttpUtils();
+        
+       // Log.i("wangolf",GlobalConsts.BASE_URL);
+        http.send(HttpRequest.HttpMethod.GET, BASE_URL + api + "?", params, new RequestCallBack<String>() 
+        {
+
+            @Override
+            public void onStart()
+            {
+
+            }
+
+            @Override
+            public void onLoading(long total, long current, boolean isUploading) 
+            {
+            }
+
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) 
+            {
+          	
+                iOAuthCallBack.getIOAuthCallBack(responseInfo.result);
+            }
+
+            @Override
+            public void onFailure(HttpException error, String msg) 
+            {
+
+                iOAuthCallBack.getIOAuthCallBack(ConstantValues.FAILURE);
+                // iOAuthCallBack.getIOAuthCallBack(msg);
+            }
+        });
+
+    }
+    
+    
+    
     public static void getDataFromServer(String url, final IOAuthCallBack iOAuthCallBack) 
     {
         HttpUtils http = new HttpUtils();
+        
         http.send(HttpRequest.HttpMethod.GET, url, new RequestCallBack<String>() 
         {
             @Override

@@ -2,27 +2,27 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="273" key="DIALOG_WIDTH"/>
-		<item value="212" key="DIALOG_Y_ORIGIN"/>
+		<item value="340" key="DIALOG_Y_ORIGIN"/>
+		<item value="1594" key="DIALOG_X_ORIGIN"/>
 		<item value="399" key="DIALOG_HEIGHT"/>
-		<item value="1255" key="DIALOG_X_ORIGIN"/>
 		<item value="1|微软雅黑|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|微软雅黑" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="true" key="wrap"/>
-		<item value="false" key="isRegEx"/>
 		<item value="false" key="casesensitive"/>
+		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="Data" key="selection"/>
+		<item value="bt_login" key="selection"/>
 		<list key="findhistory">
-			<item value="data"/>
-			<item value="urlList"/>
-			<item value="Rpage"/>
-			<item value="shop_viewpager"/>
-			<item value="goHome"/>
-			<item value="urls"/>
-			<item value="loadApk"/>
-			<item value="mTeeFloorNum"/>
+			<item value="bt_login"/>
+			<item value="isR"/>
+			<item value="adapter"/>
+			<item value="parent"/>
+			<item value="elist"/>
+			<item value="common_bt"/>
+			<item value="cityid"/>
+			<item value="mLocationResult"/>
 		</list>
 		<list key="replacehistory">
 		</list>
