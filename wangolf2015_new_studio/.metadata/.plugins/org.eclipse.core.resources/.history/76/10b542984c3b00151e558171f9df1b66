@@ -1,0 +1,18 @@
+package me.wangolf.test;
+
+
+
+public class Test 
+{
+
+	static String gsonString = "";
+	
+	public static void main(String[] args)
+	{
+		
+
+		
+		
+	}
+	
+}

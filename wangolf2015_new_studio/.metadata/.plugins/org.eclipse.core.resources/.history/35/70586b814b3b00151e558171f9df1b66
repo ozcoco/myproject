@@ -1,0 +1,26 @@
+package me.wangolf.test;
+
+import me.wangolf.service.IOAuthCallBack;
+import me.wangolf.utils.Xutils;
+
+public class Test 
+{
+
+	public static void main(String[] args)
+	{
+		
+		Xutils.getDataFromServer("", new IOAuthCallBack() {
+			
+			@Override
+			public void getIOAuthCallBack(String result) {
+				
+				
+				
+			}
+	
+		});
+		
+		
+	}
+	
+}

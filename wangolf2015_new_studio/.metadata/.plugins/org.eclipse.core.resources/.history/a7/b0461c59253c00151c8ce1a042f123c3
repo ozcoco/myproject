@@ -1,0 +1,337 @@
+package me.wangolf.ballprac;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.lidroid.xutils.DbUtils;
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.db.sqlite.Selector;
+import com.lidroid.xutils.exception.DbException;
+import com.lidroid.xutils.view.annotation.ViewInject;
+import com.meigao.mgolf.R;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
+import me.wangolf.ConstantValues;
+import me.wangolf.base.BaseActivity;
+import me.wangolf.base.BaseFragment;
+import me.wangolf.bean.CityEntity;
+import me.wangolf.bean.ball.BallNameEntity;
+import me.wangolf.calender.CalendarView;
+import me.wangolf.city.CityActivity;
+import me.wangolf.time.TimeSingleActivity;
+import me.wangolf.utils.DateFormatUtils;
+
+/**
+ * Created by Administrator on 2015/4/2.
+ */
+public class BallMainActivity extends BaseActivity implements View.OnClickListener 
+{
+    @ViewInject(R.id.common_back)
+    private Button common_back; // 后退
+    @ViewInject(R.id.common_title)
+    private TextView common_title;// 标题
+    @ViewInject(R.id.common_bt)
+    private TextView common_bt;// 常打
+    @ViewInject(R.id.bt_search)
+    private Button bt_search;// 搜索按键
+    @ViewInject(R.id.lay_city)
+    private LinearLayout lay_city; // 选择城市
+    @ViewInject(R.id.tv_curlocation)
+    private TextView tv_curlocation;// 选择的城市
+    @ViewInject(R.id.lay_date)
+    private LinearLayout lay_date;// 选择日期
+    @ViewInject(R.id.tv_date)
+    private TextView tv_date;// 选择的日期
+    @ViewInject(R.id.tv_date_tip)
+    private TextView tv_date_tip;
+    @ViewInject(R.id.lay_time)
+    private LinearLayout lay_time; // 选择时间
+    @ViewInject(R.id.tv_time)
+    private TextView tv_time;// 显示时间
+    @ViewInject(R.id.lay_ballname)
+    private LinearLayout lay_ballname;
+    @ViewInject(R.id.tv_ballname)
+    private TextView tv_ballname;// 选择的球场
+
+    private String date;// 打球时间(手机端需要将日期与时间组合)
+    private String ballname;// 球场名称(模糊搜索)
+    private String cityname;
+    private int cityid;
+    private String dateStr;
+    private String showDate;
+    private String time;
+    private String firstDate;
+    private String ddate;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) 
+    {
+        super.onCreate(savedInstanceState);
+        
+        setContentView(R.layout.ac_searchball);
+
+        ViewUtils.inject(this);
+        
+        initData();
+    }
+
+    @Override
+    public void initData()
+{
+        initView();
+    }
+
+ 
+    public void initView() 
+    {
+        common_back.setVisibility(View.VISIBLE);
+        common_title.setText(ConstantValues.BALLSEARCH_TITLE);
+        common_bt.setText(ConstantValues.BALLSEARCH_BT);
+        common_back.setOnClickListener(this);
+        bt_search.setOnClickListener(this);
+        lay_city.setOnClickListener(this);
+        lay_date.setOnClickListener(this);
+        lay_time.setOnClickListener(this);
+        lay_ballname.setOnClickListener(this);
+        common_back.setOnClickListener(this);
+        setData();// 设置默认时间
+        cityname = ConstantValues.CITYNAME;
+        cityid = ConstantValues.CITYID;
+        tv_curlocation.setText(cityname);
+    }
+
+    @Override
+    public void onClick(View v)
+    {
+        switch (v.getId())
+        {
+        
+            case R.id.common_back:
+            	
+                finish();
+                
+                break;
+                
+            case R.id.bt_search:
+            	
+                Intent bt_search = new Intent(this, BallListActivity.class);
+                
+                getIDFromDatabase(cityname);
+                
+                bt_search.putExtra("cityid", cityid + "");
+                
+                bt_search.putExtra("cityname", cityname);
+                
+                bt_search.putExtra("ballname", ballname);
+                
+                date = firstDate + "%20" + time;
+                
+                bt_search.putExtra("date", date);
+                
+                this.startActivity(bt_search);
+                
+                break;
+            case R.id.lay_city:
+            	
+                //选择城市
+                Intent cityIntent = new Intent(this, CityActivity.class);
+                
+                cityIntent.putExtra("type", "ballcity");
+                
+                this.startActivityForResult(cityIntent, ConstantValues.CITY_CODE);
+                
+                break;
+                
+            case R.id.lay_date:
+                //选择日期
+                Intent dataIntent = new Intent(this, CalendarView.class);
+                
+                dataIntent.putExtra("type", "balldate");
+                
+                this.startActivityForResult(dataIntent, ConstantValues.dateCode);
+                
+                break;
+                
+            case R.id.lay_time:
+                //选择时间
+                Intent timeIntent = new Intent(this, TimeSingleActivity.class);
+                
+                timeIntent.putExtra("type", "balltime");
+                
+                this.startActivityForResult(timeIntent, ConstantValues.timeCode);
+                
+                break;
+                
+            case R.id.lay_ballname:
+                //选择球场
+                Intent nameIntent = new Intent(this, BallnameActivity.class);
+                
+                nameIntent.putExtra("type", "ballname");
+                
+                this.startActivityForResult(nameIntent, ConstantValues.nameCode);
+                
+                break;
+                
+            default:
+                break;
+        }
+
+    }
+
+    //处理选择后返回来的结果集
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+
+        if (resultCode == ConstantValues.CITY_CODE & data != null) {
+            initResultCity(data);
+        }
+        if (resultCode == ConstantValues.nameCode & data != null) {
+            initResultBall(data);
+        }
+        if (resultCode == ConstantValues.timeCode & data != null) {
+            initResultTime(data);
+        }
+        if (resultCode == ConstantValues.dateCode & data != null) {
+            initResultData(data);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    //处理选择返回的城市
+    public void initResultCity(Intent data)
+    {
+        CityEntity bean = (CityEntity) data.getSerializableExtra("city");
+        
+        cityname = bean.getName();
+        
+        cityid = bean.getId();
+        
+        tv_curlocation.setText(cityname);
+        
+        ballname = "";
+        
+        tv_ballname.setText(ballname);
+        
+    }
+
+    //处理选择返回的球场名称
+    public void initResultBall(Intent data) 
+    {
+        BallNameEntity bean = (BallNameEntity) data.getSerializableExtra("ballbean");
+        
+        cityname = bean.getCityname();//球场名称
+        
+        cityid = bean.getId();//城市ID
+        
+        ballname = bean.getBallname();//球场名称
+        
+        tv_curlocation.setText(cityname);
+        
+        tv_ballname.setText(ballname);
+        
+    }
+
+    //处理选择返回的日期
+    public void initResultData(Intent data) 
+    {
+        dateStr = data.getStringExtra("date");
+        
+        showDate = data.getStringExtra("showDate");
+        
+        tv_date.setText(showDate);
+        
+        // 处理显示今天明天后天start
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        
+        try {
+            Date d1 = new Date();
+            Date d2 = df.parse(dateStr);
+            double diff = d2.getTime() - d1.getTime();
+            double days = diff / (1000 * 60 * 60 * 24);
+            if (days < 0) {
+                tv_date_tip.setText("(今天)");
+            } else if (days >= 0 && days < 1) {
+                tv_date_tip.setText("(明天)");
+            } else if (days >= 1 && days < 2) {
+                tv_date_tip.setText("(后天)");
+            } else {
+                tv_date_tip.setText("");
+            }
+            firstDate = dateStr;
+        } catch (Exception e) {
+        }
+    }
+
+    //处理选择返回的时间
+    public void initResultTime(Intent data) {
+        time = data.getStringExtra("time");
+        tv_time.setText(time);
+    }
+
+    public void getIDFromDatabase(String cityname) {
+        DbUtils db = DbUtils.create(this, "mgolf.db3");
+        db.configAllowTransaction(true);
+        db.configDebug(true);
+
+        try {
+            CityEntity parent = db.findFirst(Selector.from(CityEntity.class).where("name", "=", cityname));
+            cityid = parent.getId();
+        } catch (DbException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    // ******设置默认时间
+    private void setData() {
+
+        Calendar c = Calendar.getInstance(Locale.CHINA);
+        Date d = new Date();
+        c.setTime(d);
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH) + 1;
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        int ti = c.get(Calendar.HOUR);
+
+        int h = c.get(Calendar.HOUR_OF_DAY);
+        /*
+         * if(h>=12){ c.add(Calendar.DAY_OF_MONTH, 1);
+		 * month=c.get(Calendar.MONTH)+1; day=c.get(Calendar.DAY_OF_MONTH); }
+		 */
+
+        c.add(Calendar.DAY_OF_MONTH, 1);
+        month = c.get(Calendar.MONTH) + 1;
+        day = c.get(Calendar.DAY_OF_MONTH);
+
+        long tt = c.getTimeInMillis();
+        ddate = DateFormatUtils.formatToMMdd(new Date(tt));
+        time = null;
+        try {
+            firstDate = DateFormatUtils.formatYMD(new Date(tt));
+            // GlobalConsts.BALL_SHOW_DATE=ddate;
+            // date =ddate;
+            time = "09:30";
+            /*
+             * if(ti>=9){ time="12:00"; }
+			 */
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        //
+        tv_date.setText(ddate);
+        tv_time.setText(time);
+    }
+}

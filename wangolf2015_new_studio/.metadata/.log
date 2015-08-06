@@ -7694,3 +7694,86 @@ Java Model Exception: Java Model Status [loactionCity [in ConstantValues [in [Wo
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1488)
 !SUBENTRY 1 org.eclipse.jdt.core 4 969 2015-08-05 11:22:21.513
 !MESSAGE loactionCity [in ConstantValues [in [Working copy] ConstantValues.java [in me.wangolf [in src [in wangolf]]]]] does not exist
+!SESSION 2015-08-06 09:02:17.807 -----------------------------------------------
+eclipse.buildId=4.5.0.I20150603-2000
+java.version=1.7.0_45
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=zh_CN
+Framework arguments:  -product org.eclipse.epp.package.jee.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.jee.product
+
+!ENTRY org.eclipse.egit.ui 2 0 2015-08-06 09:02:44.500
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Administrator'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.core.net 4 0 2015-08-06 09:02:55.738
+!MESSAGE WinHttp.GetProxyForUrl for pac failed with error '²»ÄÜÏÂÔشúÀí·þÎñÆ÷×Զ¯ÅäÖ' #12167.
+
+!ENTRY org.tigris.subversion.subclipse.core 4 -6 2015-08-06 16:43:57.023
+!MESSAGE Could not remove C:\Users\Administrator\Desktop\project\myproject\wangolf2015_new_studio\wangolf\bin\dexedLibs\BaiduLBS_Android-e8a7a94acae1a8705e61704cbb136b69.jar
+!STACK 0
+java.lang.IllegalStateException: Could not remove C:\Users\Administrator\Desktop\project\myproject\wangolf2015_new_studio\wangolf\bin\dexedLibs\BaiduLBS_Android-e8a7a94acae1a8705e61704cbb136b69.jar
+	at org.tigris.subversion.subclipse.core.resourcesListeners.RevertResourceManager$RevertWorkspaceJob.revertResources(RevertResourceManager.java:65)
+	at org.tigris.subversion.subclipse.core.resourcesListeners.RevertResourceManager$RevertWorkspaceJob.runInWorkspace(RevertResourceManager.java:85)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:39)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SESSION 2015-08-06 16:49:20.888 -----------------------------------------------
+eclipse.buildId=4.5.0.I20150603-2000
+java.version=1.7.0_45
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=zh_CN
+Framework arguments:  -product org.eclipse.epp.package.jee.product
+Command-line arguments:  -data file:/C:/Users/Administrator/Desktop/project/myproject/wangolf2015_new_studio/ -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.jee.product
+
+!ENTRY org.eclipse.egit.ui 2 0 2015-08-06 16:49:31.247
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Administrator'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.core.net 4 0 2015-08-06 16:49:42.500
+!MESSAGE WinHttp.GetProxyForUrl for pac failed with error '²»ÄÜÏÂÔشúÀí·þÎñÆ÷×Զ¯ÅäÖ' #12167.
+
+!ENTRY org.tigris.subversion.subclipse.core 4 -6 2015-08-06 20:08:19.355
+!MESSAGE org.apache.subversion.javahl.ClientException: Working copy is not up-to-date
+svn: Commit failed (details follow):
+svn: File 'C:\Users\Administrator\Desktop\project\myproject\wangolf2015_new_studio\wangolf\src\me\wangolf\service\impl\PracServiceImpl.java' is out of date
+Transaction is out of date
+svn: While preparing 'C:\Users\Administrator\Desktop\project\myproject\wangolf2015_new_studio\wangolf\src\me\wangolf\service\impl\PracServiceImpl.java' for commit
+svn: 目录 “/andriod/201508/wangolf2015_new_studio/wangolf/bin/dexedLibs” 已经过时
+
+!STACK 0
+org.tigris.subversion.svnclientadapter.SVNClientException: org.apache.subversion.javahl.ClientException: Working copy is not up-to-date
+svn: Commit failed (details follow):
+svn: File 'C:\Users\Administrator\Desktop\project\myproject\wangolf2015_new_studio\wangolf\src\me\wangolf\service\impl\PracServiceImpl.java' is out of date
+Transaction is out of date
+svn: While preparing 'C:\Users\Administrator\Desktop\project\myproject\wangolf2015_new_studio\wangolf\src\me\wangolf\service\impl\PracServiceImpl.java' for commit
+svn: 目录 “/andriod/201508/wangolf2015_new_studio/wangolf/bin/dexedLibs” 已经过时
+
+	at org.tigris.subversion.svnclientadapter.javahl.AbstractJhlClientAdapter.commit(AbstractJhlClientAdapter.java:348)
+	at org.tigris.subversion.subclipse.core.commands.CheckinResourcesCommand$1.run(CheckinResourcesCommand.java:143)
+	at org.tigris.subversion.subclipse.core.SVNProviderPlugin$6.run(SVNProviderPlugin.java:535)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2241)
+	at org.tigris.subversion.subclipse.core.SVNProviderPlugin.run(SVNProviderPlugin.java:530)
+	at org.tigris.subversion.subclipse.core.commands.CheckinResourcesCommand.run(CheckinResourcesCommand.java:118)
+	at org.tigris.subversion.subclipse.core.SVNTeamProvider.checkin(SVNTeamProvider.java:139)
+	at org.tigris.subversion.subclipse.ui.operations.CommitOperation.execute(CommitOperation.java:112)
+	at org.tigris.subversion.subclipse.ui.operations.SVNOperation.run(SVNOperation.java:90)
+	at org.eclipse.team.internal.ui.actions.JobRunnableContext.run(JobRunnableContext.java:144)
+	at org.eclipse.team.internal.ui.actions.JobRunnableContext$ResourceJob.runInWorkspace(JobRunnableContext.java:72)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:39)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+Caused by: org.apache.subversion.javahl.ClientException: Working copy is not up-to-date
+svn: Commit failed (details follow):
+svn: File 'C:\Users\Administrator\Desktop\project\myproject\wangolf2015_new_studio\wangolf\src\me\wangolf\service\impl\PracServiceImpl.java' is out of date
+Transaction is out of date
+svn: While preparing 'C:\Users\Administrator\Desktop\project\myproject\wangolf2015_new_studio\wangolf\src\me\wangolf\service\impl\PracServiceImpl.java' for commit
+svn: 目录 “/andriod/201508/wangolf2015_new_studio/wangolf/bin/dexedLibs” 已经过时
+
+	at org.apache.subversion.javahl.SVNClient.commit(Native Method)
+	at org.tigris.subversion.svnclientadapter.javahl.AbstractJhlClientAdapter.commit(AbstractJhlClientAdapter.java:340)
+	... 12 more

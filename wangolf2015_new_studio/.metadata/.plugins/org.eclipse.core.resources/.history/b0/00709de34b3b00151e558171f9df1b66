@@ -1,0 +1,30 @@
+package me.wangolf.test;
+
+import me.wangolf.service.IOAuthCallBack;
+import me.wangolf.utils.Xutils;
+
+public class Test 
+{
+
+	static String url = "http://192.168.1.222/golf/webRange/list?city_id=77&latitude=22.561133&longitude=114.15759&terminal=1&%20user_id=&%20range_name=";
+	
+	public static void main(String[] args)
+	{
+		
+		Xutils.getDataFromServer(url, new IOAuthCallBack() 
+		{
+			
+			@Override
+			public void getIOAuthCallBack(String result) 
+			{
+				
+				System.out.println(result);
+				
+			}
+	
+		});
+		
+		
+	}
+	
+}

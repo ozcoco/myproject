@@ -1,0 +1,7 @@
+package me.wangolf.test;
+
+import java.io.Serializable;
+
+public class Practice implements Serializable, Cloneable {
+
+}

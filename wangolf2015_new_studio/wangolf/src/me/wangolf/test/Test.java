@@ -1,0 +1,50 @@
+package me.wangolf.test;
+
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+public class Test {
+
+   static String url = "http://192.168.1.222/golf/webRange/list?city_id=77&latitude=22.561133&longitude=114.15759&terminal=1&%20user_id=&%20range_name=";
+	
+	public static void main(String[] args)
+	{
+	
+		InputStream is = null;
+		
+		try 
+		{
+			URL curl = new URL(url);
+			
+			is = curl.openConnection().getInputStream();			
+			
+			String data = "";
+			
+			int byteData = 0;
+			
+			while((byteData = is.read()) != -1)
+			{
+				
+				data += (char)byteData;
+				
+			}
+			
+			System.out.println(data);
+			
+		} 
+		catch (MalformedURLException e) 
+		{			
+			e.printStackTrace();			
+		} 
+		catch (IOException e) 
+		{			
+			e.printStackTrace();
+		}
+		
+		
+	}
+
+}
