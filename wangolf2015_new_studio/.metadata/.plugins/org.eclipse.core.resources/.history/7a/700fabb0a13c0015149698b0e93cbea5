@@ -1,0 +1,205 @@
+package me.wangolf.ballprac;
+
+import java.util.ArrayList;
+
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
+
+import android.app.Dialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.meigao.mgolf.R;
+
+import me.wangolf.ConstantValues;
+import me.wangolf.base.BaseActivity;
+import me.wangolf.bean.ball.BallTagDetailEntity;
+import me.wangolf.factory.ServiceFactory;
+import me.wangolf.service.IOAuthCallBack;
+import me.wangolf.shop.ShopImgActivit;
+import me.wangolf.utils.CheckUtils;
+import me.wangolf.utils.DialogUtil;
+import me.wangolf.utils.GsonTools;
+import me.wangolf.utils.TelUtils;
+import me.wangolf.utils.Xutils;
+
+public class BallTagDetailActivity extends BaseActivity implements OnClickListener 
+{
+	@ViewInject(R.id.common_back)
+	private Button common_back; // 后退
+	@ViewInject(R.id.common_title)
+	private TextView common_title;// 标题
+	@ViewInject(R.id.common_bt)
+	private TextView common_bt;// 分享
+	@ViewInject(R.id.tv_mode)
+	private TextView tv_mode; // 球场模式
+	@ViewInject(R.id.tv_date)
+	private TextView tv_date; // 建立日期
+	@ViewInject(R.id.tv_aera)
+	private TextView tv_aera;// 面积
+	@ViewInject(R.id.tv_fairwaylen)
+	private TextView tv_fairwaylen; // 长度
+	@ViewInject(R.id.tv_desinger)
+	private TextView tv_desinger;// 设计者
+	@ViewInject(R.id.tv_grasstype)
+	private TextView tv_grasstype;// 草种
+	@ViewInject(R.id.tv_holetype)
+	private TextView tv_holetype;// 球洞分类
+	@ViewInject(R.id.tv_fwgtype)
+	private TextView tv_fwgtype;// 球道分类
+	@ViewInject(R.id.tv_bkdata)
+	private TextView tv_bkdata;// 球场数据
+	@ViewInject(R.id.tv_related)
+	private TextView tv_related;// 相关配置
+	@ViewInject(R.id.tv_phone)
+	private TextView tv_phone;// 球场电话
+	@ViewInject(R.id.img_1)
+	private ImageView img_1; // 图片
+	@ViewInject(R.id.img_2)
+	private ImageView img_2; // 图片
+	@ViewInject(R.id.img_3)
+	private ImageView img_3; // 图片
+	@ViewInject(R.id.tv_summy)
+	private TextView tv_summy;// 球场简介
+	@ViewInject(R.id.ontel)
+	private RelativeLayout ontel;// 打电话
+
+	@ViewInject(R.id.layoput_img)
+	private LinearLayout layoput_img;// 图片
+	private String ballid; //
+	private String[] urls;
+	private ArrayList<String> urlList = new ArrayList<String>();
+	private String phone;
+	private Dialog dialog;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) 
+	{
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.ac_balltag_detail);
+		ViewUtils.inject(this);
+		initData();
+	}
+
+	@Override
+	public void initData() {
+		dialog = DialogUtil.getDialog(this);
+		dialog.show();
+		common_back.setVisibility(0);
+		common_bt.setVisibility(0);
+		common_title.setText(ConstantValues.BALLLIST_INFO);
+		common_back.setOnClickListener(this);
+		ballid = getIntent().getStringExtra("ballid");
+		layoput_img.setOnClickListener(this);
+		ontel.setOnClickListener(this);
+		getData();
+
+	}
+
+	@Override
+	public void getData() {
+		try {
+			ServiceFactory.getBallEngineInstatice().getBallDetail(ballid, new IOAuthCallBack() 
+			{
+
+				@Override
+				public void getIOAuthCallBack(String result)
+				{
+					if (result.equals(ConstantValues.FAILURE)) 
+					{
+						Toast.makeText(getApplicationContext(), ConstantValues.NONETWORK, 0).show();
+					} 
+					else 
+					{
+						BallTagDetailEntity bean = GsonTools.changeGsonToBean(result, BallTagDetailEntity.class);
+						if (bean != null) {
+							BallTagDetailEntity data = bean.getData().get(0);
+							tv_mode.setText(data.getModel());
+							tv_date.setText(data.getCreatetime());
+							tv_aera.setText(data.getArea() + "");
+							tv_fairwaylen.setText(data.getFairwaylen() + "码");
+							tv_desinger.setText(data.getDesinger());
+							tv_grasstype.setText(data.getGrasstype());
+							tv_holetype.setText(data.getHoletype());
+							tv_fwgtype.setText(data.getFwgtype());
+							tv_bkdata.setText(data.getBkdata());
+							tv_related.setText(data.getRelated());
+							tv_phone.setText(data.getPhone());
+							tv_summy.setText(data.getSummy());
+							phone = data.getPhone();
+							urls = data.getBallimg().split(",");
+							for (String url : urls) {
+								if (!CheckUtils.checkEmpty(url)) {
+									url = urls[0].substring(0, urls[0].lastIndexOf(".")) + "_640_395" + urls[0].substring(urls[0].lastIndexOf("."));
+								}
+								urlList.add(url);
+							}
+							if (urls.length > 0) {
+								String path = urls[0];
+								if (!CheckUtils.checkEmpty(urls[0])) {
+									path = urls[0].substring(0, urls[0].lastIndexOf(".")) + "_180_180" + urls[0].substring(urls[0].lastIndexOf("."));
+								}
+								Xutils.getBitmap(getApplicationContext(), img_1, path);
+								if (urls.length > 1) {
+									String path1 = urls[1];
+									if (!CheckUtils.checkEmpty(urls[1])) {
+										path1 = urls[1].substring(0, urls[1].lastIndexOf(".")) + "_180_180"
+												+ urls[1].substring(urls[1].lastIndexOf("."));
+									}
+									Xutils.getBitmap(getApplicationContext(), img_2, path1);
+								}
+								if (urls.length > 2) {
+
+									String path2 = urls[2];
+									if (!CheckUtils.checkEmpty(urls[2])) {
+										path2 = urls[1].substring(0, urls[2].lastIndexOf(".")) + "_180_180"
+												+ urls[2].substring(urls[2].lastIndexOf("."));
+									}
+									Xutils.getBitmap(getApplicationContext(), img_3, path2);
+
+								}
+							}
+						}
+						dialog.cancel();
+					}
+				}
+			});
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.layoput_img:
+			if (urlList != null & urlList.size() > 0) {
+				Intent intent = new Intent(this, ShopImgActivit.class);
+				intent.putStringArrayListExtra("url", urlList);
+				startActivity(intent);
+			}
+			break;
+		case R.id.ontel:
+			if (!CheckUtils.checkEmpty(phone)) {
+				TelUtils.tel(this, phone);
+			}
+			break;
+		case R.id.common_back:
+			finish();
+			break;
+		default:
+			break;
+		}
+
+	}
+}

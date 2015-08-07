@@ -1,0 +1,176 @@
+package me.wangolf.bean.ball;
+
+import java.io.Serializable;
+import java.util.List;
+
+public class BallTagDetailEntity implements Serializable{
+	private static final long serialVersionUID = 1L;
+    /**
+     * status : 1
+     * data : [{"fairway_length":"10,710码","img_list":"http://192.168.1.222/public/court/pic_20140815181525.jpg,http://192.168.1.222/public/court/pic_20140815181529.jpg,http://192.168.1.222/public/court/pic_20140815181543.jpg","qdgrass":"百慕达","supporting":"顶级的高尔夫会所， 内设中西餐厅， 更衣室， 咖啡吧等","court_model":"山地球场","designers":"NEIL HAWORTH","glgrass":"本特草","create_time":"2007-10-01","court_area":"3990","holetype":"","summy":"湖州温泉高尔夫俱乐部由奥地利华侨金剑平先生投资建设，球场将山、林、泉等自然生态资源有机融合，是华东地区一流的挑战型高尔夫球场。球场于2007年10月已开9洞，在2009年初开后9洞，球场规划是27洞。是世界著名设计师NEIL HAWORTH的又一颠峰之作。球场四面环山，依山傍水，高低落差90米。长三角地区唯一纯天然温泉高尔夫俱乐部，温泉水温高达42.8℃，可以缓解疲劳，治疗各种疾病。长三角地区唯一山水结合的旅游度假式球场。唯一纯天然生态式森林球场。","court_data":"27洞108杆","mobile":"05722287888"}]
+     * info : 成功
+     */
+    private int status;
+    private List<DataEntity> data;
+    private String info;
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public void setData(List<DataEntity> data) {
+        this.data = data;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public List<DataEntity> getData() {
+        return data;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public static class DataEntity {
+        /**
+         * fairway_length : 10,710码
+         * img_list : http://192.168.1.222/public/court/pic_20140815181525.jpg,http://192.168.1.222/public/court/pic_20140815181529.jpg,http://192.168.1.222/public/court/pic_20140815181543.jpg
+         * qdgrass : 百慕达
+         * supporting : 顶级的高尔夫会所， 内设中西餐厅， 更衣室， 咖啡吧等
+         * court_model : 山地球场
+         * designers : NEIL HAWORTH
+         * glgrass : 本特草
+         * create_time : 2007-10-01
+         * court_area : 3990
+         * holetype :
+         * summy : 湖州温泉高尔夫俱乐部由奥地利华侨金剑平先生投资建设，球场将山、林、泉等自然生态资源有机融合，是华东地区一流的挑战型高尔夫球场。球场于2007年10月已开9洞，在2009年初开后9洞，球场规划是27洞。是世界著名设计师NEIL HAWORTH的又一颠峰之作。球场四面环山，依山傍水，高低落差90米。长三角地区唯一纯天然温泉高尔夫俱乐部，温泉水温高达42.8℃，可以缓解疲劳，治疗各种疾病。长三角地区唯一山水结合的旅游度假式球场。唯一纯天然生态式森林球场。
+         * court_data : 27洞108杆
+         * mobile : 05722287888
+         */
+        private String fairway_length;
+        private String img_list;
+        private String qdgrass;
+        private String supporting;
+        private String court_model;
+        private String designers;
+        private String glgrass;
+        private String create_time;
+        private String court_area;
+        private String holetype;
+        private String summy;
+        private String court_data;
+        private String mobile;
+
+        public void setFairway_length(String fairway_length) {
+            this.fairway_length = fairway_length;
+        }
+
+        public void setImg_list(String img_list) {
+            this.img_list = img_list;
+        }
+
+        public void setQdgrass(String qdgrass) {
+            this.qdgrass = qdgrass;
+        }
+
+        public void setSupporting(String supporting) {
+            this.supporting = supporting;
+        }
+
+        public void setCourt_model(String court_model) {
+            this.court_model = court_model;
+        }
+
+        public void setDesigners(String designers) {
+            this.designers = designers;
+        }
+
+        public void setGlgrass(String glgrass) {
+            this.glgrass = glgrass;
+        }
+
+        public void setCreate_time(String create_time) {
+            this.create_time = create_time;
+        }
+
+        public void setCourt_area(String court_area) {
+            this.court_area = court_area;
+        }
+
+        public void setHoletype(String holetype) {
+            this.holetype = holetype;
+        }
+
+        public void setSummy(String summy) {
+            this.summy = summy;
+        }
+
+        public void setCourt_data(String court_data) {
+            this.court_data = court_data;
+        }
+
+        public void setMobile(String mobile) {
+            this.mobile = mobile;
+        }
+
+        public String getFairway_length() {
+            return fairway_length;
+        }
+
+        public String getImg_list() {
+            return img_list;
+        }
+
+        public String getQdgrass() {
+            return qdgrass;
+        }
+
+        public String getSupporting() {
+            return supporting;
+        }
+
+        public String getCourt_model() {
+            return court_model;
+        }
+
+        public String getDesigners() {
+            return designers;
+        }
+
+        public String getGlgrass() {
+            return glgrass;
+        }
+
+        public String getCreate_time() {
+            return create_time;
+        }
+
+        public String getCourt_area() {
+            return court_area;
+        }
+
+        public String getHoletype() {
+            return holetype;
+        }
+
+        public String getSummy() {
+            return summy;
+        }
+
+        public String getCourt_data() {
+            return court_data;
+        }
+
+        public String getMobile() {
+            return mobile;
+        }
+    }
+
+}

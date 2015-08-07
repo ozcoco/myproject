@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/layout_title_bar" />
+
+    <LinearLayout
+        android:id="@+id/ll_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title_bar"
+        android:background="@drawable/news_tab_bg"
+        android:orientation="horizontal" >
+
+        <me.wangolf.view.pagerindicator.TabPageIndicator
+            android:id="@+id/indicator"
+            style="@style/Theme.PageIndicatorDefaults"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingBottom="2dp" />
+
+        <ImageView
+            android:id="@+id/iv_newtag"
+            android:layout_width="30dp"
+            android:layout_height="45dp"
+            android:scaleType="center"
+            android:src="@drawable/news_cate_arr"
+            android:visibility="gone" />
+
+        <me.wangolf.text.view.ExpandTabView
+            android:id="@+id/iv_edit_cate"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:scaleType="center" />
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ll_indicator"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:id="@+id/common_sort"
+        android:layout_width="85dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/title_bar"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="1dp"
+        android:orientation="vertical"
+        android:padding="1dp"
+        android:visibility="gone" >
+
+        <ImageView
+            android:layout_gravity="right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="0dp"
+            android:src="@drawable/shallmallx" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/tx_sort_selector"
+            android:clickable="false"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="1dp" >
+
+            <TextView
+                android:id="@+id/price_low"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="@dimen/s_font" />
+
+            <TextView
+                android:id="@+id/price_high"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="@dimen/s_font" />
+
+            <TextView
+                android:id="@+id/discount_low"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="@dimen/s_font" />
+
+            <TextView
+                android:id="@+id/sales_high"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="@dimen/s_font" />
+
+            <TextView
+                android:id="@+id/product_up"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="@dimen/s_font" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
