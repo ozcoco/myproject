@@ -25,6 +25,54 @@ import me.wangolf.bean.usercenter.UserInfoEntity;
 
 public interface IUserService extends BaseService {
 
+	
+	/**
+	 * 
+	 * @author oz
+	 * 
+	 * 最新修的删除地址的接口
+	 * 
+	 * @param address_id
+	 *            地址ID
+	 *            
+	 * @param user_id
+	 *            用户ID          
+	 * @param iOAuthCallBack
+	 * @throws Exception
+	 */
+	public void deleteAddrdata(String user_id, String address_id, IOAuthCallBack iOAuthCallBack) throws Exception;
+
+	
+	/**
+	 * 
+	 * @author oz
+	 * 
+	 * 最新修改的修改用户密码接口
+	 * @param mobile 手机号码
+	 * @param type 验证类型
+	 * @throws Exception
+	 * 
+	 */
+	
+	public void getResetPwdCode(String mobile, String type, IOAuthCallBack iOAuthCallBack)throws Exception;
+	
+	
+	/**
+	 * 
+	 * @author oz
+	 * 
+	 * 最新修改用户信息接口 
+	 * @param user_id
+	 * @param my_intro
+	 * @param gender
+	 * @param nick_name
+	 * @param iOAuthCallBack
+	 * @throws Exception
+	 * 
+	 */
+	public void updateUserInfo(String user_id,String nick_name, String my_intro, int gender, IOAuthCallBack iOAuthCallBack) throws Exception;
+	
+	
 	/**
 	 * 1、用户登录验证
 	 * 
@@ -59,7 +107,7 @@ public interface IUserService extends BaseService {
 	 * @param userinfo
 	 * @param iOAuthCallBack
 	 */
-	public void upUserInfo(UserInfoEntity userinfo, IOAuthCallBack iOAuthCallBack) throws Exception;
+	public void upUserInfo(UserInfoEntity.DataEntity userinfo, IOAuthCallBack iOAuthCallBack) throws Exception;
 
 	/**
 	 * 5、更新用户头像
@@ -123,6 +171,7 @@ public interface IUserService extends BaseService {
 	 */
 	public void UpBindMobile(String uid, String mobile, IOAuthCallBack iOAuthCallBack) throws Exception;
 
+	
 	/**
 	 * 10、修改绑定的用户名
 	 * 

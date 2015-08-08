@@ -1,10 +1,7 @@
 package me.wangolf.test;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class Test {
 
@@ -13,38 +10,60 @@ public class Test {
 	public static void main(String[] args)
 	{
 	
-		InputStream is = null;
 		
-		try 
-		{
-			URL curl = new URL(url);
-			
-			is = curl.openConnection().getInputStream();			
-			
-			String data = "";
-			
-			int byteData = 0;
-			
-			while((byteData = is.read()) != -1)
-			{
-				
-				data += (char)byteData;
-				
-			}
-			
-			System.out.println(data);
-			
-		} 
-		catch (MalformedURLException e) 
-		{			
-			e.printStackTrace();			
-		} 
-		catch (IOException e) 
-		{			
-			e.printStackTrace();
-		}
+		
+		System.out.println(encryption("654321"));
 		
 		
 	}
 
+	
+    /**
+    *
+    * @param plainText
+    *            明文
+    * @return 32位密文
+    */
+   public static String encryption(String plainText)
+   {
+       String re_md5 = new String();
+       
+       try 
+       {
+           MessageDigest md = MessageDigest.getInstance("MD5");
+           
+           md.update(plainText.getBytes());
+           
+           byte b[] = md.digest();
+
+           int i;
+
+           StringBuffer buf = new StringBuffer("");
+           
+           for (int offset = 0; offset < b.length; offset++) 
+           {
+               i = b[offset];
+               
+               if (i < 0)
+                   i += 256;
+               
+               if (i < 16)
+                   buf.append("0");
+               
+               buf.append(Integer.toHexString(i));
+           }
+
+           re_md5 = buf.toString();
+
+       } 
+       catch (NoSuchAlgorithmException e) 
+       {
+           e.printStackTrace();
+       }
+       
+       return re_md5;
+   }
+
+	
+	
 }

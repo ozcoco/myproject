@@ -27,7 +27,8 @@ import me.wangolf.utils.DialogUtil;
 import me.wangolf.utils.GsonTools;
 import me.wangolf.utils.ToastUtils;
 
-public class UpDataMyInfoActivity extends BaseActivity implements OnClickListener {
+public class UpDataMyInfoActivity extends BaseActivity implements OnClickListener 
+{
 	@ViewInject(R.id.common_back)
 	private Button common_back; // 后退
 	@ViewInject(R.id.common_title)
@@ -45,8 +46,10 @@ public class UpDataMyInfoActivity extends BaseActivity implements OnClickListene
 	private String nickname;// 呢程
 	private String sex = "1";
 	private Dialog dialog;
+	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) 
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ac_update_myinfo);
 		ViewUtils.inject(this);
@@ -54,7 +57,8 @@ public class UpDataMyInfoActivity extends BaseActivity implements OnClickListene
 	}
 
 	@Override
-	public void initData() {
+	public void initData()
+	{
 		dialog = DialogUtil.getDialog(this);
 		common_back.setVisibility(0);
 		common_title.setText("修改资料");
@@ -100,31 +104,50 @@ public class UpDataMyInfoActivity extends BaseActivity implements OnClickListene
 		}
 	}
 
-	public void upUserInfo() {
+	
+	public void upUserInfo()
+	{
 		nickname = ednickname.getText().toString().trim();
-		if (CheckUtils.checkEmpty(nickname)) {
+		
+		if (CheckUtils.checkEmpty(nickname)) 
+		{
 			ToastUtils.showInfo(UpDataMyInfoActivity.this, "请输入姓名");
+			
 			return;
 		}
 
-		UserInfoEntity bean = new UserInfoEntity();
-		bean.setUid(Integer.parseInt(ConstantValues.UID));
-		bean.setNickname(nickname);
-		bean.setSex(sex);
+		UserInfoEntity.DataEntity bean = new UserInfoEntity.DataEntity();
+		
+		bean.setUser_id(ConstantValues.UID);
+		
+		bean.setNick_name(nickname);
+		
+		bean.setGender(sex);
+		
 		dialog.show();
-		try {
-			ServiceFactory.getIUserEngineInstatice().upUserInfo(bean, new IOAuthCallBack() {
+		
+		try 
+		{
+			ServiceFactory.getIUserEngineInstatice().upUserInfo(bean, new IOAuthCallBack() 
+			{
 
 				@Override
-				public void getIOAuthCallBack(String result) {
-					if (result.equals(ConstantValues.FAILURE)) {
+				public void getIOAuthCallBack(String result) 
+				{
+					if (result.equals(ConstantValues.FAILURE)) 
+					{
 						Toast.makeText(getApplicationContext(), ConstantValues.NONETWORK, 0).show();
-					} else {
+					} 
+					else 
+					{
 						InfoEntity bean = GsonTools.changeGsonToBean(result, InfoEntity.class);
-						if ("1".equals(bean.getStatus())) {
+						if ("1".equals(bean.getStatus())) 
+						{
 							ToastUtils.showInfo(UpDataMyInfoActivity.this, bean.getInfo());
 							finish();
-						} else {
+						} 
+						else 
+						{
 							ToastUtils.showInfo(UpDataMyInfoActivity.this, bean.getInfo());
 						}
 					}

@@ -148,7 +148,7 @@
             </LinearLayout>
 
             <RelativeLayout
-                android:id="@+id/RelativeLayout1"
+                android:id="@+id/RelativeLayout0"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/layout_height_50"
                 android:layout_marginTop="-3dp"
@@ -276,7 +276,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/RelativeLayout1"
+                android:id="@+id/RelativeLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginTop="8dp"

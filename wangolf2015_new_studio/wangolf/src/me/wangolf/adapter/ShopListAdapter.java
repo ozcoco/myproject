@@ -1,12 +1,13 @@
 package me.wangolf.adapter;
 
-import java.util.LinkedList;
+
 import java.util.List;
 
 import com.lidroid.xutils.BitmapUtils;
 
 import com.meigao.mgolf.R;
-import me.wangolf.bean.shop.Pro;
+
+import me.wangolf.bean.shop.Basebean;
 import me.wangolf.utils.CheckUtils;
 import me.wangolf.utils.Xutils;
 import android.content.Context;
@@ -24,92 +25,130 @@ import android.widget.TextView;
  * @author Administrator
  * 
  */
-public class ShopListAdapter extends BaseAdapter {
+public class ShopListAdapter extends BaseAdapter
+{
 
 	private LayoutInflater inflater;
+	
 	private Context context;
+	
 	private boolean isFling;
-	private List<Pro> list = null;;
+	
+	private List<Basebean.DataEntity> list = null;;
 
-	public boolean isFling() {
+	public boolean isFling()
+{
 		return isFling;
 	}
 
-	public void setFling(boolean isFling) {
+	public void setFling(boolean isFling) 
+	{
 		this.isFling = isFling;
 	}
 
-	public List<Pro> getList() {
+	public List<Basebean.DataEntity> getList()
+	{
 		return list;
 	}
 
-	public void setList(List<Pro> list) {
+	public void setList(List<Basebean.DataEntity> list)
+	{
 		this.list = list;
 	}
 
-	public ShopListAdapter(Context context) {
+	public ShopListAdapter(Context context)
+	{
 		this.inflater = LayoutInflater.from(context);
+		
 		this.context = context;
+		
 		this.isFling = false;
 
 	}
 
 	@Override
-	public int getCount() {
+	public int getCount() 
+	{
 		int size = 0;
-		if (list != null) {
+		
+		if (list != null)
+		{
 			size = list.size();
 		}
+		
 		return size;
 	}
 
 	@Override
-	public Pro getItem(int arg0) {
+	public Basebean.DataEntity getItem(int arg0) 
+	{
 		return list.get(arg0);
 	}
 
 	@Override
-	public long getItemId(int arg0) {
-		return getItem(arg0).getProid();
+	public long getItemId(int arg0) 
+	{
+		return Long.valueOf(getItem(arg0).getId());
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(int position, View convertView, ViewGroup parent) 
+	{
 
 		// 加载或复用item界面
 		ViewHolder holder = null;
 		if (convertView == null) {
 			// 无可复用item界面，加载新界面
 			convertView = inflater.inflate(R.layout.item_pro, null);
+			
 			holder = new ViewHolder();
+			
 			holder.ivAlbum = (ImageView) convertView.findViewById(R.id.item_proimg);
+			
 			holder.tvproname = (TextView) convertView.findViewById(R.id.item_proname);
+			
 			holder.tvprooprice = (TextView) convertView.findViewById(R.id.item_prooprice);
+			
 			holder.tvprooprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); // 中划线
+			
 			holder.tvpronprice = (TextView) convertView.findViewById(R.id.item_pronprice);
+			
 			holder.tvprodis = (TextView) convertView.findViewById(R.id.item_prodis);
+			
 			holder.tvprocount = (TextView) convertView.findViewById(R.id.item_procount);
 
 			convertView.setTag(holder);
-		} else {
+			
+		} 
+		else
+		{
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		if (isFling == false) {
+		if (isFling == false) 
+		{
 			// 获取指定位置的数据
-			Pro bean = (Pro) getItem(position);
+			Basebean.DataEntity bean = (Basebean.DataEntity) getItem(position);
 			// 绑定数据到item界面
-			holder.tvproname.setText(bean.getProname());
-			holder.tvprooprice.setText("￥" + bean.getProoprice());
-			holder.tvpronprice.setText("￥" + bean.getPronprice());
-			holder.tvprodis.setText(bean.getProdis() + "折");
-			holder.tvprocount.setText(bean.getProcount());
+			holder.tvproname.setText(bean.getSub_name());
+			
+			holder.tvprooprice.setText("￥" + bean.getOrigin_price());
+			
+			holder.tvpronprice.setText("￥" + bean.getCurrent_price());
+			
+			holder.tvprodis.setText(bean.getDiscount() + "折");
+			
+			holder.tvprocount.setText(bean.getBuy_count());
 
-			String path = bean.getProimg();
-			if (!CheckUtils.checkEmpty(path)) {
+			String path = bean.getIcon();
+			
+			if (!CheckUtils.checkEmpty(path)) 
+			{
 				String[] s = path.split(",");
+				
 				path = s[0].substring(0, s[0].lastIndexOf(".")) + "_230" + s[0].substring(s[0].lastIndexOf("."));
 			}
+			
 			Xutils.getBitmap(context, holder.ivAlbum, path);
 
 			// 截取前19个字
@@ -130,7 +169,8 @@ public class ShopListAdapter extends BaseAdapter {
 		return convertView;
 	}
 
-	class ViewHolder {
+	class ViewHolder
+	{
 		private ImageView ivAlbum;
 		private TextView tvproname;
 		private TextView tvprooprice;
@@ -139,12 +179,15 @@ public class ShopListAdapter extends BaseAdapter {
 		private TextView tvprocount;
 	}
 
-	public void notifyDataSetChanged(LinkedList<Pro> proList) {
+	public void notifyDataSetChanged(List<Basebean.DataEntity> proList) 
+	{
 		this.list = proList;
+		
 		notifyDataSetChanged();
 	}
 
-	public void getBitmap(ImageView image, String url) {
+	public void getBitmap(ImageView image, String url)
+	{
 
 		BitmapUtils bitmapUtils = new BitmapUtils(context);
 		// 加载网络图片

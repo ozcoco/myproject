@@ -89,51 +89,80 @@ public class UserInfoNewActivity extends BaseActivity implements OnClickListener
     private Dialog dialog;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) 
+    {
         super.onCreate(savedInstanceState);
+        
         setContentView(R.layout.ac_user_info);
+        
         ViewUtils.inject(this);
-        if (adapter == null) {
+        
+        if (adapter == null) 
+        {
             adapter = new UserImagesAdapter(this);
         }
+        
         adapter.notifyDataSetChanged();
+        
         mGv.setAdapter(adapter);
+        
         mGv.setNumColumns(adapter.getCount());
+        
         initData();
     }
 
     // 初始化喽
     @Override
-    public void initData() {
+    public void initData() 
+    {
         dialog = DialogUtil.getDialog(this);
+        
         mTitle.setText("个人中心");
+        
         mBt.setText("编辑");
+        
         mBack.setVisibility(View.VISIBLE);
+        
         mBt.setVisibility(View.VISIBLE);
+        
         mBack.setOnClickListener(this);
+        
         mBt.setOnClickListener(this);
+        
         mMyposts.setOnClickListener(this);
+        
         mMyreply.setOnClickListener(this);
+        
         mMyfriends.setOnClickListener(this);
+        
         mMyfans.setOnClickListener(this);
+        
         mUpImage.setOnClickListener(this);
+        
         mPhoto.setOnClickListener(this);
+        
         mGv.setOnItemClickListener(this);
+        
         user_id = ConstantValues.UID;
+        
         getData();
         // getUserImages();
     }
 
     // 获取用户数据
     @Override
-    public void getData() {
-        try {
+    public void getData() 
+    {
+        try 
+        {
             ServiceFactory.getCommunityEngineInstatice().getUserInfo(user_id, Integer.parseInt(user_id), page, number, new IOAuthCallBack() {
 
                 @Override
-                public void getIOAuthCallBack(String result) {
+                public void getIOAuthCallBack(String result) 
+                {
    //Log.i("wangolf",result);
-                    if (result.equals(ConstantValues.FAILURE)) {
+                    if (result.equals(ConstantValues.FAILURE)) 
+                    {
                         ToastUtils.showInfo(UserInfoNewActivity.this, ConstantValues.NONETWORK);
                     } else {
                         UserInfoNewEntity bean = GsonTools.changeGsonToBean(result, UserInfoNewEntity.class);
@@ -285,7 +314,8 @@ public class UserInfoNewActivity extends BaseActivity implements OnClickListener
 
     // Grideview item点击事件
     @Override
-    public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+    public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) 
+    {
 
         Intent images = new Intent(UserInfoNewActivity.this, UserImagesClearActivity.class);
         UserInfoNewEntity bean = (UserInfoNewEntity) adapter.getItem(arg2);
@@ -295,13 +325,18 @@ public class UserInfoNewActivity extends BaseActivity implements OnClickListener
     }
 
     // 上传
-    public void selectPhotoImage() {
-        switch (mflag) {
+    public void selectPhotoImage()
+    {
+        switch (mflag) 
+        {
             case 0:
                 // 上传相册
                 dialog.show();
+                
                 loadPostsImg(tDataList, tDataList.size());
+                
                 break;
+                
             case 1:
                 // 上传头像
                 dialog.show();
@@ -315,23 +350,35 @@ public class UserInfoNewActivity extends BaseActivity implements OnClickListener
 
     // 点击事件的监听
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
+    public void onClick(View v) 
+    {
+        switch (v.getId())
+        {
             case R.id.common_back:
+            	
                 finish();
+                
                 break;
+                
             case R.id.myreply:
                 // 我的回复
                 Intent myreply = new Intent(this, UserMyReplyActivity.class);
+                
                 startActivity(myreply);
+                
                 break;
+                
             case R.id.common_bt:
                 // 编辑
-                if (data != null) {
+                if (data != null) 
+                {
                     Intent editinfo = new Intent(this, UserInfoEditInfoActivity.class);
+                    
                     editinfo.putExtra("bean", data);
+                    
                     startActivityForResult(editinfo, 10);
                 }
+                
                 break;
 
             case R.id.myposts:

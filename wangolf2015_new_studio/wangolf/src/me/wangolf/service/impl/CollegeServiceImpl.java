@@ -6,9 +6,12 @@ import me.wangolf.service.ICollegeService;
 import me.wangolf.service.IOAuthCallBack;
 import me.wangolf.utils.Xutils;
 
-public class CollegeServiceImpl implements ICollegeService {
+public class CollegeServiceImpl implements ICollegeService 
+{
 	public RequestParams params = null;
 
+	static String BaseUrl = "http://192.168.1.222/golf/";
+	
 	@Override
 	public void getKnowledge(String type, String size, String lastid, IOAuthCallBack iOAuthCallBack) throws Exception {
 		params = new RequestParams();
@@ -22,13 +25,27 @@ public class CollegeServiceImpl implements ICollegeService {
 		Xutils.getDataFromServer(params, iOAuthCallBack);
 	}
 
+	
+	/**
+	 * 
+	 * getInfoDetail
+	 * 
+	 * 最新修改的获取新闻详情(包括高球课堂跟高球常识)数据的方法
+	 * 
+	 * **/
 	@Override
 	public void getInfoDetail(String knowid, IOAuthCallBack iOAuthCallBack) throws Exception {
-		params = new RequestParams();
-		params.addBodyParameter("m", "Information");
-		params.addBodyParameter("a", "infoDetail");
-		params.addBodyParameter("knowid", knowid);
-		Xutils.getDataFromServer(params, iOAuthCallBack);
+//		params = new RequestParams();
+//		params.addBodyParameter("m", "Information");
+//		params.addBodyParameter("a", "infoDetail");
+//		params.addBodyParameter("knowid", knowid);
+//		Xutils.getDataFromServer(params, iOAuthCallBack);
+		
+		String api = BaseUrl + "webInformation/detail?"
+				+ "&information_id="+knowid;
+		
+		Xutils.getDataFromServer(api, iOAuthCallBack);
+		
 	}
 
 	@Override
@@ -98,25 +115,51 @@ public class CollegeServiceImpl implements ICollegeService {
 
 	}
 
+	/**
+	 * 
+	 * getNewsTags
+	 * 
+	 * 最新修改的获取高球教学数据的方法
+	 * 
+	 * **/
 	@Override
-	public void getNewsTags(IOAuthCallBack iOAuthCallBack) {
-		params = new RequestParams();
-		params.addBodyParameter("m", "Information");
-		params.addBodyParameter("a", "newsTags");
-		Xutils.getDataFromServer(params, iOAuthCallBack);
+	public void getNewsTags(IOAuthCallBack iOAuthCallBack) 
+	{
+//		params = new RequestParams();
+//		params.addBodyParameter("m", "Information");
+//		params.addBodyParameter("a", "newsTags");
+//		Xutils.getDataFromServer(params, iOAuthCallBack);
+
+		String api = BaseUrl + "webInformation/newsTags?";
+		
+		Xutils.getDataFromServer(api, iOAuthCallBack);
 
 	}
 
+	/**
+	 * 
+	 * getNewsList
+	 * 
+	 * 最新修改的获取新闻列表(包括高球课堂跟高球常识)数据的方法
+	 * 
+	 * **/
 	@Override
 	public void getNewsList(String tags_id, int page, int number, IOAuthCallBack iOAuthCallBack) throws Exception {
-		params = new RequestParams();
-		params.addBodyParameter("m", "Information");
-		params.addBodyParameter("a", "newsList");
-		params.addBodyParameter("tags_id", tags_id);
-		params.addBodyParameter("page", page + "");
-		params.addBodyParameter("number", number + "");
-		Xutils.getDataFromServer(params, iOAuthCallBack);
+//		params = new RequestParams();
+//		params.addBodyParameter("m", "Information");
+//		params.addBodyParameter("a", "newsList");
+//		params.addBodyParameter("tags_id", tags_id);
+//		params.addBodyParameter("page", page + "");
+//		params.addBodyParameter("number", number + "");
+//		Xutils.getDataFromServer(params, iOAuthCallBack);
 
+		String api = BaseUrl + "webInformation/list?"
+				+ "&tags_id="+tags_id
+				+ "&page="+page
+				+ "&number="+number;
+		
+		Xutils.getDataFromServer(api, iOAuthCallBack);
+		
 	}
 
 }

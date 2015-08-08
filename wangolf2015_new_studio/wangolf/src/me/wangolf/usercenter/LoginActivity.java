@@ -3,6 +3,7 @@ package me.wangolf.usercenter;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.cache.MD5FileNameGenerator;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.meigao.mgolf.R;
 import com.meigao.mgolf.wxapi.Constants;
@@ -29,6 +30,7 @@ import me.wangolf.service.IOAuthCallBack;
 import me.wangolf.utils.CheckUtils;
 import me.wangolf.utils.DialogUtil;
 import me.wangolf.utils.GsonTools;
+import me.wangolf.utils.MD5Utils;
 import me.wangolf.utils.SharedPreferencesUtils;
 import me.wangolf.utils.ShowPickUtils;
 import me.wangolf.utils.ToastUtils;
@@ -51,12 +53,18 @@ import android.widget.Toast;
 
 import java.util.HashMap;
 
-public class LoginActivity extends Activity implements OnClickListener,PlatformActionListener {
+public class LoginActivity extends Activity implements OnClickListener,PlatformActionListener 
+{
     private FragmentManager manager;
+    
     private android.app.FragmentTransaction transaction;
+    
     private static final int MSG_SMSSDK_CALLBACK = 1;
+    
     private static final int MSG_AUTH_CANCEL = 2;
+    
     private static final int MSG_AUTH_ERROR= 3;
+    
     private static final int MSG_AUTH_COMPLETE = 4;
     @ViewInject(R.id.common_title)
     private TextView common_title;
@@ -80,31 +88,48 @@ public class LoginActivity extends Activity implements OnClickListener,PlatformA
     private Dialog dialog;
     private IWXAPI api;
     private  Platform bean;
-    private Handler handler = new Handler() {
+    
+    private Handler handler = new Handler() 
+    {
 
         @Override
-        public void handleMessage(Message msg) {
+        public void handleMessage(Message msg) 
+        {
             //Log.i("wangolf","*******************"+msg.what);
-            switch(msg.what) {
-                case MSG_AUTH_CANCEL: {
+            switch(msg.what) 
+            {
+                case MSG_AUTH_CANCEL:
+                {
                     //取消授权
                     Toast.makeText(LoginActivity.this, R.string.auth_cancel, Toast.LENGTH_SHORT).show();
                 } break;
-                case MSG_AUTH_ERROR: {
+                
+                case MSG_AUTH_ERROR: 
+                {
                     //授权失败
                     Toast.makeText(LoginActivity.this, R.string.auth_error, Toast.LENGTH_SHORT).show();
-                } break;
-                case MSG_AUTH_COMPLETE: {
+                } 
+                break;
+                
+                case MSG_AUTH_COMPLETE: 
+                {
                     //授权成功
                     Toast.makeText(LoginActivity.this, R.string.auth_complete, Toast.LENGTH_SHORT).show();
+                    
                     Object[] objs = (Object[]) msg.obj;
+                    
                     String platform = (String) objs[0];
+                    
                     HashMap<String, Object> res = (HashMap<String, Object>) objs[1];
-                     bean = ShareSDK.getPlatform(platform);
+                    
+                    bean = ShareSDK.getPlatform(platform);
+                     
                     toWxLogin(bean);
+                    
                 } break;
 
             }
+            
             dialog.cancel();
            // finish();
             super.handleMessage(msg);
@@ -113,63 +138,85 @@ public class LoginActivity extends Activity implements OnClickListener,PlatformA
     };
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
+        
         setContentView(R.layout.ac_login);
+        
         ViewUtils.inject(this);
+        
         initData();
 
     }
 
-    public void initData() {
+    public void initData() 
+    {
         dialog = DialogUtil.getDialog(LoginActivity.this);
+        
         flag = getIntent().getStringExtra("flag");
+        
         common_back.setVisibility(View.VISIBLE);
+        
         common_title.setText(ConstantValues.USER_LOGIN);
+        
         common_back.setOnClickListener(this);
+        
         bt_login.setOnClickListener(this);
+        
         bt_regist.setOnClickListener(this);
+        
         bt_forgot_pwd.setOnClickListener(this);
+        
         mWxLogin.setOnClickListener(this);
     }
 
     // 实现数据传递
-    public void getString(Callback callback) {
+    public void getString(Callback callback) 
+    {
         callback.getString(false);
+        
         this.finish();
-
     }
 
     @Override
-    public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
-        if (i == Platform.ACTION_USER_INFOR) {
+    public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) 
+    {
+        if (i == Platform.ACTION_USER_INFOR)
+        {
             Message msg = new Message();
+            
             msg.what = MSG_AUTH_COMPLETE;
+            
             msg.obj = new Object[] {platform.getName(), hashMap};
+            
             handler.sendMessage(msg);
         }
     }
 
     @Override
-    public void onError(Platform platform, int i, Throwable throwable) {
+    public void onError(Platform platform, int i, Throwable throwable)
+    {
 
     }
 
     @Override
-    public void onCancel(Platform platform, int i) {
+    public void onCancel(Platform platform, int i) 
+    {
 
     }
 
 
     // 创建接口
-    public interface Callback {
+    public interface Callback 
+    {
         public void getString(boolean msg);
     }
 
     // 用户登录
     public void login() 
     {
-        User u = new User();
+        final User u = new User();
         
         u.setUsername(phone);
         
@@ -179,7 +226,7 @@ public class LoginActivity extends Activity implements OnClickListener,PlatformA
         {
             ServiceFactory.getIUserEngineInstatice().UserLogin(u, new IOAuthCallBack() 
             {
-
+            	
                 @Override
                 public void getIOAuthCallBack(String result) 
                 {
@@ -194,20 +241,20 @@ public class LoginActivity extends Activity implements OnClickListener,PlatformA
                         
                         if ("1".equals(user.getStatus())) 
                         {
-                            UserInfoEntity userinfo = user.getData().get(0);
+                            UserInfoEntity.DataEntity userinfo = user.getData().get(0);
                             
                             ConstantValues.ISLOGIN = true;
                             
                             ConstantValues.USER_MOBILE = phone;
                             
-                            if( !CheckUtils.checkEmpty(userinfo.getWeixin_open_id()))
-                                ConstantValues.ISWXlOGIN =true;
-                            else
-                                ConstantValues.ISWXlOGIN =false;
+//                            if( !CheckUtils.checkEmpty(userinfo.getWeixin_open_id()))
+//                                ConstantValues.ISWXlOGIN =true;
+//                            else
+//                                ConstantValues.ISWXlOGIN =false;
                             
-                            ConstantValues.UID = userinfo.getUid() + "";
+                            ConstantValues.UID = userinfo.getUser_id();
                             
-                            ConstantValues.PASSWORD=password;
+                            ConstantValues.PASSWORD = password;
                             
                             ToastUtils.showInfo(LoginActivity.this, "登录成功");
                             
@@ -217,7 +264,7 @@ public class LoginActivity extends Activity implements OnClickListener,PlatformA
                             
                             loginResult();
                             
-                            if(!CheckUtils.checkEmpty(userinfo.getNickname())&!CheckUtils.checkEmpty(userinfo.getPhoto()))
+                            if(!CheckUtils.checkEmpty(userinfo.getNick_name())&!CheckUtils.checkEmpty(userinfo.getMobile()))
                                 ConstantValues.ISCOMPLETEINFO = true;
                             else
                                 ConstantValues.ISCOMPLETEINFO = false;
@@ -258,26 +305,45 @@ public class LoginActivity extends Activity implements OnClickListener,PlatformA
                             if("1".equals(bean.getStatus())){
                                 //登录成功且已绑定手机号
 
-                                UserInfoEntity userinfo = bean.getData().get(0);
-                                setCache("mgolf_uid", userinfo.getUid()+"");//缓存用户名
-                                setCache("wx_open_id", userinfo.getWeixin_open_id());//缓存用户名
+                                UserInfoEntity.DataEntity userinfo = bean.getData().get(0);
+                                
+                                setCache("mgolf_uid", userinfo.getUser_id()+"");//缓存用户名
+                                
+//                                setCache("wx_open_id", userinfo.getWeixin_open_id());//缓存用户名
+                                
                                 ConstantValues.ISLOGIN = true;
+                               
                                 ConstantValues.USER_MOBILE = userinfo.getMobile();
+                               
                                 ConstantValues.ISWXlOGIN =true;
-                                ConstantValues.OPEN_ID=userinfo.getWeixin_open_id();
-                                ConstantValues.UID = userinfo.getUid() + "";
+                                
+//                                ConstantValues.OPEN_ID=userinfo.getWeixin_open_id();
+                                
+                                ConstantValues.UID = userinfo.getUser_id();
+                                
                                 ToastUtils.showInfo(LoginActivity.this, "登录成功");
+                                
                                 loginResult();
-                                if(!CheckUtils.checkEmpty(userinfo.getNickname())&(!CheckUtils.checkEmpty(userinfo.getPhoto())|!CheckUtils.checkEmpty(userinfo.getWeixin_avatar())))
-                                    ConstantValues.ISCOMPLETEINFO = true;
+                                
+//                                |!CheckUtils.checkEmpty(userinfo.getWeixin_avatar())
+                                if(!CheckUtils.checkEmpty(userinfo.getNick_name())&(!CheckUtils.checkEmpty(userinfo.getMobile())))
+                                   
+                                	ConstantValues.ISCOMPLETEINFO = true;
                                 else
-                                    ConstantValues.ISCOMPLETEINFO = false;
-                            }else if("-1".equals(bean.getStatus())){
+                                   
+                                	ConstantValues.ISCOMPLETEINFO = false;
+                            }
+                            else if("-1".equals(bean.getStatus()))
+                            {
                              //登录成功且未绑定手机号
                                 ToastUtils.showInfo(LoginActivity.this,bean.getInfo());
+                                
                                 Intent bindMobile= new Intent(LoginActivity.this,UserBindMobileActivity.class);
-                                int uid=  bean.getData().get(0).getUid();
+                               
+                                String uid = bean.getData().get(0).getUser_id();
+                                
                                 bindMobile.putExtra("uid",uid);
+                                
                                 LoginActivity.this.startActivityForResult(bindMobile,105);
 
                             }
@@ -285,26 +351,48 @@ public class LoginActivity extends Activity implements OnClickListener,PlatformA
                         }
                     }
                 });
-            } catch (Exception e) {
+            } 
+        catch (Exception e) 
+        {
                 e.printStackTrace();
             }
     }
+    
+    
+    
     //登录成功后返回结果给请求页面
-    public void loginResult() {
+    public void loginResult() 
+    {
         ConstantValues.HOME_ISLOGIN = true;
-        if (flag.equals("orderPrac")) {
+        
+        if (flag.equals("orderPrac")) 
+        {
             Intent in = new Intent(this, OrderDialogPractice.class);
+            
             setResult(ConstantValues.ORDERPRAC, in);
+            
             finish();
-        } else if (flag.equals("usercenter") | "regist".equals(flag)) {
+            
+        } 
+        else if (flag.equals("usercenter") | "regist".equals(flag))
+        {
             ConstantValues.USERCENT_ISLOGIN = true;
+            
             finish();
-        } else if (flag.equals("other")) {
+            
+        } else if (flag.equals("other")) 
+        {
             Intent in = new Intent(this, OrderDialogPractice.class);
+            
             setResult(ConstantValues.ORDERPRAC, in);
+            
             finish();
-        } else if (flag.equals("userlogin")) {
+            
+        } 
+        else if (flag.equals("userlogin")) 
+        {
             setResult(100);
+            
             finish();
         }
 
@@ -331,12 +419,19 @@ public class LoginActivity extends Activity implements OnClickListener,PlatformA
             case R.id.common_back:
 
                 setResult(99);
+                
                 finish();
+                
                 break;
+                
             case R.id.bt_regist:
+            	
                 Intent regist = new Intent(this, RegistActivity.class);
+                
                 regist.putExtra("flag", "regist");
+                
                 startActivityForResult(regist, ConstantValues.USERREGIST);
+                
                 break;
             case R.id.bt_forgot_pwd:
                 Intent getpwd = new Intent(this, GetUserPwdActivity.class);

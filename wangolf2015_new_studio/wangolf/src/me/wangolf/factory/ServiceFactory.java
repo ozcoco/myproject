@@ -25,7 +25,8 @@ public class ServiceFactory {
 	 * 
 	 * @return
 	 */
-	public static IUserService getIUserEngineInstatice() {
+	public static IUserService getIUserEngineInstatice()
+	{
 		return new UserServiceImpl();
 	}
 
@@ -43,14 +44,16 @@ public class ServiceFactory {
 	/**
 	 * 商城相关
 	 */
-	public static IShopService getShopEngineInstatice() {
+	public static IShopService getShopEngineInstatice()
+	{
 		return new ShopServiceImpl();
 	}
 
 	/**
 	 * 学院相关
 	 */
-	public static ICollegeService getCollegeEngineInstatice() {
+	public static ICollegeService getCollegeEngineInstatice() 
+	{
 		return new CollegeServiceImpl();
 	}
 

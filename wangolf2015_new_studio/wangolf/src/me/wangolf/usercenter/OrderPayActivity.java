@@ -197,8 +197,8 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener {
 					} else {
 						UserInfoEntity bean = GsonTools.changeGsonToBean(result, UserInfoEntity.class);
 						if ("1".equals(bean.getStatus())) {
-							UserInfoEntity data = bean.getData().get(0);
-							self_amount = data.getAccount();
+							UserInfoEntity.DataEntity data = bean.getData().get(0);
+							self_amount = Double.valueOf(data.getAccount());
 							// self_amount=10;
 							pamount.setText("￥" + self_amount);
 							if (self_amount > order_amount) {

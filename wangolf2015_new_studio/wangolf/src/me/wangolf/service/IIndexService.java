@@ -15,4 +15,12 @@ public interface IIndexService extends BaseService {
 	 */
 	public void getIndexAdv(String page, String number, String version, IOAuthCallBack iOAuthCallBack) throws Exception;
 
+	/**
+	 * 首页广告(version four)
+	 * @param iOAuthCallBack
+	 * @throws Exception
+	 */
+	public void getIndexAdv(IOAuthCallBack iOAuthCallBack) throws Exception;
+
+	
 }

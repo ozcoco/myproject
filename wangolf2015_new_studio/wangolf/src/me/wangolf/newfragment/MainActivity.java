@@ -536,25 +536,34 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
                         } else {
                             UserInfoEntity user = GsonTools.changeGsonToBean(result, UserInfoEntity.class);
 
-                            if (user.getStatus().equals("1")) {
-                                UserInfoEntity userinfo = user.getData().get(0);
+                            if (user.getStatus().equals("1")) 
+                            {
+                                UserInfoEntity.DataEntity userinfo = user.getData().get(0);
+                                
                                 ConstantValues.ISLOGIN = true;
+                                
                                 ConstantValues.HOME_ISLOGIN = true;
+                                
                                 ConstantValues.USER_MOBILE = cache_user;
-                                if( !CheckUtils.checkEmpty(userinfo.getWeixin_open_id()))
-                                    ConstantValues.ISWXlOGIN =true;
-                                else
-                                    ConstantValues.ISWXlOGIN =false;
+                                
+//                                if( !CheckUtils.checkEmpty(userinfo.getWeixin_open_id()))
+//                                	
+//                                    ConstantValues.ISWXlOGIN =true;
+//                                else
+//                                    ConstantValues.ISWXlOGIN =false;
+                                
                                 ConstantValues.PASSWORD=cache_pwd;
-                                if(!CheckUtils.checkEmpty(userinfo.getNickname())&!CheckUtils.checkEmpty(userinfo.getPhoto()))
+                                
+                                if(!CheckUtils.checkEmpty(userinfo.getNick_name())&!CheckUtils.checkEmpty(userinfo.getAvatar()))
                                    ConstantValues.ISCOMPLETEINFO = true;
-                                ConstantValues.UID = userinfo.getUid() + "";
+                                ConstantValues.UID = userinfo.getUser_id() + "";
                             } else {
                                 ToastUtils.showInfo(MainActivity.this, user.getInfo());
                             }
                         }
                     }
                 });
+                
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -564,109 +573,167 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
         }
     }
     //微信登陆
-    private void toWxLogin1( String wx_openid){
-            try {
+    private void toWxLogin1( String wx_openid)
+    {
+            try 
+            {
                 ServiceFactory.getIUserEngineInstatice().toWxLogin(wx_openid, "", "", "", new IOAuthCallBack() {
                     @Override
-                    public void getIOAuthCallBack(String result) {
-                        if (result.equals(ConstantValues.FAILURE)) {
+                    public void getIOAuthCallBack(String result)
+                    {
+                        if (result.equals(ConstantValues.FAILURE)) 
+                        {
                             ToastUtils.showInfo(MainActivity.this, ConstantValues.NONETWORK);
-                        } else {
+                        } 
+                        else 
+                        {
                             UserInfoEntity bean = GsonTools.changeGsonToBean(result, UserInfoEntity.class);
-                            if("1".equals(bean.getStatus())){
+                           
+                            if("1".equals(bean.getStatus()))
+                            {
                                 //登录成功且已绑定手机号
-                                UserInfoEntity userinfo = bean.getData().get(0);
+                                UserInfoEntity.DataEntity userinfo = bean.getData().get(0);
                                // setCache("wx_open_rid", userinfo.getWeixin_open_id());//缓存用户名
                                 ConstantValues.ISLOGIN = true;
+                                
                                 ConstantValues.USER_MOBILE = userinfo.getMobile();
+                                
                                 ConstantValues.ISWXlOGIN =true;
-                                ConstantValues.OPEN_ID=userinfo.getWeixin_open_id();
-                                ConstantValues.UID = userinfo.getUid() + "";
+                                
+//                                ConstantValues.OPEN_ID=userinfo.getWeixin_open_id();
+                                
+                                ConstantValues.UID = userinfo.getUser_id();
+                                
                                 //ToastUtils.showInfo(LoginActivity.this, "登录成功");
-
-                                if(!CheckUtils.checkEmpty(userinfo.getNickname())&(!CheckUtils.checkEmpty(userinfo.getPhoto())|!CheckUtils.checkEmpty(userinfo.getWeixin_avatar())))
-                                    ConstantValues.ISCOMPLETEINFO = true;
+                                   //取消的字段
+//                                |!CheckUtils.checkEmpty(userinfo.getWeixin_avatar())
+                                if(!CheckUtils.checkEmpty(userinfo.getNick_name())&(!CheckUtils.checkEmpty(userinfo.getAvatar())))
+                                  
+                                	ConstantValues.ISCOMPLETEINFO = true;
+                                
                                 else
+                                	
                                     ConstantValues.ISCOMPLETEINFO = false;
+                                
                             }
 
                         }
                     }
                 });
-            } catch (Exception e) {
+            } 
+            catch (Exception e) 
+            {
                 e.printStackTrace();
             }
     }
 
-    public void toWxLogin(String wx_openid) {
-        try {
-            ServiceFactory.getIUserEngineInstatice().getUserInfo(wx_openid, new IOAuthCallBack() {
+    public void toWxLogin(String wx_openid) 
+    {
+        try 
+        {
+            ServiceFactory.getIUserEngineInstatice().getUserInfo(wx_openid, new IOAuthCallBack()
+            {
                 @Override
-                public void getIOAuthCallBack(String result) {
+                public void getIOAuthCallBack(String result) 
+                {
 
-                    if (result.equals(ConstantValues.FAILURE)) {
+                    if (result.equals(ConstantValues.FAILURE))
+                    {
                         ToastUtils.showInfo(MainActivity.this, ConstantValues.NONETWORK);
-                    } else {
+                    } 
+                    else 
+                    {
                        // Log.i("wangolf",result);
                         UserInfoEntity user = GsonTools.changeGsonToBean(result, UserInfoEntity.class);
-                            if("1".equals(user.getStatus())){
+                           
+                        if("1".equals(user.getStatus()))
+                            {
                                 //登录成功且已绑定手机号
-                                UserInfoEntity userinfo = user.getData().get(0);
+                                UserInfoEntity.DataEntity userinfo = user.getData().get(0);
                                 // setCache("wx_open_rid", userinfo.getWeixin_open_id());//缓存用户名
                                 ConstantValues.ISLOGIN = true;
+                                
                                 ConstantValues.USER_MOBILE = userinfo.getMobile();
+                                
                                 ConstantValues.ISWXlOGIN =true;
-                                ConstantValues.OPEN_ID=userinfo.getWeixin_open_id();
-                                ConstantValues.UID = userinfo.getUid() + "";
+                                
+//                                ConstantValues.OPEN_ID=userinfo.getWeixin_open_id();
+                                
+                                ConstantValues.UID = userinfo.getUser_id();
+                                
                                 //ToastUtils.showInfo(LoginActivity.this, "登录成功");
-
-                                if(!CheckUtils.checkEmpty(userinfo.getNickname())&(!CheckUtils.checkEmpty(userinfo.getPhoto())|!CheckUtils.checkEmpty(userinfo.getWeixin_avatar())))
-                                    ConstantValues.ISCOMPLETEINFO = true;
+                                
+//                               |!CheckUtils.checkEmpty(userinfo.getWeixin_avatar())
+                               
+                                if(!CheckUtils.checkEmpty(userinfo.getNick_name())&(!CheckUtils.checkEmpty(userinfo.getAvatar())))
+                                    
+                                	ConstantValues.ISCOMPLETEINFO = true;
+                                
                                 else
+                                	
                                     ConstantValues.ISCOMPLETEINFO = false;
                             }
 
                     }
                 }
             });
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
+        } 
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
 
     }
+    
+    
     // ============记录返回事件============
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
+    public boolean onKeyDown(int keyCode, KeyEvent event) 
+    {
+        if (keyCode == KeyEvent.KEYCODE_BACK)
+        {
             long currenttime = System.currentTimeMillis();
-            if ((currenttime - lasttime) > 1000) {
+            
+            if ((currenttime - lasttime) > 1000) 
+            {
                 this.isExit = 0;
+                
                 lasttime = currenttime;
             }
-            if (this.isExit == 0) {
+            
+            if (this.isExit == 0) 
+            {
                 this.isExit++;
+                
                 ToastUtils.showInfo(this, "点击两次退出");
+                
                 return true;
             }
-            if (this.isExit == 1) {
+            
+            if (this.isExit == 1) 
+            {
                 android.os.Process.killProcess(android.os.Process.myPid());
             }
+            
             return false;
         }
+        
         return super.onKeyDown(keyCode, event);
     }
 
     @Override
-    protected void onPause() {
-
+    protected void onPause()
+    {
         super.onPause();
+        
         MobclickAgent.onPause(this);
     }
 
     @Override
-    protected void onResume() {
+    protected void onResume() 
+    {
         super.onResume();
+        
         MobclickAgent.onResume(this);
     }
 }

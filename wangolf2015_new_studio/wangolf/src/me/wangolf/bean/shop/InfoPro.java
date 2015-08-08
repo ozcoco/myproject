@@ -1,7 +1,7 @@
 package me.wangolf.bean.shop;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 商品信息
@@ -13,194 +13,185 @@ public class InfoPro implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private int proid; //商品ID
-	private String cid;// 供应商
+    /**
+     * status : 1
+     * data : [{"origin_price":"1280","supplier_id":"43","current_price":"850","sub_name":"Nillkay 韩国女士高尔夫防风外套（热情红 清爽绿）","size":"S M L","discount":"6.64","id":"140","lave":"10","img_list":"http://www.wangolf.me/public/attachment/201411/03/15/54572c5f5ad47.jpg","buy_count":"0","color":"热情红 清爽绿","max_bought":"10","web_app_uri":"http://192.168.1.222//webApp/share/commodity.html?proid=140","brief":"韩国高尔夫服装第一品牌"}]
+     * info : 成功
+     */
+    private int status;
+    private List<DataEntity> data;
+    private String info;
 
-	private int comnum;// 评论数目
-	private int pranum;// 赞数目
-	private String proname;// 团购商品名称
-	private String proimg;// 团购商品图片---多张大图
-	private String prooprice;// 团购商品原价
-	private double pronprice;// 团购商品现价
-	private String prodis;// 团购商品折扣
-	private String procount;// 团购商品已出售件数
-	private String procolor;// 商品颜色,多个以逗号隔开
-	private String prosummy;// 推荐商品的理由
-	private String timecount;// 倒计时
-	private String prodetail;// 商品简介
-    private String web_app_uri;
-	private int lave;// 剩余数量
-	private int user_max_bought;// 限购数量
-	private String status;
-	private String info;
-	private ArrayList<InfoPro> data;
-	private ArrayList<ProProattr> proattr;
-
-	public int getUser_max_bought() {
-		return user_max_bought;
-	}
-
-	public void setUser_max_bought(int user_max_bought) {
-		this.user_max_bought = user_max_bought;
-	}
-
-	public int getLave() {
-		return lave;
-	}
-
-	public void setLave(int lave) {
-		this.lave = lave;
-	}
-
-	public String getCid() {
-		return cid;
-	}
-
-	public void setCid(String cid) {
-		this.cid = cid;
-	}
-
-	public String getTimecount() {
-		return timecount;
-	}
-
-	public void setTimecount(String timecount) {
-		this.timecount = timecount;
-	}
-
-	public int getProid() {
-		return proid;
-	}
-
-	public void setProid(int proid) {
-		this.proid = proid;
-	}
-
-	public String getProname() {
-		return proname;
-	}
-
-	public void setProname(String proname) {
-		this.proname = proname;
-	}
-
-	public String getProimg() {
-		return proimg;
-	}
-
-	public void setProimg(String proimg) {
-		this.proimg = proimg;
-	}
-
-	public String getProoprice() {
-		return prooprice;
-	}
-
-	public void setProoprice(String prooprice) {
-		this.prooprice = prooprice;
-	}
-
-	public double getPronprice() {
-		return pronprice;
-	}
-
-	public void setPronprice(double pronprice) {
-		this.pronprice = pronprice;
-	}
-
-	public String getProdis() {
-		return prodis;
-	}
-
-	public void setProdis(String prodis) {
-		this.prodis = prodis;
-	}
-
-	public String getProcount() {
-		return procount;
-	}
-
-	public void setProcount(String procount) {
-		this.procount = procount;
-	}
-
-	public String getProcolor() {
-		return procolor;
-	}
-
-	public void setProcolor(String procolor) {
-		this.procolor = procolor;
-	}
-
-	public String getProsummy() {
-		return prosummy;
-	}
-
-	public void setProsummy(String prosummy) {
-		this.prosummy = prosummy;
-	}
-
-	public String getProdetail() {
-		return prodetail;
-	}
-
-	public void setProdetail(String prodetail) {
-		this.prodetail = prodetail;
-	}
-
-	public int getComnum() {
-		return comnum;
-	}
-
-	public void setComnum(int comnum) {
-		this.comnum = comnum;
-	}
-
-	public int getPranum() {
-		return pranum;
-	}
-
-	public void setPranum(int pranum) {
-		this.pranum = pranum;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public String getInfo() {
-		return info;
-	}
-
-	public void setInfo(String info) {
-		this.info = info;
-	}
-
-	public ArrayList<InfoPro> getData() {
-		return data;
-	}
-
-	public void setData(ArrayList<InfoPro> data) {
-		this.data = data;
-	}
-
-	public ArrayList<ProProattr> getProattr() {
-		return proattr;
-	}
-
-	public void setProattr(ArrayList<ProProattr> proattr) {
-		this.proattr = proattr;
-	}
-
-    public String getWeb_app_uri() {
-        return web_app_uri;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
-    public void setWeb_app_uri(String web_app_uri) {
-        this.web_app_uri = web_app_uri;
+    public void setData(List<DataEntity> data) {
+        this.data = data;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public List<DataEntity> getData() {
+        return data;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public static class DataEntity implements Serializable{
+        /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		/**
+         * origin_price : 1280
+         * supplier_id : 43
+         * current_price : 850
+         * sub_name : Nillkay 韩国女士高尔夫防风外套（热情红 清爽绿）
+         * size : S M L
+         * discount : 6.64
+         * id : 140
+         * lave : 10
+         * img_list : http://www.wangolf.me/public/attachment/201411/03/15/54572c5f5ad47.jpg
+         * buy_count : 0
+         * color : 热情红 清爽绿
+         * max_bought : 10
+         * web_app_uri : http://192.168.1.222//webApp/share/commodity.html?proid=140
+         * brief : 韩国高尔夫服装第一品牌
+         */
+        private String origin_price;
+        private String supplier_id;
+        private String current_price;
+        private String sub_name;
+        private String size;
+        private String discount;
+        private String id;
+        private String lave;
+        private String img_list;
+        private String buy_count;
+        private String color;
+        private String max_bought;
+        private String web_app_uri;
+        private String brief;
+
+        public void setOrigin_price(String origin_price) {
+            this.origin_price = origin_price;
+        }
+
+        public void setSupplier_id(String supplier_id) {
+            this.supplier_id = supplier_id;
+        }
+
+        public void setCurrent_price(String current_price) {
+            this.current_price = current_price;
+        }
+
+        public void setSub_name(String sub_name) {
+            this.sub_name = sub_name;
+        }
+
+        public void setSize(String size) {
+            this.size = size;
+        }
+
+        public void setDiscount(String discount) {
+            this.discount = discount;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public void setLave(String lave) {
+            this.lave = lave;
+        }
+
+        public void setImg_list(String img_list) {
+            this.img_list = img_list;
+        }
+
+        public void setBuy_count(String buy_count) {
+            this.buy_count = buy_count;
+        }
+
+        public void setColor(String color) {
+            this.color = color;
+        }
+
+        public void setMax_bought(String max_bought) {
+            this.max_bought = max_bought;
+        }
+
+        public void setWeb_app_uri(String web_app_uri) {
+            this.web_app_uri = web_app_uri;
+        }
+
+        public void setBrief(String brief) {
+            this.brief = brief;
+        }
+
+        public String getOrigin_price() {
+            return origin_price;
+        }
+
+        public String getSupplier_id() {
+            return supplier_id;
+        }
+
+        public String getCurrent_price() {
+            return current_price;
+        }
+
+        public String getSub_name() {
+            return sub_name;
+        }
+
+        public String getSize() {
+            return size;
+        }
+
+        public String getDiscount() {
+            return discount;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public String getLave() {
+            return lave;
+        }
+
+        public String getImg_list() {
+            return img_list;
+        }
+
+        public String getBuy_count() {
+            return buy_count;
+        }
+
+        public String getColor() {
+            return color;
+        }
+
+        public String getMax_bought() {
+            return max_bought;
+        }
+
+        public String getWeb_app_uri() {
+            return web_app_uri;
+        }
+
+        public String getBrief() {
+            return brief;
+        }
     }
 }

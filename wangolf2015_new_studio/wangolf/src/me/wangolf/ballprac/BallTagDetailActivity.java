@@ -31,7 +31,8 @@ import me.wangolf.utils.GsonTools;
 import me.wangolf.utils.TelUtils;
 import me.wangolf.utils.Xutils;
 
-public class BallTagDetailActivity extends BaseActivity implements OnClickListener {
+public class BallTagDetailActivity extends BaseActivity implements OnClickListener 
+{
 	@ViewInject(R.id.common_back)
 	private Button common_back; // 后退
 	@ViewInject(R.id.common_title)
@@ -80,7 +81,8 @@ public class BallTagDetailActivity extends BaseActivity implements OnClickListen
 	private Dialog dialog;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) 
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ac_balltag_detail);
 		ViewUtils.inject(this);
@@ -88,7 +90,8 @@ public class BallTagDetailActivity extends BaseActivity implements OnClickListen
 	}
 
 	@Override
-	public void initData() {
+	public void initData() 
+	{
 		dialog = DialogUtil.getDialog(this);
 		dialog.show();
 		common_back.setVisibility(0);
@@ -103,39 +106,67 @@ public class BallTagDetailActivity extends BaseActivity implements OnClickListen
 	}
 
 	@Override
-	public void getData() {
-		try {
-			ServiceFactory.getBallEngineInstatice().getBallDetail(ballid, new IOAuthCallBack() {
+	public void getData() 
+	{
+		try 
+		{
+			ServiceFactory.getBallEngineInstatice().getBallDetail(ballid, new IOAuthCallBack() 
+			{
 
 				@Override
-				public void getIOAuthCallBack(String result) {
-					if (result.equals(ConstantValues.FAILURE)) {
+				public void getIOAuthCallBack(String result)
+				{
+					if (result.equals(ConstantValues.FAILURE)) 
+					{
 						Toast.makeText(getApplicationContext(), ConstantValues.NONETWORK, 0).show();
-					} else {
+					} 
+					else 
+					{
 						BallTagDetailEntity bean = GsonTools.changeGsonToBean(result, BallTagDetailEntity.class);
-						if (bean != null) {
-							BallTagDetailEntity data = bean.getData().get(0);
-							tv_mode.setText(data.getModel());
-							tv_date.setText(data.getCreatetime());
-							tv_aera.setText(data.getArea() + "");
-							tv_fairwaylen.setText(data.getFairwaylen() + "码");
-							tv_desinger.setText(data.getDesinger());
-							tv_grasstype.setText(data.getGrasstype());
+						
+						if (bean != null) 
+						{
+							BallTagDetailEntity.DataEntity data = bean.getData().get(0);
+							
+							tv_mode.setText(data.getCourt_model());
+							
+							tv_date.setText(data.getCreate_time());
+							
+							tv_aera.setText(data.getCourt_area());
+							
+							tv_fairwaylen.setText(data.getFairway_length() + "码");
+							
+							tv_desinger.setText(data.getDesigners());
+							
+							tv_grasstype.setText(data.getGlgrass());
+							
 							tv_holetype.setText(data.getHoletype());
-							tv_fwgtype.setText(data.getFwgtype());
-							tv_bkdata.setText(data.getBkdata());
-							tv_related.setText(data.getRelated());
-							tv_phone.setText(data.getPhone());
+							
+							tv_fwgtype.setText(data.getQdgrass());
+							
+							tv_bkdata.setText(data.getCourt_data());
+							
+							tv_related.setText(data.getSupporting());
+							
+							tv_phone.setText(data.getMobile());
+							
 							tv_summy.setText(data.getSummy());
-							phone = data.getPhone();
-							urls = data.getBallimg().split(",");
-							for (String url : urls) {
-								if (!CheckUtils.checkEmpty(url)) {
+							
+							phone = data.getMobile();
+							
+							urls = data.getImg_list().split(",");
+							
+							for (String url : urls)
+							{
+								if (!CheckUtils.checkEmpty(url)) 
+								{
 									url = urls[0].substring(0, urls[0].lastIndexOf(".")) + "_640_395" + urls[0].substring(urls[0].lastIndexOf("."));
 								}
 								urlList.add(url);
 							}
-							if (urls.length > 0) {
+							
+							if (urls.length > 0)
+							{
 								String path = urls[0];
 								if (!CheckUtils.checkEmpty(urls[0])) {
 									path = urls[0].substring(0, urls[0].lastIndexOf(".")) + "_180_180" + urls[0].substring(urls[0].lastIndexOf("."));
@@ -165,7 +196,9 @@ public class BallTagDetailActivity extends BaseActivity implements OnClickListen
 					}
 				}
 			});
-		} catch (Exception e) {
+		} 
+		catch (Exception e) 
+		{
 			e.printStackTrace();
 		}
 	}

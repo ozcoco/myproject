@@ -39,7 +39,8 @@ import me.wangolf.utils.Xutils;
 import me.wangolf.utils.viewUtils.RollViewPager_NORoll;
 import me.wangolf.utils.viewUtils.RollViewPager_NORoll.OnPagerClickCallback;
 
-public class ShopProActivity extends Activity implements OnClickListener {
+public class ShopProActivity extends Activity implements OnClickListener
+{
 
     @ViewInject(R.id.tv_infopro_name)
     private TextView tv_infopro_name; // 商品名称之
@@ -86,88 +87,148 @@ public class ShopProActivity extends Activity implements OnClickListener {
     private String imagename;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) 
+    {
         super.onCreate(savedInstanceState);
+        
         setContentView(R.layout.shop_pro_info);
+        
         ViewUtils.inject(this);
+        
         initData();
     }
 
-    public void initData() {
+    public void initData() 
+    {
         dialog = DialogUtil.getDialog(this);
+        
         dialog.show();
+        
         common_title.setText(ConstantValues.SHOP_COMTENT_TITLE);// 设置标题内容
+        
         common_bt.setVisibility(View.VISIBLE);
+        
         common_bt.setText(ConstantValues.SHARE);// 设置分享
+        
         common_back.setVisibility(View.VISIBLE);// 显示退出键
+        
         tv_proinfo_prooprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        
         tv_proinfo_prooprice.getPaint().setAntiAlias(true);//
+        
         common_back.setOnClickListener(this);
+        
         common_bt.setOnClickListener(this);
+        
         img_datails.setOnClickListener(this);
+        
         bt_buy.setOnClickListener(this);
+        
         proid = getIntent().getStringExtra("proid");
+        
         getData();
 
     }
 
-    public void getData() {
+    public void getData() 
+    {
         try {
-            ServiceFactory.getShopEngineInstatice().getProInfo(proid, new IOAuthCallBack() {
-
+        	
+            ServiceFactory.getShopEngineInstatice().getProInfo(proid, new IOAuthCallBack() 
+            {
                 @Override
-                public void getIOAuthCallBack(String result) {
-                    if (result.equals(ConstantValues.FAILURE)) {
-
-                        ToastUtils.showInfo(ShopProActivity.this, ConstantValues.NONETWORK);// 加载内容失败
-                    } else {
+                public void getIOAuthCallBack(String result) 
+                {
+                    if (result.equals(ConstantValues.FAILURE)) 
+                    {
+                        ToastUtils.showInfo(ShopProActivity.this, ConstantValues.NONETWORK);// 加载内容失败                        
+                    } 
+                    else 
+                    {
                         bean = GsonTools.changeGsonToBean(result, InfoPro.class);
-                        InfoPro data = bean.getData().get(0);
-                        tv_infopro_name.setText(data.getProname());
-                        tv_pro_pronprice.setText("￥" + data.getPronprice());
-                        tv_pro_prodis.setText(data.getProdis() + "折");
-                        tv_proinfo_prooprice.setText("价格：￥" + data.getProoprice());
-                        tv_infopro_procount.setText("已出售" + data.getProcount() + "件");
-                        tv_infopro_prodetail.setText(data.getProdetail());
-                        sharetitle = data.getProname() + "  " + data.getProdis() + "折" + " " + "￥" + data.getProoprice();
+                        
+                        InfoPro.DataEntity data = bean.getData().get(0);
+                        
+                        tv_infopro_name.setText(data.getSub_name());
+                        
+                        tv_pro_pronprice.setText("￥" + data.getCurrent_price());
+                        
+                        tv_pro_prodis.setText(data.getDiscount() + "折");
+                        
+                        tv_proinfo_prooprice.setText("价格：￥" + data.getOrigin_price());
+                        
+                        tv_infopro_procount.setText("已出售" + data.getBuy_count() + "件");
+                        
+                        tv_infopro_prodetail.setText(data.getBrief());
+                        
+                        sharetitle = data.getSub_name() + "  " + data.getDiscount() + "折" + " " + "￥" + data.getOrigin_price();
+                       
                         shareUrl = data.getWeb_app_uri();
-                        String[] url = data.getProimg().split(",");
-                        if (!CheckUtils.checkEmpty(url[0])) {
+                       
+                        color = data.getColor();
+                        
+                        size = data.getSize();
+                        
+                        String[] url = data.getImg_list().split(",");
+                        
+                        if (!CheckUtils.checkEmpty(url[0])) 
+                        {
                             picfile = url[0].substring(0, url[0].lastIndexOf(".")) + "_180_180" + url[0].substring(url[0].lastIndexOf("."));
                         }
 
-                        for (int i = 0; i < url.length; i++) {
+                        for (int i = 0; i < url.length; i++) 
+                        {
                             String path = url[i];
-                            if (!CheckUtils.checkEmpty(path)) {
+                            
+                            if (!CheckUtils.checkEmpty(path)) 
+                            {
                                 path = path.substring(0, path.lastIndexOf(".")) + "_640" + path.substring(path.lastIndexOf("."));
                             }
+                            
                             urlList.add(path);
                         }
+                       
                         initDot(url.length);// 初始化滚动图
+                       
                         initRoll();
 
-                        JSONObject dataJson;
-                        try {
-                            dataJson = new JSONObject(result);
-                            JSONArray d = dataJson.getJSONArray("data");
-                            JSONObject info = d.getJSONObject(0);
-                            JSONArray jsonProArr = info.getJSONArray("proattr");
-                            if (jsonProArr != null) {
-                                JSONObject jsonColor = (JSONObject) jsonProArr.get(0);
-                                color = jsonColor.getString("0");
-                                JSONObject jsonSize = (JSONObject) jsonProArr.get(1);
-                                size = jsonSize.getString("1");
-                            }
-
-                        } catch (JSONException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
+//                        JSONObject dataJson;
+//                        
+//                        try {
+//                        	
+//                            dataJson = new JSONObject(result);
+//                            
+//                            JSONArray d = dataJson.getJSONArray("data");
+//                            
+//                            JSONObject info = d.getJSONObject(0);
+//                            
+//                            JSONArray jsonProArr = info.getJSONArray("proattr");
+//                            
+//                            if (jsonProArr != null)
+//                            {
+//                                JSONObject jsonColor = (JSONObject) jsonProArr.get(0);
+//                                
+//                                color = jsonColor.getString("0");
+//                                
+//                                JSONObject jsonSize = (JSONObject) jsonProArr.get(1);
+//                                
+//                                size = jsonSize.getString("1");
+//                            }
+//
+//                        } 
+//                        catch (JSONException e) 
+//                        {
+//                            e.printStackTrace();
+//                        }
+                        
                         dialog.cancel();
                     }
                 }
             });
-        } catch (Exception e) {
+            
+        } 
+        catch (Exception e)
+        {
 
             e.printStackTrace();
         }
@@ -175,65 +236,105 @@ public class ShopProActivity extends Activity implements OnClickListener {
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
+    public void onClick(View v) 
+    {
+        switch (v.getId()) 
+        {
             case R.id.common_back:
+            	
                 finish();// 退出
+                
                 break;
+                
             case R.id.img_datails:
-                if (!"".equals(proid)) {
+            	
+                if (!"".equals(proid)) 
+                {
                     Intent intent = new Intent(getApplicationContext(), ProImgDetailActivity.class);
+                    
                     intent.putExtra("proid", proid);
+                    
                     this.startActivity(intent);
+                    
                 }
+                
                 break;
+                
             case R.id.bt_buy:
+            	
                 toBuy();
+                
                 break;
+                
             case R.id.common_bt:
-                if (!CheckUtils.checkEmpty(picfile)) {
+            	
+                if (!CheckUtils.checkEmpty(picfile))
+                {
                     Xutils.loadImage(picfile);
+                    
                     int p = picfile.lastIndexOf("/");
+                    
                     imagename = picfile.substring(p);
                 }
+                
                 ShareUtils.showShareandUrl(sharetitle, shareUrl,this, CheckUtils.checkEmpty(imagename) ? "" : imagename);
+                
                 break;
+                
             default:
                 break;
+                
         }
     }
 
-    public void toBuy() {
-        if (ConstantValues.ISLOGIN) {
-            if (!"".equals(proid) & bean != null) {
+    public void toBuy() 
+    {
+        if (ConstantValues.ISLOGIN)
+        {
+            if (!"".equals(proid) & bean != null)
+            {
                 Intent intent = new Intent(getApplicationContext(), ProAtrrActivity.class);
+                
                 intent.putExtra("bean", bean);
+                
                 if (!"".equals(color))
+                	
                     intent.putExtra("color", color);
+                
                 if (!"".equals(size))
+                	
                     intent.putExtra("size", size);
+                
                 this.startActivity(intent);
             }
         } else {
             // 登录
             Intent toLogin = new Intent(this, LoginActivity.class);
+            
             toLogin.putExtra("flag", "orderPrac");
+            
             startActivityForResult(toLogin, ConstantValues.ORDERPRAC);
         }
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
         super.onActivityResult(requestCode, resultCode, data);
-        if (data == null) {
+        
+        if (data == null)
+        {
             return;
         }
-        if (requestCode == ConstantValues.ORDERPRAC) {
+        
+        if (requestCode == ConstantValues.ORDERPRAC)
+        {
             toBuy();
         }
     }
 
-    public void initRoll() {
+    public void initRoll() 
+    {
 
         // ================滚动图片数据============= 滚动图初始化数据
         Rpage = new RollViewPager_NORoll(getApplicationContext(), dotList, R.drawable.dot_focus, R.drawable.dot_normal, new OnPagerClickCallback() {

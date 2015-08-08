@@ -57,69 +57,112 @@ import me.wangolf.utils.ImageViewUtil;
 import me.wangolf.utils.ShowPickUtils;
 import me.wangolf.utils.ToastUtils;
 
-public class UserInfoEditInfoActivity extends BaseActivity implements OnClickListener {
+public class UserInfoEditInfoActivity extends BaseActivity implements OnClickListener 
+{
 	@ViewInject(R.id.common_title)
 	private TextView mTitle;
+	
 	@ViewInject(R.id.common_back)
 	private TextView mBack;
+	
 	@ViewInject(R.id.common_bt)
 	private TextView mBt;
+	
 	@ViewInject(R.id.et_nickname)
 	private EditText mNickname;// ed昵称
+	
 	@ViewInject(R.id.et_gender)
 	private EditText mGender;// ed性别
+	
 	@ViewInject(R.id.et_my_intro)
 	private EditText mMyintro;// ed签名
+	
 	@ViewInject(R.id.enter_up)
 	private Button mEnter;// 确认修改
+	
 	@ViewInject(R.id.user_photo)
 	private CircleImageView mPhoto;
+	
 	@ViewInject(R.id.gender_m)
 	private TextView mGender_m;
+	
 	@ViewInject(R.id.gender_w)
 	private TextView mGender_w;
+	
 	@ViewInject(R.id.popwin)
 	private RelativeLayout mPopwin;
+	
 	@ViewInject(R.id.user_editinfo)
 	private RelativeLayout mUser_editinfo;
+	
 	private String user_id;// 用户id
+	
 	private String my_intro;// 我的简介
+	
 	private int gender = 0;// 性别0代表女，1代表男
+	
 	private String nick_name;// 呢称
+	
 	private UserInfoNewEntity bean;
+	
 	private PopupWindow mPopuWin;//
+	
 	private View view;
+	
     private Dialog dialog;
+    
 	private int page=1;
+	
 	private int number=1;
+	
 	private ArrayList<String> tDataList;// 选择后的图片地址
+	
 	private String password;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
+		
 		setContentView(R.layout.ac_user_editinfo);
+		
 		view = View.inflate(this, R.layout.item_userinfo_gender, null);
+		
 		ViewUtils.inject(this);
+		
 		ViewUtils.inject(this, view);
+		
 		initData();// 初始化数据
 	}
 
 	// 初始化数据=====
 	@Override
-	public void initData() {
+	public void initData() 
+	{
         dialog = DialogUtil.getDialog(this);
+        
 		mTitle.setText("编辑资料");
+		
 		mBack.setVisibility(View.VISIBLE);
+		
 		bean = (UserInfoNewEntity) getIntent().getSerializableExtra("bean");
+		
 		user_id = ConstantValues.UID;
+		
 		mBack.setOnClickListener(this);
+		
 		mEnter.setOnClickListener(this);
+		
 		mGender.setOnClickListener(this);
+		
 		mGender_m.setOnClickListener(this);
+		
 		mGender_w.setOnClickListener(this);
+		
 		mPopwin.setOnClickListener(this);
+		
 		mPhoto.setOnClickListener(this);
+		
 		password= CheckUtils.checkEmpty(ConstantValues.PASSWORD)?ConstantValues.OPEN_ID:ConstantValues.PASSWORD;
 		//ToastUtils.showInfo(this,user_id+"");
 //		if (bean != null){
@@ -139,29 +182,46 @@ public class UserInfoEditInfoActivity extends BaseActivity implements OnClickLis
 			ServiceFactory.getCommunityEngineInstatice().getUserInfo(user_id, Integer.parseInt(user_id), page, number, new IOAuthCallBack() {
 
 				@Override
-				public void getIOAuthCallBack(String result) {
+				public void getIOAuthCallBack(String result)
+				{
 
-					if (result.equals(ConstantValues.FAILURE)) {
+					if (result.equals(ConstantValues.FAILURE)) 
+					{
 						ToastUtils.showInfo(UserInfoEditInfoActivity.this, ConstantValues.NONETWORK);
-					} else {
+					} 
+					else 
+					{
 						UserInfoNewEntity beans = GsonTools.changeGsonToBean(result, UserInfoNewEntity.class);
-						if (beans.getStatus() == 1) {
-							if (beans.getData() != null) {
+						
+						if (beans.getStatus() == 1) 
+						{
+							if (beans.getData() != null) 
+							{
 								UserInfoNewEntity data = beans.getData().get(0);
+								
 								bean = data;
+								
 								setUserInfo(data);// 更新页面
 							}
-						} else {
+							
+						} 
+						else 
+						{
 							ToastUtils.showInfo(UserInfoEditInfoActivity.this, bean.getInfo());
 						}
 
 					}
+					
 					dialog.cancel();
 				}
 			});
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
+		}
+		catch (Exception e)
+		{
+			
 			e.printStackTrace();
+			
 		}
 	}
 

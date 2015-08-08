@@ -2,6 +2,7 @@ package me.wangolf.bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 首页广告
@@ -9,15 +10,17 @@ import java.util.ArrayList;
  * @author Administrator
  * 
  */
-public class HomePageAdsEntity implements Serializable {
+public class HomePageAdsEntity implements Serializable 
+{
 	private static final long serialVersionUID = 1L;
 
+	
 	private String logo;// "/public/attachment/201201/4f013fc452347_150x110.jpg"//图片地址
 	private String advid;// 广告ID(若是活动则代表活动ID，若是分类则代表分类ID)
 	private int type;// "0"//0代表具体商品广告1代表某活动广告
 	private String status;
 	private String info;
-	private ArrayList<HomePageAdsEntity> data;
+	private List<HomePageAdsEntity> data;
 	private String shopid;
 	private String code;
 	private String name;
@@ -62,11 +65,11 @@ public class HomePageAdsEntity implements Serializable {
 		this.info = info;
 	}
 
-	public ArrayList<HomePageAdsEntity> getData() {
+	public List<HomePageAdsEntity> getData() {
 		return data;
 	}
 
-	public void setData(ArrayList<HomePageAdsEntity> data) {
+	public void setData(List<HomePageAdsEntity> data) {
 		this.data = data;
 	}
 

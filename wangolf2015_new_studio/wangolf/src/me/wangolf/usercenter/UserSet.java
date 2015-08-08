@@ -159,8 +159,11 @@ public class UserSet extends BaseActivity implements OnClickListener {
         }
     }
 
-    public void toLoginOut() {
-        try {
+    
+    public void toLoginOut() 
+    {
+        try 
+        {
             ServiceFactory.getIUserEngineInstatice().UserLogout(uid, new IOAuthCallBack() {
 
                 @Override

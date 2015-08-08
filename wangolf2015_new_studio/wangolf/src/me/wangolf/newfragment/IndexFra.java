@@ -1,39 +1,30 @@
 package me.wangolf.newfragment;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.example.topnewgrid.bean.ChannelManage;
+import com.example.topnewgrid.bean.KnowledgeChannelManage;
+import com.example.topnewgrid.bean.ShopChannelManage;
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
+import com.meigao.mgolf.R;
+
 import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.MediaController;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.topnewgrid.bean.ChannelManage;
-import com.example.topnewgrid.bean.KnowledgeChannelManage;
-import com.example.topnewgrid.bean.ShopChannelManage;
-import com.meigao.mgolf.R;
-
-import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.view.annotation.ViewInject;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-
 import me.wangolf.ConstantValues;
 import me.wangolf.adapter.MainAdapter;
 import me.wangolf.ballprac.BallInfoActivity;
@@ -43,7 +34,6 @@ import me.wangolf.bean.HomePageAdsEntity;
 import me.wangolf.bean.event.EventEntity;
 import me.wangolf.college.CollegePage;
 import me.wangolf.event.EventDetailActivity;
-import me.wangolf.event.EventMainActivity;
 import me.wangolf.event.EventnNoticeActivity;
 import me.wangolf.factory.ServiceFactory;
 import me.wangolf.knowledge.KnowledgePageActivity;
@@ -56,57 +46,81 @@ import me.wangolf.utils.CheckUtils;
 import me.wangolf.utils.CommonUtil;
 import me.wangolf.utils.DialogUtil;
 import me.wangolf.utils.GsonTools;
-import me.wangolf.utils.LogUtils;
 import me.wangolf.utils.SharedPreferencesUtils;
 import me.wangolf.utils.ToastUtils;
-import me.wangolf.utils.viewUtils.PullToRefreshBase;
 import me.wangolf.utils.viewUtils.PullToRefreshListView;
 import me.wangolf.utils.viewUtils.RollViewPager;
 
-public class IndexFra extends BaseFragment implements OnClickListener {
+public class IndexFra extends BaseFragment implements OnClickListener
+{
 
     @ViewInject(R.id.pull_refresh_list)
     private PullToRefreshListView pull_refresh_list;
+    
     @ViewInject(R.id.practice)
     private TextView practice;// 练习场
+    
     @ViewInject(R.id.ballsearch)
     private TextView ballsearch; // 球场
+    
     @ViewInject(R.id.knowledge)
     private TextView mKnowledge;//高球常识
+    
     @ViewInject(R.id.event)
     private TextView event;// 最新活动
+    
     @ViewInject(R.id.more_event)
     private RelativeLayout more_event;// 更多活动
+    
     @ViewInject(R.id.main_shop)
     private TextView mShop;
+    
     @ViewInject(R.id.common_title)
     private TextView mLogo;
+    
     @ViewInject(R.id.ball_main)
     private TextView mBall;
+    
     @ViewInject(R.id.index_list)
     private ListView mList;
+    
     @ViewInject(R.id.tv_Saleexchange)
     private TextView mSaleexchange;
 
     private MainAdapter adapter;
+    
     private String time;
+    
     private String page = "1";
+    
     private String number = "10";
+    
     private String version = "5";
+    
     private String recommend = "1"; // 0代表普通活动1代表首页活动
 
     private RollViewPager Rpage; //
+    
     private ArrayList<View> dotList; // 链接
+    
     @ViewInject(R.id.dots_ll)
     private LinearLayout dots_ll; // 填充滚动viewpage点
+    
     @ViewInject(R.id.shop_viewpager)
     private LinearLayout shop_viewpager; // 滚动图
+    
     private ArrayList<String> titles;
+    
     private ArrayList<String> urlList = new ArrayList<String>();
-    private ArrayList<HomePageAdsEntity> data;
+    
+    private List<HomePageAdsEntity> data;
+    
     private boolean isgetdata = true;// 是否是第一次拿数据
+    
     private ArrayList<EventEntity> event_data;
+    
     private Dialog dialog;
+    
     public boolean isnoserver;// 连接不到服务器
 
     @Override
@@ -200,6 +214,8 @@ public class IndexFra extends BaseFragment implements OnClickListener {
         return view;
     }
 
+    
+    
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public void initData()
     {
@@ -289,25 +305,34 @@ public class IndexFra extends BaseFragment implements OnClickListener {
 //
 //    }
 
-    public void getAdvData() {
+    public void getAdvData()
+    {
         // 首页广告
-        try {
-            ServiceFactory.getIndexEngineInstatice().getIndexAdv(page, number, version, new IOAuthCallBack() {
-
+        try 
+        {
+            ServiceFactory.getIndexEngineInstatice().getIndexAdv(page, number, version, new IOAuthCallBack() 
+            {
                 @Override
-                public void getIOAuthCallBack(String result) {
+                public void getIOAuthCallBack(String result) 
+                {
                     toCacheData(result, "index_adv" + ConstantValues.versionCode);
+                    
                     ProcessAdVdata(result);
+                    
                     isgetdata = false;
                 }
 
             });
+            
             // dialog.cancel();
-        } catch (Exception e) {
+        } 
+        catch (Exception e) 
+        {
             e.printStackTrace();
         }
     }
 
+    
     @Override
     public void onClick(View v) 
     {
@@ -399,6 +424,7 @@ public class IndexFra extends BaseFragment implements OnClickListener {
                     break;
                     
                 case R.id.knowledge:
+                	
                     if (ConstantValues.knoledge_title_size == 0) 
                     {
                         //如果开始初始失败
@@ -462,35 +488,64 @@ public class IndexFra extends BaseFragment implements OnClickListener {
                         switch (type) 
                         {
                             case 0:
+                            	
                                 Intent ball = new Intent(getActivity(), BallInfoActivity.class); // 球场ID跳转到球场
+                               
                                 ball.putExtra("ballid", advid);
+                                
                                 getActivity().startActivity(ball);
+                                
                                 break;
+                                
                             case 1:
-                                Intent practice = new Intent(getActivity(), PracticeInfoActivity.class);// 练习场ID跳转到练习场
-                                practice.putExtra("rgid", advid);
-                                practice.putExtra("cityname", ConstantValues.CITYNAME);
-                                getActivity().startActivity(practice);
+                              
+                            	Intent practice = new Intent(getActivity(), PracticeInfoActivity.class);// 练习场ID跳转到练习场
+                               
+                            	practice.putExtra("rgid", advid);
+                                
+                            	practice.putExtra("cityname", ConstantValues.CITYNAME);
+                                
+                            	getActivity().startActivity(practice);
+                            	
                                 break;
+                                
                             case 2:
+                            	
                                 Intent event = new Intent(getActivity(), EventDetailActivity.class);// 活动ID跳转到活动
+                              
                                 event.putExtra("eventid", advid);
+                                
                                 getActivity().startActivity(event);
+                                
                                 break;
+                                
                             case 3:
+                            	
                                 Intent shop = new Intent(getActivity(), ShopProActivity.class);// 商品ID跳转到商品
+                               
                                 shop.putExtra("proid", advid);
+                                
                                 getActivity().startActivity(shop);
+                                
                                 break;
+                                
                             case 5:
+                            	
                                 String code = data.get(position).getCode();
+                                
                                 Intent event_notice = new Intent(getActivity(), EventnNoticeActivity.class);// 活动公告
+                               
                                 event_notice.putExtra("noticeid", advid);
+                                
                                 event_notice.putExtra("code", code);
+                                
                                 getActivity().startActivity(event_notice);
+                                
                                 break;
+                                
                             default:
                                 break;
+                                
                         }
                     }
                 }
@@ -498,13 +553,18 @@ public class IndexFra extends BaseFragment implements OnClickListener {
         });
 
         Rpage.setLayoutParams(new LinearLayout.LayoutParams(ViewPager.LayoutParams.WRAP_CONTENT, ViewPager.LayoutParams.WRAP_CONTENT));
+       
         titles = new ArrayList<String>();
 
         // Rpage.setTitle(chzz_news_roll_title, titles);//标题
         Rpage.setUriList(urlList);
+        
         Rpage.startRoll();
+        
         shop_viewpager.removeAllViews(); // 使用前先清除所有的内容view
+        
         shop_viewpager.addView(Rpage);
+        
     }
 
     // ===========滚动图片view=============
@@ -546,26 +606,43 @@ public class IndexFra extends BaseFragment implements OnClickListener {
     }
 
     // 处理广告数据
-    public void ProcessAdVdata(String result) {
+    public void ProcessAdVdata(String result) 
+    {
 
-        if (result.equals(ConstantValues.FAILURE)) {
+        if (result.equals(ConstantValues.FAILURE))
+        {
             isnoserver = true;
+            
             ToastUtils.showInfo(getActivity(), ConstantValues.NONETWORK);
-        } else {
+            
+        } 
+        else
+        {
             HomePageAdsEntity bean = GsonTools.changeGsonToBean(result, HomePageAdsEntity.class);
-            if ("1".equals(bean.getStatus())) {
+            
+            if ("1".equals(bean.getStatus())) 
+            {
                 data = bean.getData();
+                
                 urlList.clear();
-                for (int i = 0; i < data.size(); i++) {
+                
+                for (int i = 0; i < data.size(); i++) 
+                {
                     String path = data.get(i).getLogo();
-                    if (!CheckUtils.checkEmpty(path)) {
+                    
+                    if (!CheckUtils.checkEmpty(path)) 
+                    {
                         String[] s = path.split(",");
+                        
                         path = s[0].substring(0, s[0].lastIndexOf(".")) + "_640_395" + s[0].substring(s[0].lastIndexOf("."));
                     }
+                    
                     urlList.add(path);
 
                 }
+                
                 initDot(urlList.size());// 初始化滚动图
+                
                 initRoll();
             }
 
@@ -574,17 +651,22 @@ public class IndexFra extends BaseFragment implements OnClickListener {
     }
 
     // 本地缓存
-    public void toCacheData(String result, String name) {
+    public void toCacheData(String result, String name) 
+    {
         SharedPreferencesUtils.saveString(getActivity(), name, result);
     }
 
-    private void setLastUpdateTime() {
+    private void setLastUpdateTime()
+    {
         String text = CommonUtil.getStringDate();
+        
         pull_refresh_list.setLastUpdatedLabel(text);
     }
 
-    private void onLoaded() {
+    private void onLoaded() 
+    {
         pull_refresh_list.onPullDownRefreshComplete();
+        
         pull_refresh_list.onPullUpRefreshComplete();
     }
 

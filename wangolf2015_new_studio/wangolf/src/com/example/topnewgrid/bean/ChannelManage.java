@@ -25,7 +25,8 @@ import com.example.topnewgrid.dao.ChannelDao;
 import com.example.topnewgrid.db.SQLHelper;
 import com.meigao.mgolf.wxapi.Constants;
 
-public class ChannelManage {
+public class ChannelManage 
+{
     public ChannelManage channelManage;
     /**
      * 默认的用户选择频道列表

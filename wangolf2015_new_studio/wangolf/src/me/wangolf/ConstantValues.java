@@ -3,6 +3,8 @@ package me.wangolf;
 public class ConstantValues
 {
 			
+	public static String BaseUrl = "http://192.168.1.222";
+	
 	public static final int ERROR = 100;
 	
 	public static final String ENCODING = "utf-8";
@@ -21,6 +23,8 @@ public class ConstantValues
 	public static String WX_UID="";
 	
 	public static String UID="";
+	
+	public static String UNIQUE_KEY="";
 	
 	public static String OPEN_ID="";
 	

@@ -37,33 +37,47 @@ import me.wangolf.utils.GsonTools;
 import me.wangolf.utils.ShowPickUtils;
 import me.wangolf.utils.ToastUtils;
 
-public class RegistActivity extends BaseActivity implements OnClickListener {
+public class RegistActivity extends BaseActivity implements OnClickListener
+{
 	@ViewInject(R.id.common_back)
 	private Button common_back; // 后退
+	
 	@ViewInject(R.id.common_title)
 	private TextView common_title;// 标题
+	
 	@ViewInject(R.id.common_bt)
 	private TextView common_bt;// 地图
+	
 	@ViewInject(R.id.relativeLayoutNum)
 	private RelativeLayout relativeLayoutNum;// 显示或隐 验证码
+	
 	@ViewInject(R.id.relayoutRecommend)
 	private RelativeLayout relayoutRecommend;// 推存人
+	
 	@ViewInject(R.id.ed_reg_code)
 	private EditText ed_reg_code;// 码证码
+	
 	@ViewInject(R.id.ed_reg_phone)
 	private EditText ed_reg_phone;// 手机号
+	
 	@ViewInject(R.id.ed_pwd)
 	private EditText ed_pwd;// 密码
+	
 	@ViewInject(R.id.bt_regist)
 	private Button bt_regist;// 注册
+	
 	@ViewInject(R.id.getcode)
 	private Button getcode;// 获取码证码
+	
 	@ViewInject(R.id.ed_recommend)
 	private EditText ed_recommend;// 推存人号码
+	
 	@ViewInject(R.id.toAgreement)
 	private TextView toAgreement;// 注册协议
+	
 	@ViewInject(R.id.checkBox1)
 	private CheckBox checkBox1;
+	
 	@ViewInject(R.id.tv_speech)
 	private TextView mSpeech;
 
@@ -79,7 +93,8 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
 	private String codeType="0";//验证码类型 短信或语音
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) 
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ac_regist);
 		ViewUtils.inject(this);
@@ -87,46 +102,76 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
 	}
 
 	@Override
-	public void initData() {
+	public void initData()
+	{
 		dialog = DialogUtil.getDialog(this);
+		
 		flag = getIntent().getStringExtra("flag");
+		
 		common_back.setVisibility(View.VISIBLE);
+		
 		common_title.setText(ConstantValues.REGIST);
+		
 		common_back.setOnClickListener(this);
+		
 		bt_regist.setOnClickListener(this);
+		
 		getcode.setOnClickListener(this);
+		
 		toAgreement.setOnClickListener(this);
+		
 		mSpeech.setOnClickListener(this);
+		
 		getData();
 
 	}
 
+	
+	
 	@Override
-	public void getData() {
+	public void getData() 
+	{
 		dialog.show();
 		try {
-			ServiceFactory.getIUserEngineInstatice().getUserOption(new IOAuthCallBack() {
+			
+			ServiceFactory.getIUserEngineInstatice().getUserOption(new IOAuthCallBack() 
+			{
 
 				@Override
-				public void getIOAuthCallBack(String result) {
-					if (result.equals(ConstantValues.FAILURE)) {
+				public void getIOAuthCallBack(String result) 
+				{
+					if (result.equals(ConstantValues.FAILURE)) 
+					{
 
 						ToastUtils.showInfo(RegistActivity.this,ConstantValues.NONETWORK);
-					} else {
+					} 
+					else 
+					{
 						UserOptionEntity bean = GsonTools.changeGsonToBean(result, UserOptionEntity.class);
-						if ("1".equals(bean.getStatus())) {
+						
+						if ("1".equals(bean.getStatus())) 
+						{
 							UserOptionEntity data = bean.getData().get(0);
+							
 							relativeLayoutNum.setVisibility(data.getRegist() == 0 ? View.VISIBLE : View.GONE);// 显示或隐
+							
 							relayoutRecommend.setVisibility(data.getPack() == 0 ? View.VISIBLE : View.GONE);
+							
 							System.out.println(data.getRegist()+"*****");
+							
 							if (data.getRegist() == 0)
 								isregist = true;// 开启验证
+							
 						}
 					}
+					
 					dialog.cancel();
 				}
 			});
-		} catch (Exception e) {
+			
+		} 
+		catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 	}
@@ -162,31 +207,49 @@ public class RegistActivity extends BaseActivity implements OnClickListener {
 		}
 	}
 
+	
 	// 验证号码是否已经注册:如已经注册 提示"已经注册 返回"，如未注册：发送验证码。
-	public void checkMobileRegist() {
+	public void checkMobileRegist()
+	{
 		dialog.show();
-		try {
-			ServiceFactory.getIUserEngineInstatice().toCheckMobileRegist(phone,codeType, new IOAuthCallBack() {
+		
+		try
+		{
+			ServiceFactory.getIUserEngineInstatice().toCheckMobileRegist(phone, codeType, new IOAuthCallBack()
+			{
 
 				@Override
-				public void getIOAuthCallBack(String result) {
+				public void getIOAuthCallBack(String result)
+				{
 
-					if (result.equals(ConstantValues.FAILURE)) {
+					if (result.equals(ConstantValues.FAILURE))
+					{
 
 						ToastUtils.showInfo(RegistActivity.this, ConstantValues.FAILURE);
-					} else {
+					} 
+					else
+					{
 						CodeEntity bean = GsonTools.changeGsonToBean(result, CodeEntity.class);
-						if ("1".equals(bean.getStatus())) {
+						
+						ToastUtils.showInfo(RegistActivity.this, result);
+						
+						if ("1".equals(bean.getStatus())) 
+						{
 
 //							if("0".equals(bean.getType())){
 //								codeType=0;
 //							}else if("2".equals(bean.getType())){
 //								codeType=2;
 //							}
+							
 							if("0".equals(codeType))
 							updateButton();
+							
 							ToastUtils.showInfo(RegistActivity.this, bean.getInfo());
-						} else {
+							
+						} 
+						else 
+						{
 							ShowPickUtils.ShowDialog(RegistActivity.this, bean.getInfo());
 							//ToastUtils.showInfo(RegistActivity.this, bean.getInfo());
 						}
@@ -252,41 +315,70 @@ private void upView(RegistEntity bean){
 }
 
 	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
+	public void onClick(View v)
+	{
+		switch (v.getId())
+		{
 		case R.id.common_back:
+			
 			finish();
+			
 			break;
+			
 		case R.id.bt_regist:
+			
 			toRegist();
+			
 			break;
+			
 		case R.id.getcode:
+			
 			codeType="0";
+			
 			phone = ed_reg_phone.getText().toString().trim();
-			if (phone.length() != 11) {
+			
+			if (phone.length() != 11) 
+			{
 
 				ToastUtils.showInfo(RegistActivity.this,"请输入正确的手机号码");
+				
 				return;
 			}
 
 			checkMobileRegist();
+			
 			break;
+			
 		case R.id.toAgreement:
+			
 			Intent protocol = new Intent(this, RegistProtocolActivity.class);
+			
 			startActivity(protocol);
+			
 			break;
+			
 		case R.id.checkBox1:
-			if (checkBox1.isChecked()) {
+			
+			if (checkBox1.isChecked()) 
+			{
 				checkBox1.setChecked(false);
-			} else {
+			} 
+			else 
+			{
 				checkBox1.setChecked(true);
 			}
+			
 			break;
+			
 			case R.id.tv_speech:
+				
 				ShowPickUtils.ShowSpeechDialog(this,0);
+				
 				break;
+				
 		default:
 			break;
+			
 		}
 
 	}

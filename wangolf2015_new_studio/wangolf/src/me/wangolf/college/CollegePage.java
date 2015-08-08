@@ -30,49 +30,76 @@ import me.wangolf.base.Mo_BasePage;
 import me.wangolf.bean.college.NewsTagsEntity;
 import me.wangolf.view.pagerindicator.TabPageIndicator;
 
-public class CollegePage extends Activity implements OnClickListener {
+public class CollegePage extends Activity implements OnClickListener 
+{
+	
     private ArrayList<Mo_BasePage> pages = new ArrayList<Mo_BasePage>();
+    
     private String[] title = ConstantValues.title_name; // 各分页的标题
+    
     private int curIndex;
+    
     @ViewInject(R.id.indicator)
     private TabPageIndicator indicator; // 左右滑动页控制器
+    
     @ViewInject(R.id.pager)
     private ViewPager pager;
+    
     @ViewInject(R.id.common_title)
     private TextView common_title; // 通用标题
+    
     @ViewInject(R.id.common_back)
     private TextView common_back;
+    
     @ViewInject(R.id.iv_newtag)
     private ImageView iv_newtag;
+    
     private ArrayList<NewsTagsEntity> data;
+    
     private ShopPagerAdapter<Mo_BasePage> adapter;
+    
     private boolean getData;
+    
     private int flag = 0;// 教练页0或 学院页1
 
     @ViewInject(R.id.common_sort)
     private LinearLayout common_sort; // 排行列表
+    
     @ViewInject(R.id.price_low)
     private TextView price_low; // 人
+    
     @ViewInject(R.id.price_high)
     private TextView price_high;
+    
     @ViewInject(R.id.discount_low)
     private TextView discount_low;// 折扣
+    
     @ViewInject(R.id.common_bt)
     private TextView common_bt;// bar排行
+    
     @ViewInject(R.id.sales_high)
     private TextView sales_high;// 销量最高
+    
     @ViewInject(R.id.product_up)
     private TextView product_up;// 新品上架
+    
     private Context context;
+    
     private boolean isLoadSuccess;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) 
+    {
         super.onCreate(savedInstanceState);
+        
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        
         setContentView(R.layout.frag_news);
+        
         this.context = this;
+        
         ViewUtils.inject(this);
+        
         initData();
 
     }
@@ -89,78 +116,127 @@ public class CollegePage extends Activity implements OnClickListener {
     public void initData() {
 
         common_title.setText(ConstantValues.COLLEGE);// 设置顶上标题
+        
         iv_newtag.setVisibility(View.VISIBLE); // 显示选项
+        
         //common_bt.setVisibility(View.VISIBLE);
         common_back.setVisibility(View.VISIBLE);
+        
         //common_bt.setText(ConstantValues.SORT);
         common_back.setOnClickListener(this);
+        
         common_bt.setOnClickListener(this);
+        
         price_low.setOnClickListener(this);
+        
         iv_newtag.setOnClickListener(this);
+        
         price_low.setOnClickListener(this);
+        
         price_high.setOnClickListener(this);
+        
         discount_low.setOnClickListener(this);
+        
         sales_high.setOnClickListener(this);
+        
         product_up.setOnClickListener(this);
 
         // isLoadSuccess = ConstantValues.newsTags;
-        if (ConstantValues.newsTags) {
+        if (ConstantValues.newsTags) 
+        {
             getData = false;
+            
             isLoadSuccess = false;
         }
+        
         setTextView();
         // getData();
         initIndicator();
     }
 
-    private void initIndicator() {
-        if (!getData) {
+    
+    private void initIndicator()
+    {
+        if (!getData) 
+        {
 
-            if (!isLoadSuccess) {
+            if (!isLoadSuccess) 
+            {
                 price_low.setBackgroundColor(context.getResources().getColor(R.color.bg_black_color));
+                
                 pages.removeAll(pages);
+                
                 // pages.add(new CollegeCoachPage(context, "4"));
                 // pages.add(new CollegeCollegePage(context, "5"));
-                for (int i = 0; i < ConstantValues.title_size; i++) {
+                for (int i = 0; i < ConstantValues.title_size; i++) 
+                {
 
                     pages.add(new CollegePageItem(context, ConstantValues.title_id[i] + ""));
 
                 }
             }
+            
             ConstantValues.newsTags = false; // 重新初始化完学院改为false
+            
             isLoadSuccess = true;
-            if (adapter == null) {
+            
+            if (adapter == null)
+            {
                 adapter = new ShopPagerAdapter<Mo_BasePage>(context, pages, title);
-            } else {
+            } 
+            else
+            {
                 indicator.notifyDataSetChanged();
+                
                 adapter.setTitle(title);
+                
                 adapter.setPages(pages);
+                
                 adapter.notifyDataSetChanged();
             }
+            
             adapter.notifyDataSetChanged();
+            
             pager.setAdapter(adapter);
-            indicator.setOnPageChangeListener(new OnPageChangeListener() {
+            
+            indicator.setOnPageChangeListener(new OnPageChangeListener() 
+            {
 
                 @Override
-                public void onPageSelected(int arg0) {
+                public void onPageSelected(int arg0) 
+                {
                     Mo_BasePage page = pages.get(arg0);
-                    if (!page.isLoadSuccess) {
+                    
+                    if (!page.isLoadSuccess) 
+                    {
                         page.initData();
                     }
+                    
                     curIndex = arg0;
+                    
                     setBackgroundColor();
+                    
                     price_low.setBackgroundColor(context.getResources().getColor(R.color.bg_black_color));
+                    
                     //common_sort.setVisibility(View.GONE);// 移动隐排序
-                    if (curIndex == 0) {
+                    if (curIndex == 0) 
+                    {
                         flag = 0;
+                        
                         setTextView();
 
                         //common_bt.setVisibility(View.VISIBLE); // 显示或隐 排序
-                    } else if (curIndex == 1) {
+                    } 
+                    else if (curIndex == 1) 
+                    {
                         flag = 1;
+                        
                         setTextView();
+                        
                         //common_bt.setVisibility(View.VISIBLE);
-                    } else {
+                    } 
+                    else
+                    {
                         //common_bt.setVisibility(View.GONE);
                         //common_sort.setVisibility(View.GONE);
                     }
@@ -168,88 +244,151 @@ public class CollegePage extends Activity implements OnClickListener {
                 }
 
                 @Override
-                public void onPageScrolled(int arg0, float arg1, int arg2) {
+                public void onPageScrolled(int arg0, float arg1, int arg2)
+                {
 
                 }
 
                 @Override
-                public void onPageScrollStateChanged(int arg0) {
+                public void onPageScrollStateChanged(int arg0)
+                {
 
                 }
             });
+            
             pages.get(0).initData(); // 初始化学院首页数据
+            
             indicator.setViewPager(pager); // 设置页面
+            
             indicator.setCurrentItem(curIndex);
+            
             getData = true;
         }
     }
 
+    
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
+    public void onClick(View v)
+    {
+        switch (v.getId()) 
+        {
             case R.id.common_back:
+            	
                 finish();
+                
+                
                 break;
             case R.id.common_bt:
-                if (common_sort.getVisibility() == View.VISIBLE) {
+            	
+                if (common_sort.getVisibility() == View.VISIBLE) 
+                {
                     common_sort.setVisibility(View.GONE);
-                } else if (common_sort.getVisibility() == View.GONE) {
+                    
+                } 
+                else if (common_sort.getVisibility() == View.GONE)
+                {
                     common_sort.setVisibility(View.VISIBLE);
                 }
+                
                 break;
+                
             case R.id.price_low:
+            	
                 setBackgroundColor();
+                
                 price_low.setBackgroundColor(context.getResources().getColor(R.color.bg_black_color));
-                if (flag == 0) {
+                
+                if (flag == 0) 
+                {
                     pages.get(curIndex).UpSort(1, 1);
-                } else {
+                } 
+                else 
+                {
                     pages.get(curIndex).UpSort(0, 0);
                 }
+                
                 common_sort.setVisibility(View.GONE);
+                
                 break;
+                
             case R.id.price_high:
+            	
                 setBackgroundColor();
+                
                 price_high.setBackgroundColor(context.getResources().getColor(R.color.bg_black_color));
+                
                 common_sort.setVisibility(View.GONE);
-                if (flag == 0) {
+                
+                if (flag == 0)
+                {
                     pages.get(curIndex).UpSort(0, 1);
-                } else {
+                    
+                } 
+                else 
+                {
                     pages.get(curIndex).UpSort(0, 1);
                 }
+                
                 break;
+                
             case R.id.discount_low:
+            	
                 setBackgroundColor();
+                
                 discount_low.setBackgroundColor(context.getResources().getColor(R.color.bg_black_color));
+                
                 common_sort.setVisibility(View.GONE);
-                if (flag == 0) {
+                
+                if (flag == 0)
+                {
                     pages.get(curIndex).UpSort(2, 1);
-                } else {
+                    
+                } 
+                else 
+                {
                     pages.get(curIndex).UpSort(1, 0);
                 }
+                
                 break;
+                
             case R.id.sales_high:
+            	
                 setBackgroundColor();
+                
                 sales_high.setBackgroundColor(context.getResources().getColor(R.color.bg_black_color));
+                
                 common_sort.setVisibility(View.GONE);
 
                 pages.get(curIndex).UpSort(1, 1);
 
                 break;
+                
             case R.id.product_up:
+            	
                 setBackgroundColor();
+                
                 product_up.setBackgroundColor(context.getResources().getColor(R.color.bg_black_color));
+                
                 common_sort.setVisibility(View.GONE);
 
                 break;
+                
             case R.id.iv_newtag:
+            	
                 Intent intent = new Intent(context, ChannelActivity.class);
+                
                 intent.putExtra("newstags", "newstags");
+                
                 intent.putExtra("tableName", SQLHelper.TABLE_CHANNEL);
+                
                 startActivityForResult(intent, ConstantValues.NEWSTAGS);
+                
                 //context.startActivity(intent);
                 break;
+                
             default:
                 break;
+                
         }
     }
 
@@ -276,16 +415,23 @@ public class CollegePage extends Activity implements OnClickListener {
     // });
     // }
 
-    public void setBackgroundColor() {
+    public void setBackgroundColor() 
+    {
         price_low.setBackgroundColor(context.getResources().getColor(R.color.transparent));
+        
         price_high.setBackgroundColor(context.getResources().getColor(R.color.transparent));
+        
         discount_low.setBackgroundColor(context.getResources().getColor(R.color.transparent));
+        
         sales_high.setBackgroundColor(context.getResources().getColor(R.color.transparent));
+        
         product_up.setBackgroundColor(context.getResources().getColor(R.color.transparent));
     }
 
-    public void setTextView() {
-        switch (flag) {
+    public void setTextView() 
+    {
+        switch (flag) 
+        {
             case 0:
                 price_low.setText("人气最高");
                 price_high.setText("距离最近");

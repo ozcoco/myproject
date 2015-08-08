@@ -30,7 +30,7 @@ public class BallServiceImpl implements IBallService
 //		params.addBodyParameter("ballid", ballid);
 //		Xutils.getDataFromServer(params, iOAuthCallBack);
 		
-		String api = BaseUrl + "webCourt/tags?terminal=1&user_id="				
+		String api = BaseUrl + "webCourt/tags?"				
 				+ "&court_id=" + court_id;	
 		
 		Xutils.getDataFromServer(api, iOAuthCallBack);
@@ -56,7 +56,7 @@ public class BallServiceImpl implements IBallService
 //		params.addBodyParameter("date", date);
 //		Xutils.getDataFromServer(params, iOAuthCallBack);
 		
-		String api = BaseUrl + "webCourt/detail?terminal=1&user_id="				
+		String api = BaseUrl + "webCourt/detail?"				
 				+ "&date=" + date
 				+ "&court_id=" + court_id;	
 		
@@ -81,7 +81,7 @@ public class BallServiceImpl implements IBallService
 //		params.addBodyParameter("ballname", ballname);
 //		Xutils.getDataFromServer(params, iOAuthCallBack);
 
-		String api = BaseUrl + "webCourt/search?terminal=1&user_id="				
+		String api = BaseUrl + "webCourt/search?"				
 				+ "&court_name=" + court_name;	
 		
 		Xutils.getDataFromServer(api, iOAuthCallBack);
@@ -98,7 +98,7 @@ public class BallServiceImpl implements IBallService
 	@Override
 	public void findBallSearch(String cityid, String date, String longitude, String latitude, IOAuthCallBack iOAuthCallBack) throws Exception 
 	{
-		String api = BaseUrl + "webCourt/list?terminal=1&user_id="
+		String api = BaseUrl + "webCourt/list?"
 				+ "&city_id=" + cityid
 				+ "&longitude=" + longitude
 				+ "&latitude=" + latitude

@@ -1,6 +1,5 @@
 package me.wangolf.service.impl;
 
-import android.util.Log;
 
 import com.lidroid.xutils.http.RequestParams;
 
@@ -9,33 +8,82 @@ import me.wangolf.service.IOAuthCallBack;
 import me.wangolf.service.IShopService;
 import me.wangolf.utils.Xutils;
 
-public class ShopServiceImpl implements IShopService {
+public class ShopServiceImpl implements IShopService 
+{
+	static String BaseUrl = "http://192.168.1.222/golf/";
+	
 	public RequestParams params = null;
 
-	@Override
-	public void getShopList(String sort, String rule, String page, String number, int cate_id, IOAuthCallBack iOAuthCallBack) throws Exception {
-		params = new RequestParams();
-		params.addBodyParameter("m", "Commodity");
-		params.addBodyParameter("a", "commodityList");
-		params.addBodyParameter("sort", sort + "");
-		params.addBodyParameter("rule", rule);
-		params.addBodyParameter("page", page);
-		params.addBodyParameter("number", number);
-		params.addBodyParameter("cate_id", cate_id+"");
-		Xutils.getDataFromServer(params, iOAuthCallBack);
-		//Log.i("wangolf","m=Commodity&a=commodityList&sort="+sort+"&rule="+rule+"&page="+page+"&number="+number+"&cate_id="+cate_id);
-	}
+	
+	/**
+	 * 
+	 * getShopList
+	 * 
+	 * 最新修改的获取商品列表方法
+	 * 
+	 * */
 
 	@Override
-	public void getProInfo(String proid, IOAuthCallBack iOAuthCallBack) throws Exception {
-		params = new RequestParams();
-		params.addBodyParameter("m", "Customer");
-		params.addBodyParameter("a", "infopro");
-		params.addBodyParameter("proid", proid);
-		Xutils.getDataFromServer(params, iOAuthCallBack);
+	public void getShopList(String sort, String rule, String page, String number, int cate_id, IOAuthCallBack iOAuthCallBack) throws Exception 
+	{
+		
+	String api = BaseUrl + "webCommodity/list?"
+	+ "&category_id="+cate_id
+	+ "&sort_type="+sort
+	+ "&sort_rule="+rule
+	+ "&page="+page
+	+ "&number="+number;
 
+    Xutils.getDataFromServer(api, iOAuthCallBack);
+		
+		
+	}
+	
+	/**
+	 * 
+	 * getProInfo
+	 * 
+	 * 最新修改的获取商品详情方法
+	 * 
+	 * */
+	@Override
+	public void getProInfo(String commodity_id, IOAuthCallBack iOAuthCallBack) throws Exception 
+	{
+//		params = new RequestParams();
+//		params.addBodyParameter("m", "Customer");
+//		params.addBodyParameter("a", "infopro");
+//		params.addBodyParameter("proid", proid);
+//		Xutils.getDataFromServer(params, iOAuthCallBack);
+		
+		String api = BaseUrl + "webCommodity/detail?"				
+				+ "&commodity_id=" + commodity_id;
+		
+		Xutils.getDataFromServer(api, iOAuthCallBack);
+		
 	}
 
+	/**
+	 * 
+	 * getCommodity
+	 * 
+	 * 最新修改的商品标签列表方法
+	 * 
+	 * */
+    @Override
+    public void getCommodity(IOAuthCallBack iOAuthCallBack) throws Exception {
+//        params = new RequestParams();
+//        params.addBodyParameter("m", "Commodity");
+//        params.addBodyParameter("a", "category");
+//        Xutils.getDataFromServer(params, iOAuthCallBack);
+    	
+    	String api = BaseUrl + "webCommodity/category?";
+    	
+    	Xutils.getDataFromServer(api, iOAuthCallBack);
+    	
+    }
+	
+    
+    
 	@Override
 	public void getproImgDetail(String proid, IOAuthCallBack iOAuthCallBack) throws Exception {
 		params = new RequestParams();
@@ -54,11 +102,9 @@ public class ShopServiceImpl implements IShopService {
 		Xutils.getDataFromServer(params, iOAuthCallBack);
 	}
 
-    @Override
-    public void getCommodity(IOAuthCallBack iOAuthCallBack) throws Exception {
-        params = new RequestParams();
-        params.addBodyParameter("m", "Commodity");
-        params.addBodyParameter("a", "category");
-        Xutils.getDataFromServer(params, iOAuthCallBack);
-    }
+
+
+	
+	
+
 }

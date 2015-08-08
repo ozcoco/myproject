@@ -80,40 +80,60 @@ public class CollegeCollegePage extends Mo_BasePage {
 	}
 
 	@Override
-	public View initView(LayoutInflater inflater) {
+	public View initView(LayoutInflater inflater)
+	{
 		View view = inflater.inflate(R.layout.ac_collgeg_list, null);
+		
 		ViewUtils.inject(this, view);
 
-		if (adapter == null) {
+		if (adapter == null)
+		{
 			adapter = new CollegeListAdapter(context);
+			
 			pull_refresh_list.getRefreshableView().setAdapter(adapter);
-		} else {
+			
+		} 
+		else 
+		{
 			adapter.notifyDataSetChanged();
 		}
+		
 		pull_refresh_list.setPullLoadEnabled(false);
 		// 滚动到底自动加载可用
 		pull_refresh_list.setScrollLoadEnabled(true);
 		// 得到实际的ListView 设置点击
-		pull_refresh_list.getRefreshableView().setOnItemClickListener(new OnItemClickListener() {
+		pull_refresh_list.getRefreshableView().setOnItemClickListener(new OnItemClickListener() 
+		{
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				if (CommonUtil.isNetworkAvailable(context) == 0) {
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
+			{
+				if (CommonUtil.isNetworkAvailable(context) == 0) 
+				{
 					Toast.makeText(context, ConstantValues.NONETWORK, 0).show();
-				} else {
+				} 
+				else 
+				{
 					CollegeListEntity bean = (CollegeListEntity) adapter.getItem(position);
+					
 					Intent intent = new Intent(context, CollegeinfoAcitvity.class);
+					
 					intent.putExtra("collegeid", bean.getCollegeid() + "");
+					
 					context.startActivity(intent);
 				}
 			}
 		});
 
 		// 设置下拉刷新的listener
-		pull_refresh_list.setOnRefreshListener(new OnRefreshListener<ListView>() {
+		pull_refresh_list.setOnRefreshListener(new OnRefreshListener<ListView>() 
+		{
 			@Override
-			public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+			public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView)
+			{
 				isR = true;
+				
 				page = 1;
+				
 				getData();
 				// ismoredata = false;
 			}
@@ -140,49 +160,81 @@ public class CollegeCollegePage extends Mo_BasePage {
 		getData();
 	}
 
-	public void getData() {
+	
+	public void getData() 
+	{
 
-		try {
-			ServiceFactory.getCollegeEngineInstatice().getCollegeList(sort_type, sort, latitude, longitude, page + "", number + "",
-					new IOAuthCallBack() {
+		try 
+		{
+			ServiceFactory.getCollegeEngineInstatice().getCollegeList(sort_type, sort, latitude, longitude, page + "", number + "",new IOAuthCallBack()
+			{
 
 						@Override
-						public void getIOAuthCallBack(String result) {
-							if (result.equals(ConstantValues.FAILURE)) {
+						public void getIOAuthCallBack(String result) 
+						{
+							if (result.equals(ConstantValues.FAILURE)) 
+							{
 								Toast.makeText(context, ConstantValues.NONETWORK, 0).show();
-							} else {
+							} 
+							else
+							{
 								isLoadSuccess = true;
+								
 								CollegeListEntity bean = GsonTools.changeGsonToBean(result, CollegeListEntity.class);
+								
 								ArrayList<CollegeListEntity> beaninfo = bean.getData();
-								if (beaninfo.size() == 0) {
+								
+								if (beaninfo.size() == 0) 
+								{
 									ismore = true;
+									
 									onLoaded();
+									
 									Toast.makeText(context, ConstantValues.NOMORE, 0).show();
+									
 									dialog.cancel();
-								} else {
+									
+								} 
+								else 
+								{
 									list = (ArrayList<CollegeListEntity>) adapter.getList();
-									if (isR) {
+									
+									if (isR) 
+									{
 										list.clear();
+										
 										list.addAll(beaninfo);
-									} else {
-										if (list != null & ismoredata) {
+										
+									} 
+									else 
+									{
+										if (list != null & ismoredata) 
+										{
 											list.addAll(beaninfo);
-										} else {
+										} 
+										else 
+										{
 											adapter.setList(beaninfo);
 										}
 									}
+									
 									adapter.notifyDataSetChanged();
 
 								}
 
 							}
+							
 							dialog.cancel();
+							
 							onLoaded();
+							
 							setLastUpdateTime();
 						}
 					});
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
+		} 
+		catch (Exception e) 
+		{			
 			e.printStackTrace();
 		}
 

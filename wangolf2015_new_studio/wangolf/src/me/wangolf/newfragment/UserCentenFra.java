@@ -140,16 +140,21 @@ public class UserCentenFra extends Fragment implements OnClickListener {
                     } else {
                         UserInfoEntity user = GsonTools.changeGsonToBean(result, UserInfoEntity.class);
                         if ("1".equals(user.getStatus())) {
-                            UserInfoEntity userinfo = user.getData().get(0);
-                            name.setText(CheckUtils.checkEmpty(userinfo.getNickname()) ? userinfo.getMobile() : userinfo.getNickname());
+                            UserInfoEntity.DataEntity userinfo = user.getData().get(0);
+                            name.setText(CheckUtils.checkEmpty(userinfo.getNick_name()) ? userinfo.getMobile() : userinfo.getNick_name());
                             account.setText("￥" + userinfo.getAccount());
 
-                            my_accounts = userinfo.getAccount();
-                            my_vouchers = userinfo.getVouchers();
-                            String path_1 = userinfo.getPhoto();
-                            if (!CheckUtils.checkEmpty(path_1)) {
-                                path_1 = path_1.substring(0, path_1.lastIndexOf(".")) + "_180_180" + path_1.substring(path_1.lastIndexOf("."));
-                            }
+                            my_accounts = Double.valueOf(userinfo.getAccount());
+                            
+//                            my_vouchers = userinfo.getVouchers();
+                            
+                            String path_1 = userinfo.getAvatar();
+                            
+//                            if (!CheckUtils.checkEmpty(path_1)) 
+//                            {
+//                                path_1 = path_1.substring(0, path_1.lastIndexOf(".")) + "_180_180" + path_1.substring(path_1.lastIndexOf("."));
+//                            }
+                            
                             ImageViewUtil.loadimg(path_1, ib, getActivity());
                         }
                     }
@@ -163,10 +168,14 @@ public class UserCentenFra extends Fragment implements OnClickListener {
     }
 
     @Override
-    public void onClick(View v) {
-        if (CommonUtil.isNetworkAvailable(getActivity()) == 0) {
+    public void onClick(View v) 
+    {
+        if (CommonUtil.isNetworkAvailable(getActivity()) == 0) 
+        {
             ToastUtils.showInfo(getActivity(), ConstantValues.NONETWORK);
-        } else {
+        } 
+        else
+        {
             switch (v.getId()) {
                 case R.id.orderlist:
                     Intent order = new Intent(getActivity(), OrderListActivity.class);

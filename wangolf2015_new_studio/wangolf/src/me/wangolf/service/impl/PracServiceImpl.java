@@ -27,8 +27,6 @@ public class PracServiceImpl implements IPracService
 		+"city_id="+cityId
 		+"&latitude="+latitude
 		+"&longitude="+longitude
-		+"&terminal=1"
-		+ "&user_id="
 		+ "&range_name="+rangeName;
 		
 		Xutils.getDataFromServer(api, iOAuthCallBack);
@@ -81,9 +79,7 @@ public class PracServiceImpl implements IPracService
 //		Xutils.getDataFromServer(params, iOAuthCallBack);
 		
 		String api = BaseUrl + "webRange/detail?"
-				   + "range_id="+ rgid
-				   + "&terminal=1"
-				   + "&user_id=";
+				   + "range_id="+ rgid;
 		
 		Xutils.getDataFromServer(api, iOAuthCallBack);
 		

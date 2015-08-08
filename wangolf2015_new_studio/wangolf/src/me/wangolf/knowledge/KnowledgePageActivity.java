@@ -1,103 +1,139 @@
 package me.wangolf.knowledge;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.Window;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.example.topnewgrid.ChannelActivity;
 import com.example.topnewgrid.KnowledgeChannelActivity;
 import com.example.topnewgrid.db.SQLHelper;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.meigao.mgolf.R;
 
-import java.util.ArrayList;
-
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import me.wangolf.ConstantValues;
 import me.wangolf.adapter.ShopPagerAdapter;
 import me.wangolf.base.Mo_BasePage;
 import me.wangolf.bean.college.NewsTagsEntity;
-import me.wangolf.college.CollegePageItem;
 import me.wangolf.view.pagerindicator.TabPageIndicator;
 
-public class KnowledgePageActivity extends Activity implements OnClickListener {
+public class KnowledgePageActivity extends Activity implements OnClickListener
+{
     private ArrayList<Mo_BasePage> pages = new ArrayList<Mo_BasePage>();
+    
     private String[] title ; // 各分页的标题
+    
     private int curIndex;
+    
     @ViewInject(R.id.indicator)
     private TabPageIndicator indicator; // 左右滑动页控制器
+    
     @ViewInject(R.id.pager)
     private ViewPager pager;
+    
     @ViewInject(R.id.common_title)
     private TextView common_title; // 通用标题
+    
     @ViewInject(R.id.common_back)
     private TextView common_back;
+    
     @ViewInject(R.id.iv_newtag)
     private ImageView iv_newtag;
+    
     private ArrayList<NewsTagsEntity> data;
+    
     private ShopPagerAdapter<Mo_BasePage> adapter;
+    
     private boolean getData;
+    
     private int flag = 0;// 教练页0或 学院页1
 
     @ViewInject(R.id.common_sort)
     private LinearLayout common_sort; // 排行列表
+    
     @ViewInject(R.id.price_low)
     private TextView price_low; // 人
+    
     @ViewInject(R.id.price_high)
     private TextView price_high;
+    
     @ViewInject(R.id.discount_low)
     private TextView discount_low;// 折扣
+    
     @ViewInject(R.id.common_bt)
     private TextView common_bt;// bar排行
+    
     @ViewInject(R.id.sales_high)
     private TextView sales_high;// 销量最高
+    
     @ViewInject(R.id.product_up)
     private TextView product_up;// 新品上架
+    
     private Context context;
+    
     private boolean isLoadSuccess;
+    
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
+        
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        
         setContentView(R.layout.frag_news);
+        
         this.context = this;
+        
         ViewUtils.inject(this);
+        
         initData();
 
     }
 
 
 
-    public void initData() {
+    public void initData() 
+    {
 
         common_title.setText("高球通");// 设置顶上标题
+        
         iv_newtag.setVisibility(View.VISIBLE); // 显示选项
+        
         //common_bt.setVisibility(View.VISIBLE);
         common_back.setVisibility(View.VISIBLE);
         //common_bt.setText(ConstantValues.SORT);
         common_back.setOnClickListener(this);
+        
         common_bt.setOnClickListener(this);
+        
         price_low.setOnClickListener(this);
+        
         iv_newtag.setOnClickListener(this);
+        
         price_low.setOnClickListener(this);
+        
         price_high.setOnClickListener(this);
+        
         discount_low.setOnClickListener(this);
+        
         sales_high.setOnClickListener(this);
+        
         product_up.setOnClickListener(this);
 
         // isLoadSuccess = ConstantValues.newsTags;
-        if (ConstantValues.newsTags) {
+        if (ConstantValues.newsTags) 
+        {
             getData = false;
             isLoadSuccess = false;
         }
@@ -106,55 +142,81 @@ public class KnowledgePageActivity extends Activity implements OnClickListener {
         initIndicator();
     }
 
-    private void initIndicator() {
-        if (!getData) {
+    private void initIndicator() 
+    {
+        if (!getData) 
+        {
 
-            if (!isLoadSuccess) {
+            if (!isLoadSuccess) 
+            {
                 price_low.setBackgroundColor(context.getResources().getColor(R.color.bg_black_color));
+               
                 pages.removeAll(pages);
                 // pages.add(new CollegeCoachPage(context, "4"));
                 // pages.add(new CollegeCollegePage(context, "5"));
-                for (int i = 0; i < ConstantValues.knoledge_title_size; i++) {
+                for (int i = 0; i < ConstantValues.knoledge_title_size; i++)
+                {
 
                     pages.add(new KnowledgePageItem(context, ConstantValues.knoledge_title_id[i] + ""));
 
                 }
                 title = ConstantValues.knoledge_title_name;
             }
+            
             ConstantValues.newsTags = false; // 重新初始化完学院改为false
+            
             isLoadSuccess = true;
-            if (adapter == null) {
+            
+            if (adapter == null) 
+            {
                 adapter = new ShopPagerAdapter<Mo_BasePage>(context, pages, title);
-            } else {
+            }
+            else 
+            {
                 indicator.notifyDataSetChanged();
+                
                 adapter.setTitle(title);
+                
                 adapter.setPages(pages);
+                
                 adapter.notifyDataSetChanged();
             }
+            
             adapter.notifyDataSetChanged();
+            
             pager.setAdapter(adapter);
-            indicator.setOnPageChangeListener(new OnPageChangeListener() {
+            
+            indicator.setOnPageChangeListener(new OnPageChangeListener() 
+            {
 
                 @Override
-                public void onPageSelected(int arg0) {
+                public void onPageSelected(int arg0)
+                {
                     Mo_BasePage page = pages.get(arg0);
-                    if (!page.isLoadSuccess) {
+                    
+                    if (!page.isLoadSuccess) 
+                    {
                         page.initData();
                     }
+                    
                     curIndex = arg0;
+                    
                     setBackgroundColor();
+                    
                     price_low.setBackgroundColor(context.getResources().getColor(R.color.bg_black_color));
                     //common_sort.setVisibility(View.GONE);// 移动隐排序
-                    if (curIndex == 0) {
+                    if (curIndex == 0) 
+                    {
                         flag = 0;
-
-
                         //common_bt.setVisibility(View.VISIBLE); // 显示或隐 排序
-                    } else if (curIndex == 1) {
+                    } 
+                    else if (curIndex == 1) 
+                    {
                         flag = 1;
-
                         //common_bt.setVisibility(View.VISIBLE);
-                    } else {
+                    } 
+                    else 
+                    {
                         //common_bt.setVisibility(View.GONE);
                         //common_sort.setVisibility(View.GONE);
                     }
@@ -171,15 +233,20 @@ public class KnowledgePageActivity extends Activity implements OnClickListener {
 
                 }
             });
+            
             pages.get(0).initData(); // 初始化学院首页数据
+            
             indicator.setViewPager(pager); // 设置页面
+            
             indicator.setCurrentItem(curIndex);
+            
             getData = true;
         }
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View v) 
+    {
         switch (v.getId()) {
             case R.id.common_back:
                 finish();

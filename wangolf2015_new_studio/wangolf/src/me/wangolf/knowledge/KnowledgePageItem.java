@@ -1,21 +1,20 @@
 package me.wangolf.knowledge;
 
-import android.app.Dialog;
-import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.meigao.mgolf.R;
 
-import java.util.ArrayList;
-
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
 import me.wangolf.ConstantValues;
 import me.wangolf.adapter.CollegeAdapter;
 import me.wangolf.base.Mo_BasePage;
@@ -49,120 +48,181 @@ public class KnowledgePageItem extends Mo_BasePage {
     private int number = 10;
     private Dialog dialog;
 
-    public KnowledgePageItem(Context context) {
+    public KnowledgePageItem(Context context) 
+    {
         super(context);
 
     }
 
-    public KnowledgePageItem(Context context, String type) {
+    public KnowledgePageItem(Context context, String type) 
+    {
         super(context);
         this.type = type;
     }
 
     @Override
-    public View initView(LayoutInflater inflater) {
+    public View initView(LayoutInflater inflater) 
+    {
         View view = inflater.inflate(R.layout.ac_collgeg_list, null);
+        
         ViewUtils.inject(this, view);
 
-        if (adapter == null) {
+        if (adapter == null) 
+        {
             adapter = new CollegeAdapter(context);
+            
             pull_refresh_list.getRefreshableView().setAdapter(adapter);
-        } else {
+            
+        } 
+        else 
+        {
             adapter.notifyDataSetChanged();
         }
+        
         pull_refresh_list.setPullLoadEnabled(false);
+        
         // 滚动到底自动加载可用
         pull_refresh_list.setScrollLoadEnabled(true);
+        
         // 得到实际的ListView 设置点击
-        pull_refresh_list.getRefreshableView().setOnItemClickListener(new OnItemClickListener() {
+        pull_refresh_list.getRefreshableView().setOnItemClickListener(new OnItemClickListener() 
+        {
 
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                KnowledgeEntity bean = (KnowledgeEntity) adapter.getItem(position);
-                if (CommonUtil.isNetworkAvailable(context) == 0) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+            	Basebean.DataEntity bean = adapter.getItem(position);
+                
+                if (CommonUtil.isNetworkAvailable(context) == 0)
+                {
                     ToastUtils.showInfo(context, ConstantValues.NONETWORK);
-                } else {
-                    if ("10".equals(type)) {
+                } 
+                else 
+                {
+                    if ("10".equals(type)) 
+                    {
                         Intent intent = new Intent(context, MainActivity.class);
+                        
                         intent.putExtra("knowid", bean.getId() + "");
+                        
                         context.startActivity(intent);
-                    } else {
+                        
+                    } 
+                    else
+                    {
                         Intent intent = new Intent(context, CollegePageContent.class);
+                        
                         intent.putExtra("knowid", bean.getId() + "");
+                        
                         context.startActivity(intent);
+                        
                     }
                 }
             }
         });
 
         // 设置下拉刷新的listener
-        pull_refresh_list.setOnRefreshListener(new OnRefreshListener<ListView>() {
+        pull_refresh_list.setOnRefreshListener(new OnRefreshListener<ListView>()
+        {
 
             @Override
-            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView)
+            {
                 page = 1;
                 isRefresh = true;
                 getData();
             }
 
             @Override
-            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) 
+            {
                 page++;
+                
                 getData();
             }
         });
+        
         return view;
     }
 
     @Override
-    public void initData() {
+    public void initData()
+    {
         dialog = DialogUtil.getDialog(context);
+        
         dialog.show();
+        
         getData();
     }
 
-    public void getData() {
+    public void getData() 
+    {
 
-        try {
+        try 
+        {
             // System.out.println("type=" + type);
-            ServiceFactory.getKnowledgeEngineInstatice().getKnowledgeList(type, page, number, new IOAuthCallBack() {
+            ServiceFactory.getKnowledgeEngineInstatice().getKnowledgeList(type, page, number, new IOAuthCallBack()
+            {
 
                 @Override
-                public void getIOAuthCallBack(String result) {
+                public void getIOAuthCallBack(String result) 
+                {
 
-                    if (result.equals(ConstantValues.FAILURE)) {
+                    if (result.equals(ConstantValues.FAILURE)) 
+                    {
                         ToastUtils.showInfo(context, ConstantValues.NONETWORK);
+                        
                         dialog.cancel();
+                        
                         onLoaded();
-                    } else {
+                    } 
+                    else 
+                    {
                         Basebean bean = GsonTools.changeGsonToBean(result, Basebean.class);
-                        if ("1".equals(bean.getStatus())) {
-                            if (bean.getData() != null) {
-                                ArrayList<KnowledgeEntity> data = bean.getData();
-                                ArrayList<KnowledgeEntity> mList = adapter.getList();
-                                if (data.size() == 0) {
+                        
+                        if ("1".equals(bean.getStatus())) 
+                        {
+                            if (bean.getData() != null) 
+                            {
+                                List<Basebean.DataEntity> data = bean.getData();
+                                
+                                List<Basebean.DataEntity> mList = adapter.getList();
+                                
+                                if (data.size() == 0) 
+                                {
                                     // 没有更多数据
                                     ToastUtils.showInfo(context, ConstantValues.NOMORE);
+                                    
                                     dialog.cancel();
+                                    
                                     onLoaded();
+                                    
                                     return;
                                 }
-                                if (isRefresh) {
+                                if (isRefresh)
+                                {
                                     // 下拉刷新
                                     isRefresh = false;
+                                    
                                     if (mList != null)
                                         mList.clear();
+                                    
                                     adapter.setList(data);
-                                } else {
+                                } 
+                                else 
+                                {
                                     isLoadSuccess = true;
                                     // mList == null初始化。mList ！= null 加载更多
-                                    if (mList == null) {
+                                    if (mList == null) 
+                                    {
                                         adapter.setList(data);
-                                    } else {
+                                    } 
+                                    else 
+                                    {
                                         mList.addAll(data);
                                     }
                                 }
+                                
                                 adapter.notifyDataSetChanged();
 
                             }

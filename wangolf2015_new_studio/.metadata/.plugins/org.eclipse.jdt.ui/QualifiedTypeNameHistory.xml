@@ -14,10 +14,18 @@
 <fullyQualifiedTypeName name="me.wangolf.bean.practice.PracDetailEntity_new.DataEntity"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="me.wangolf.bean.practice.PracDetailEntity_new.DataEntity.DistributorsEntity"/>
-<fullyQualifiedTypeName name="me.wangolf.ConstantValues"/>
 <fullyQualifiedTypeName name="me.wangolf.bean.ball.BallDetailEntity.DataEntity"/>
 <fullyQualifiedTypeName name="android.widget.Toast"/>
 <fullyQualifiedTypeName name="me.wangolf.bean.ball.BallNameEntity.DataEntity"/>
 <fullyQualifiedTypeName name="me.wangolf.bean.ball.BallInfoEntity.DataEntity"/>
 <fullyQualifiedTypeName name="me.wangolf.bean.ball.BallInfoEntity.DataEntity.DistributorsEntity"/>
+<fullyQualifiedTypeName name="me.wangolf.bean.ball.BallTagDetailEntity.DataEntity"/>
+<fullyQualifiedTypeName name="me.wangolf.bean.shop.Basebean.DataEntity"/>
+<fullyQualifiedTypeName name="me.wangolf.bean.shop.InfoPro.DataEntity"/>
+<fullyQualifiedTypeName name="java.io.Serializable"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="me.wangolf.bean.college.Basebean.DataEntity"/>
+<fullyQualifiedTypeName name="org.json.JSONObject"/>
+<fullyQualifiedTypeName name="me.wangolf.bean.college.Basebean"/>
+<fullyQualifiedTypeName name="me.wangolf.ConstantValues"/>
 </qualifiedTypeNameHistroy>

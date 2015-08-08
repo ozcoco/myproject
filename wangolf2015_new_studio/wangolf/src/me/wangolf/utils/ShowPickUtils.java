@@ -97,22 +97,32 @@ public class ShowPickUtils {
 	/**
 	 * 选择提示对话框
 	 */
-	public static void ShowDialog(Context context,String info) {
+	public static void ShowDialog(Context context,String info) 
+	{
 		activity = (Activity) context;
 
 		con = context;
+		
 		dialog = new Dialog(context, R.style.MyDialogTheme);
+		
 		String title = info;
+		
 		View view = View.inflate(context, R.layout.dialog_bian_phone, null);
+		
 		dialog.setContentView(view);
+		
 		TextView tvdTitle = (TextView) view.findViewById(R.id.dialog_title);
 		tvdTitle.setText(title);
+		
 		Button btcancle = (Button) view.findViewById(R.id.bt_cancle);
 		btcancle.setText("关闭");
-		btcancle.setOnClickListener(new OnClickListener() {
+		
+		btcancle.setOnClickListener(new OnClickListener() 
+		{
 
 			@Override
-			public void onClick(View arg0) {
+			public void onClick(View arg0)
+			{
 				dialog.dismiss();
 
 			}

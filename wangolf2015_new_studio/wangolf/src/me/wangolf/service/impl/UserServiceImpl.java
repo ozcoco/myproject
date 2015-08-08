@@ -18,7 +18,6 @@ package me.wangolf.service.impl;
  * 
  * ============================================================
  **/
-import android.util.Log;
 
 import java.io.File;
 
@@ -32,56 +31,104 @@ import me.wangolf.service.IOAuthCallBack;
 import me.wangolf.service.IUserService;
 import me.wangolf.utils.Xutils;
 
-public class UserServiceImpl implements IUserService {
+public class UserServiceImpl implements IUserService
+{
 	public RequestParams params = null;
+	
 	public String result = null;
+	
 	public IOAuthCallBack iOAuthCallBack;
 
-	public void setResult(String result) {
+	static String BaseUrl = "http://192.168.1.222/golf/";
+	
+	public void setResult(String result)
+	{
 		this.result = result;
 	}
 
+	
+	/***
+	 * 
+	 * UserLogin
+	 * 
+	 * 最新修改的登录接口
+	 * 
+	 * */
 	@Override
-	public void UserLogin(User user, IOAuthCallBack iOAuthCallBack) {
-		params = new RequestParams();
-		params.addBodyParameter("m", "UserInfo");
-		params.addBodyParameter("a", "login");
-		params.addBodyParameter("username", user.getUsername());
-		params.addBodyParameter("password", user.getPassword());
-		Xutils.getDataFromServer(params, iOAuthCallBack);
+	public void UserLogin(User user, IOAuthCallBack iOAuthCallBack)
+	{
+//		params = new RequestParams();
+//		params.addBodyParameter("m", "UserInfo");
+//		params.addBodyParameter("a", "login");
+//		params.addBodyParameter("username", user.getUsername());
+//		params.addBodyParameter("password", user.getPassword());
+//		Xutils.getDataFromServer(params, iOAuthCallBack);
+		
+		String api = BaseUrl + "webUser/login?"
+				+ "&mobile=" + user.getUsername()
+				+ "&password=" + user.getPassword();
+		
+		Xutils.getDataFromServer(api, iOAuthCallBack);
+		
 	}
 
+	
+	
+	/***
+	 * 
+	 * UserLogout
+	 * 
+	 * 最新修改的注册接口
+	 * 
+	 * */
 	@Override
-	public void UserLogout(String uid, IOAuthCallBack iOAuthCallBack) {
+	public void UserLogout(String uid, IOAuthCallBack iOAuthCallBack)
+	{
 		params = new RequestParams();
 		params.addBodyParameter("m", "UserInfo");
 		params.addBodyParameter("a", "logout");
 		params.addBodyParameter("uid", uid);
 		Xutils.getDataFromServer(params, iOAuthCallBack);
+		
+	}
+
+	
+	
+	/***
+	 * 
+	 * getUserInfo
+	 * 
+	 * 最新修改的获取用户信息的接口
+	 * 
+	 * */
+	@Override
+	public void getUserInfo(String user_id, IOAuthCallBack iOAuthCallBack)
+	{
+//		params = new RequestParams();
+//		params.addBodyParameter("m", "UserInfo");
+//		params.addBodyParameter("a", "userinfo");
+//		params.addBodyParameter("uid", uid);
+//		Xutils.getDataFromServer(params, iOAuthCallBack);
+		
+		String api = BaseUrl + "webUser/info?"
+				+ "&user_id=" + user_id;
+		Xutils.getDataFromServer(api, iOAuthCallBack);
+		
 	}
 
 	@Override
-	public void getUserInfo(String uid, IOAuthCallBack iOAuthCallBack) {
-		params = new RequestParams();
-		params.addBodyParameter("m", "UserInfo");
-		params.addBodyParameter("a", "userinfo");
-		params.addBodyParameter("uid", uid);
-		Xutils.getDataFromServer(params, iOAuthCallBack);
-	}
-
-	@Override
-	public void upUserInfo(UserInfoEntity userinfo, IOAuthCallBack iOAuthCallBack) {
+	public void upUserInfo(UserInfoEntity.DataEntity userinfo, IOAuthCallBack iOAuthCallBack) {
 		params = new RequestParams();
 		params.addBodyParameter("m", "UserInfo");
 		params.addBodyParameter("a", "updateinfo");
-		params.addBodyParameter("uid", userinfo.getUid() + "");
-		params.addBodyParameter("nickname", userinfo.getNickname());
-		params.addBodyParameter("sex", userinfo.getSex());
-		params.addBodyParameter("photo", userinfo.getPhoto());
-		params.addBodyParameter("birthday", userinfo.getBirthday());
-		params.addBodyParameter("ballage", userinfo.getBallage() + "");
-		params.addBodyParameter("summy", userinfo.getSummy());
-		params.addBodyParameter("ballage", userinfo.getBallage() + "");
+		params.addBodyParameter("uid", userinfo.getUser_id());
+		params.addBodyParameter("nickname", userinfo.getNick_name());
+		params.addBodyParameter("sex", userinfo.getGender());
+		params.addBodyParameter("photo", userinfo.getAvatar());
+//		params.addBodyParameter("birthday", userinfo.getBirthday());
+//		params.addBodyParameter("ballage", userinfo.getBallage());
+		params.addBodyParameter("summy", userinfo.getMy_intro());
+//		params.addBodyParameter("ballage", userinfo.getBallage());
 		Xutils.getDataFromServer(params, iOAuthCallBack);
 
 	}
@@ -96,38 +143,81 @@ public class UserServiceImpl implements IUserService {
 		Xutils.getDataFromServer(params, iOAuthCallBack);
 	}
 
+	
+	/**
+	 * 
+	 * upUserPassword
+	 * 
+	 * 最新修改的修改密码的接口
+	 * 
+	 * **/
 	@Override
-	public void upUserPassword(String uid, String opassword, String npassword, IOAuthCallBack iOAuthCallBack) {
+	public void upUserPassword(String user_id, String opassword, String npassword, IOAuthCallBack iOAuthCallBack) {
+		
+		String api = BaseUrl + "webUser/updatePasswd";
+		
 		params = new RequestParams();
-		params.addBodyParameter("m", "UserInfo");
-		params.addBodyParameter("a", "updatepwd");
-		params.addBodyParameter("uid", uid);
+		
+		params.addBodyParameter("user_id", user_id);
+		
 		params.addBodyParameter("opassword", opassword);
+		
 		params.addBodyParameter("npassword", npassword);
-		Xutils.getDataFromServer(params, iOAuthCallBack);
+		
+		Xutils.getDataFromServer(api, params, iOAuthCallBack);
+		
 	}
 
+	
+	
+	/**
+	 * 
+	 * doResetPwd
+	 * 
+	 * 最新修改的重置密码的接口
+	 * 
+	 * **/
 	@Override
-	public void doResetPwd(String phone, String password, String code, IOAuthCallBack iOAuthCallBack) {
-		params = new RequestParams();
-		params.addBodyParameter("m", "UserInfo");
-		params.addBodyParameter("a", "resetPasswd");
-		params.addBodyParameter("mobile", phone);
-		params.addBodyParameter("password", password);
-		params.addBodyParameter("code", code);
-		Xutils.getDataFromServer(params, iOAuthCallBack);
+	public void doResetPwd(String mobile, String password, String code, IOAuthCallBack iOAuthCallBack)
+	{
+//		params = new RequestParams();
+//		params.addBodyParameter("m", "UserInfo");
+//		params.addBodyParameter("a", "resetPasswd");
+//		params.addBodyParameter("mobile", phone);
+//		params.addBodyParameter("password", password);
+//		params.addBodyParameter("code", code);
+//		Xutils.getDataFromServer(params, iOAuthCallBack);
+		
+		String api = BaseUrl + "webUser/resetPasswd?"
+				+ "&mobile="+mobile
+				+ "&code="+code
+				+ "&password="+password;
+		
+		Xutils.getDataFromServer(api, iOAuthCallBack);
+		
 	}
 
+	
+	
 	@Override
 	public void doRegist(String mobile, String password, String code, String recommend, IOAuthCallBack iOAuthCallBack) throws Exception {
-		params = new RequestParams();
-		params.addBodyParameter("m", "UserInfo");
-		params.addBodyParameter("a", "signUp");
-		params.addBodyParameter("mobile", mobile);
-		params.addBodyParameter("password", password);
-		params.addBodyParameter("code", code);
-		params.addBodyParameter("recommend", recommend);
-		Xutils.getDataFromServer(params, iOAuthCallBack);
+//		params = new RequestParams();
+//		params.addBodyParameter("m", "UserInfo");
+//		params.addBodyParameter("a", "signUp");
+//		params.addBodyParameter("mobile", mobile);
+//		params.addBodyParameter("password", password);
+//		params.addBodyParameter("code", code);
+//		params.addBodyParameter("recommend", recommend);
+//		Xutils.getDataFromServer(params, iOAuthCallBack);
+		
+		String api = BaseUrl + "webUser/regist?"				
+				+ "&mobile=" + mobile
+				+ "&password=" + password
+				+ "&code=" + code
+				+ "&recommend_mobile=" + recommend;
+		
+		Xutils.getDataFromServer(api, iOAuthCallBack);
+		
 
 	}
 
@@ -148,15 +238,21 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public void getUserAddr(String uid, IOAuthCallBack iOAuthCallBack) {
-		params = new RequestParams();
-		params.addBodyParameter("m", "UserInfo");
-		params.addBodyParameter("a", "useraddr");
-		params.addBodyParameter("uid", uid);
-		Xutils.getDataFromServer(params, iOAuthCallBack);
+	public void getUserAddr(String user_id, IOAuthCallBack iOAuthCallBack) {
+//		params = new RequestParams();
+//		params.addBodyParameter("m", "UserInfo");
+//		params.addBodyParameter("a", "useraddr");
+//		params.addBodyParameter("uid", uid);
+//		Xutils.getDataFromServer(params, iOAuthCallBack);
+		
+		String api = BaseUrl + "webUser/getUserAddress?"
+				+ "user_id=" + user_id;	
 
+		Xutils.getDataFromServer(api, iOAuthCallBack);
+		
 	}
 
+	
 	@Override
 	public void getOrderList(String user_id, int type, int page, int number, IOAuthCallBack iOAuthCallBack) throws Exception {
 		params = new RequestParams();
@@ -220,27 +316,60 @@ public class UserServiceImpl implements IUserService {
 		Xutils.getDataFromServer(params, iOAuthCallBack);
 	}
 
+	
+	
+	/**
+	 * 
+	 * upAddrdata
+	 * 
+	 * 最新修改的修改地址的接口
+	 * 
+	 * **/
 	@Override
 	public void upAddrdata(AddressBean bean, IOAuthCallBack iOAuthCallBack) throws Exception {
-
 		params = new RequestParams();
-		params.addBodyParameter("m", "UserInfo");
-		params.addBodyParameter("a", "updateaddr");
-		params.addBodyParameter("uid", bean.getUid());
-		params.addBodyParameter("aid", bean.getAid());
-		params.addBodyParameter("rid1", bean.getRid1());
-		params.addBodyParameter("rid2", bean.getRid2());
-		params.addBodyParameter("rid3", bean.getRid3());
-		params.addBodyParameter("rid4", bean.getRid4());
+//		params.addBodyParameter("m", "UserInfo");
+//		params.addBodyParameter("a", "updateaddr");
+//		params.addBodyParameter("uid", bean.getUid());
+//		params.addBodyParameter("aid", bean.getAid());
+//		params.addBodyParameter("rid1", bean.getRid1());
+//		params.addBodyParameter("rid2", bean.getRid2());
+//		params.addBodyParameter("rid3", bean.getRid3());
+//		params.addBodyParameter("rid4", bean.getRid4());
+//		params.addBodyParameter("address", bean.getAddress());
+//		params.addBodyParameter("mobile", bean.getMobile());
+//		params.addBodyParameter("zip", bean.getZip());
+//		params.addBodyParameter("consignee", bean.getConsignee());
+//		params.addBodyParameter("type", bean.getType());
+		
+		params.addBodyParameter("user_id", bean.getUid());
+		
+		params.addBodyParameter("province_id", bean.getRid2());
+		
+		params.addBodyParameter("city_id", bean.getRid3());
+		
+		params.addBodyParameter("area_id", bean.getRid4());
+		
 		params.addBodyParameter("address", bean.getAddress());
+		
 		params.addBodyParameter("mobile", bean.getMobile());
-		params.addBodyParameter("zip", bean.getZip());
-		params.addBodyParameter("consignee", bean.getConsignee());
+		
 		params.addBodyParameter("type", bean.getType());
-		Xutils.getDataFromServer(params, iOAuthCallBack);
+		
+		params.addBodyParameter("zip", bean.getZip());
+		
+		params.addBodyParameter("consignee", bean.getConsignee());
+		
+		params.addBodyParameter("address_id", bean.getAid());
+		
+		String api = BaseUrl + "webUser/updateUserAddress";
+		
+		Xutils.getDataFromServer(api, params, iOAuthCallBack);
 
 	}
 
+	
+	
 	@Override
 	public void deleteAddrdata(int aid, IOAuthCallBack iOAuthCallBack) throws Exception {
 		params = new RequestParams();
@@ -251,10 +380,14 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public void getUserOption(IOAuthCallBack iOAuthCallBack) throws Exception {
+	public void getUserOption(IOAuthCallBack iOAuthCallBack) throws Exception 
+	{
 		params = new RequestParams();
+		
 		params.addBodyParameter("m", "UserOption");
+		
 		params.addBodyParameter("a", "userOptionValue");
+		
 		Xutils.getDataFromServer(params, iOAuthCallBack);
 	}
 
@@ -278,15 +411,52 @@ public class UserServiceImpl implements IUserService {
 		Xutils.getDataFromServer(params, iOAuthCallBack);
 	}
 
+	
+	
+	/**
+	 * 
+	 * toCheckMobileRegist
+	 * 
+	 * 最新修改的注册时发送验证码的接口
+	 * 
+	 * **/
 	@Override
 	public void toCheckMobileRegist(String mobile,String type, IOAuthCallBack iOAuthCallBack) throws Exception {
-		params = new RequestParams();
-		params.addBodyParameter("m", "UserInfo");
-		params.addBodyParameter("a", "checkMobileRegist");
-		params.addBodyParameter("mobile", mobile);
-		params.addBodyParameter("type", type);
-		Xutils.getDataFromServer(params, iOAuthCallBack);
+//		params = new RequestParams();
+//		params.addBodyParameter("m", "UserInfo");
+//		params.addBodyParameter("a", "checkMobileRegist");
+//		params.addBodyParameter("mobile", mobile);
+//		params.addBodyParameter("type", type);
+//		Xutils.getDataFromServer(params, iOAuthCallBack);
+		
+		String api = BaseUrl + "webUser/registSendCode?"
+				+ "&mobile=" + mobile
+				+ "&type=" + type;
+		
+		Xutils.getDataFromServer(api, iOAuthCallBack);
+		
 	}
+
+	
+	/**
+	 * 
+	 * getResetPwdCode
+	 * 
+	 *  最新修改的重置密码时发送验证码的接口
+	 * 
+	 * **/
+	@Override
+	public void getResetPwdCode(String mobile, String type, IOAuthCallBack iOAuthCallBack) throws Exception {
+
+		
+		String api = BaseUrl + "webUser/resetPasswordSendCode?"
+				+ "&mobile=" + mobile
+				+ "&type=" + type;
+		
+		Xutils.getDataFromServer(api, iOAuthCallBack);
+		
+	}
+	
 
 	@Override
 	public void getResetPwdCode(String mobile, IOAuthCallBack iOAuthCallBack) throws Exception {
@@ -295,6 +465,8 @@ public class UserServiceImpl implements IUserService {
 		params.addBodyParameter("a", "sendResetPwdCode");
 		params.addBodyParameter("mobile", mobile);
 		Xutils.getDataFromServer(params, iOAuthCallBack);
+
+		
 	}
 
 	@Override
@@ -454,18 +626,81 @@ public class UserServiceImpl implements IUserService {
 		Xutils.getDataFromServer(params, iOAuthCallBack);
 	}
 
+	
 	@Override
-	public void updateUserInfo(String user_id,String password, String my_intro, int gender, String nick_name, IOAuthCallBack iOAuthCallBack) throws Exception {
+	public void updateUserInfo(String user_id,String password, String my_intro, int gender, String nick_name, IOAuthCallBack iOAuthCallBack) throws Exception
+	{
 		params = new RequestParams();
+		
 		params.addBodyParameter("m", "UserInfo");
+		
 		params.addBodyParameter("a", "updateUserInfo");
+		
 		params.addBodyParameter("user_id", user_id);
+		
 		params.addBodyParameter("password", password);
+		
 		params.addBodyParameter("my_intro", my_intro);
+		
 		params.addBodyParameter("gender", gender + "");
+		
 		params.addBodyParameter("nick_name", nick_name);
+		
 		Xutils.getDataFromServer(params, iOAuthCallBack);
 		//Log.i("wangolf", "http://www.wangolf.me/m.php?m=Community&a=editInfo&user_id=" + user_id +"&password=" + password + "&terminal=1&my_intro=" + my_intro +
 			//"&gender=" + gender + "&nick_name=" + nick_name);
+	}
+
+
+	
+	/**
+	 * 
+	 * updateUserInfo
+	 * 
+	 *  最新修改的修改用户信息的接口
+	 * 
+	 * **/
+	@Override
+	public void updateUserInfo(String user_id, String nick_name, String my_intro, int gender, IOAuthCallBack iOAuthCallBack) throws Exception {
+		
+		String api = BaseUrl + "webUser/updateUserInfo";
+
+		params = new RequestParams();
+		
+		params.addBodyParameter("user_id", user_id);
+		
+		params.addBodyParameter("nick_name", nick_name);
+		
+		params.addBodyParameter("my_intro", my_intro);
+		
+		params.addBodyParameter("gender", String.valueOf(gender));
+			
+		Xutils.getDataFromServer(api, params, iOAuthCallBack);
+		
+	}
+
+	
+	
+	/**
+	 * 
+	 * deleteAddrdata
+	 * 
+	 * 最新修改的删除地址的接口
+	 * 
+	 * **/
+	@Override
+	public void deleteAddrdata(String user_id, String address_id, IOAuthCallBack iOAuthCallBack) throws Exception 
+	{
+		
+		String api = BaseUrl + "webUser/deleteUserAddress";
+
+		params = new RequestParams();
+		
+		params.addBodyParameter("user_id", user_id);
+		
+		params.addBodyParameter("address_id", address_id);
+		
+		Xutils.getDataFromServer(api, params, iOAuthCallBack);
+		
 	}
 }

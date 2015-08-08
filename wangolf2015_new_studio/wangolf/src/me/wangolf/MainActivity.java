@@ -49,27 +49,39 @@ import android.view.Window;
 public class MainActivity extends FragmentActivity 
 {
 	private int isExit; // 是否退出
+	
 	private long lasttime = 0;// 点时间
+	
 	private LocationClient mLocationClient;// 定位
+	
 	private LocationMode tempMode = LocationMode.Hight_Accuracy;
+	
 	private String tempcoor = "bd09ll";// 地址编码
 
 	@SuppressLint("HandlerLeak")
-	private Handler handler = new Handler() {
+	private Handler handler = new Handler() 
+	{
 		@Override
-		public void handleMessage(Message msg) {
-			// System.out.println("停止定位");
-			if (ConstantValues.isloaction) {
-				// ToastUtils.showInfo(MainActivity.this, "定位成功");
-			} else {
+		public void handleMessage(Message msg) 
+		{
+			
+			if (ConstantValues.isloaction)
+			{
+				
+			}
+			else 
+			{
 				ToastUtils.showInfo(MainActivity.this, "定位失败，请打开GPS重新定位！");
 			}
+			
 			mLocationClient.stop();
+			
 			super.handleMessage(msg);
 		}
 
 	};
 
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -89,16 +101,24 @@ public class MainActivity extends FragmentActivity
 
 	}
 
+	
 	public void initData() 
 	{
 		//ChannelManage.initData(this);// 初始化频道数据存入数据库
 		ConstantValues.CITYNAME = "深圳";
+		
 		ConstantValues.CITYID = 77;
+		
 		ConstantValues.UUID = Secure.getString(getApplicationContext().getContentResolver(), Secure.ANDROID_ID); // 手机唯一标识
+		
 		getScreenWidth();// 手机屏宽度
+		
 		InitLocation();// 定位
+		
 		mLocationClient.start();
+		
 		initDatabase();// 导入城市数据库
+		
 		login();// 缓存登录
 	}
 
@@ -135,11 +155,17 @@ public class MainActivity extends FragmentActivity
 	private int getScreenWidth() 
 	{
 		DisplayMetrics dm = new DisplayMetrics();
+		
 		getWindowManager().getDefaultDisplay().getMetrics(dm);
+		
 		int screenWidth = dm.widthPixels;
+		
 		ConstantValues.SCREENWIDTH = screenWidth;
+		
 		int screenHeight = dm.heightPixels;
+		
 		ConstantValues.SCREENHEIGHT = screenHeight;
+		
 		return screenWidth;
 	}
 
@@ -147,13 +173,21 @@ public class MainActivity extends FragmentActivity
 	private void InitLocation() 
 	{
 		LocationClientOption option = new LocationClientOption();
+		
 		option.setLocationMode(tempMode);// 设置定位模式
+		
 		option.setCoorType(tempcoor);// 返回的定位结果是百度经纬度，默认值gcj02
+		
 		int span = 5000;
+		
 		option.setScanSpan(span);// 设置发起定位请求的间隔时间为5000ms
+		
 		option.setIsNeedAddress(true);
+		
 		// option.setIsNeedAddress(checkGeoLocation.isChecked());
+		
 		mLocationClient.setLocOption(option);
+		
 		handler.sendEmptyMessageDelayed(103, 30000);
 
 	}
@@ -162,6 +196,7 @@ public class MainActivity extends FragmentActivity
 	protected void onPause() 
 	{
 		super.onPause();
+		
 		MobclickAgent.onPause(this);
 	}
 
@@ -169,6 +204,7 @@ public class MainActivity extends FragmentActivity
 	protected void onResume() 
 	{
 		super.onResume();
+		
 		MobclickAgent.onResume(this);
 	}
 
@@ -176,6 +212,7 @@ public class MainActivity extends FragmentActivity
 	public void initDatabase() 
 	{
 		DBHelper dbHelper = new DBHelper(this);
+		
 		dbHelper.openDatabase();
 	}
 
@@ -183,39 +220,64 @@ public class MainActivity extends FragmentActivity
 	public void login() 
 	{
 		final String cache_user = SharedPreferencesUtils.getString(this, "mgolf_n");
+		
 		String cache_pwd = SharedPreferencesUtils.getString(this, "mgolf_p");
+		
 		//Log.i("wangolf","***********************"+cache_pwd+cache_user);
-		if (!CheckUtils.checkEmpty(cache_user) & !CheckUtils.checkEmpty(cache_pwd)) {
+		if (!CheckUtils.checkEmpty(cache_user) & !CheckUtils.checkEmpty(cache_pwd)) 
+		{
 			//Log.i("wangolf","***********************");
 			User u = new User();
+			
 			u.setUsername(cache_user);
+			
 			u.setPassword(cache_pwd);
+			
 			try {
-				ServiceFactory.getIUserEngineInstatice().UserLogin(u, new IOAuthCallBack() {
+				
+				ServiceFactory.getIUserEngineInstatice().UserLogin(u, new IOAuthCallBack() 
+				{
 
 					@Override
-					public void getIOAuthCallBack(String result) {
+					public void getIOAuthCallBack(String result)
+					{
 						//Log.i("wangolf",result);
-						if (result.equals(ConstantValues.FAILURE)) {
+						if (result.equals(ConstantValues.FAILURE)) 
+						{
 							ToastUtils.showInfo(MainActivity.this, ConstantValues.NONETWORK);
-						} else {
+						} 
+						else
+						{
 							UserInfoEntity user = GsonTools.changeGsonToBean(result, UserInfoEntity.class);
 
-							if (user.getStatus().equals("1")) {
-								UserInfoEntity userinfo = user.getData().get(0);
+							if (user.getStatus().equals("1")) 
+							{
+								UserInfoEntity.DataEntity userinfo = user.getData().get(0);
+								
 								ConstantValues.ISLOGIN = true;
+								
 								ConstantValues.HOME_ISLOGIN = true;
+								
 								ConstantValues.USER_MOBILE = cache_user;
-								if(!CheckUtils.checkEmpty(userinfo.getNickname())&!CheckUtils.checkEmpty(userinfo.getPhoto()))
-									ConstantValues.ISCOMPLETEINFO = false;
-								ConstantValues.UID = userinfo.getUid() + "";
-							} else {
+								
+								if(!CheckUtils.checkEmpty(userinfo.getNick_name())&!CheckUtils.checkEmpty(userinfo.getAvatar()))
+									
+								ConstantValues.ISCOMPLETEINFO = false;
+								
+								ConstantValues.UID = userinfo.getUser_id();
+								
+							} 
+							else 
+							{
 								ToastUtils.showInfo(MainActivity.this, user.getInfo());
 							}
 						}
 					}
 				});
-			} catch (Exception e) {
+				
+			} 
+			catch (Exception e) 
+			{
 				e.printStackTrace();
 			}
 		}

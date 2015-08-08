@@ -28,6 +28,56 @@ public class Xutils
     private static int statusCode;
 
     private static String BASE_URL = "http://192.168.1.222/golf/";
+  
+    
+    
+    /**
+     * 上传文件 或者提交数据 到服务器（post方法）
+     *
+     * @param params         参数
+     * @param iOAuthCallBack 回调服务器回来的结果
+     */
+    public static void getDataFromServer(String api, RequestParams params, final IOAuthCallBack iOAuthCallBack) 
+    {
+        params.addBodyParameter("terminal", "1"); // 共用的parames 写在这里吧
+        
+        params.addBodyParameter("user_id", ConstantValues.UID); 
+        
+        params.addBodyParameter("unique_key", ConstantValues.UNIQUE_KEY); 
+        
+        HttpUtils http = new HttpUtils();
+        // Log.i("wangolf",GlobalConsts.BASE_URL);
+        http.send(HttpRequest.HttpMethod.POST, api, params, new RequestCallBack<String>() 
+        {
+
+            @Override
+            public void onStart()
+            {
+
+            }
+
+            @Override
+            public void onLoading(long total, long current, boolean isUploading) 
+            {
+            }
+
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) 
+            {
+            	
+                iOAuthCallBack.getIOAuthCallBack(responseInfo.result);
+            }
+
+            @Override
+            public void onFailure(HttpException error, String msg) 
+            {
+
+                iOAuthCallBack.getIOAuthCallBack(ConstantValues.FAILURE);
+                // iOAuthCallBack.getIOAuthCallBack(msg);
+            }
+        });
+
+    }
     
     /**
      * 上传文件 或者提交数据 到服务器（post方法）
@@ -40,6 +90,8 @@ public class Xutils
         params.addBodyParameter("terminal", "1"); // 共用的parames 写在这里吧
         
         params.addBodyParameter("user_id", ConstantValues.UID); 
+        
+        params.addBodyParameter("unique_key", ConstantValues.UNIQUE_KEY);
         
         HttpUtils http = new HttpUtils();
         // Log.i("wangolf",GlobalConsts.BASE_URL);
@@ -86,7 +138,9 @@ public class Xutils
     {
         params.addBodyParameter("terminal", "1"); // 共用的parames 写在这里吧
         
-        params.addBodyParameter("user_id", "");
+        params.addBodyParameter("user_id", ConstantValues.UID);
+        
+        params.addBodyParameter("unique_key", ConstantValues.UNIQUE_KEY);
         
         HttpUtils http = new HttpUtils();
         
@@ -129,6 +183,8 @@ public class Xutils
     public static void getDataFromServer(String url, final IOAuthCallBack iOAuthCallBack) 
     {
         HttpUtils http = new HttpUtils();
+        
+        url += "&terminal=1&user_id="+ConstantValues.UID+"&unique_key="+ConstantValues.UNIQUE_KEY;
         
         http.send(HttpRequest.HttpMethod.GET, url, new RequestCallBack<String>() 
         {

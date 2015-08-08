@@ -111,60 +111,103 @@ public class UserInfoPage extends Mo_BasePage implements OnClickListener {
 		getData();
 	}
 
-	public void getData() {
-		try {
-			ServiceFactory.getIUserEngineInstatice().getUserInfo(uid, new IOAuthCallBack() {
+	public void getData() 
+	{
+		try 
+		{
+			ServiceFactory.getIUserEngineInstatice().getUserInfo(uid, new IOAuthCallBack()
+			{
 				@Override
-				public void getIOAuthCallBack(String result) {
+				public void getIOAuthCallBack(String result) 
+				{
+					
 					UserInfoEntity user = GsonTools.changeGsonToBean(result, UserInfoEntity.class);
-					UserInfoEntity userinfo = user.getData().get(0);
-					name.setText(CheckUtils.checkEmpty(userinfo.getNickname()) ? userinfo.getMobile() : userinfo.getNickname());
+					
+					UserInfoEntity.DataEntity userinfo = user.getData().get(0);
+					
+					name.setText(CheckUtils.checkEmpty(userinfo.getNick_name()) ? userinfo.getMobile() : userinfo.getNick_name());
+					
 					account.setText("￥" + userinfo.getAccount());
-					my_accounts = userinfo.getAccount();
-					my_vouchers = userinfo.getVouchers();
-					String path_1 = userinfo.getPhoto();
-					if (!CheckUtils.checkEmpty(path_1)) {
-						path_1 = path_1.substring(0, path_1.lastIndexOf(".")) + "_180_180" + path_1.substring(path_1.lastIndexOf("."));
-					}
+					
+					my_accounts = Double.valueOf(userinfo.getAccount());
+					
+//					my_vouchers = userinfo.getVouchers();
+					
+					String path_1 = userinfo.getAvatar();
+					
+//					if (!CheckUtils.checkEmpty(path_1)) 
+//					{
+//						path_1 = path_1.substring(0, path_1.lastIndexOf(".")) + "_180_180" + path_1.substring(path_1.lastIndexOf("."));
+//					}
+					
 					ImageViewUtil.loadimg(path_1, ib, context);
 				}
 			});
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
+		} 
+		catch (Exception e) 
+		{
 			e.printStackTrace();
 		}
 
 	}
 
 	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
+	public void onClick(View v)
+	{
+		switch (v.getId()) 
+		{
 		case R.id.orderlist:
+			
 			Intent order = new Intent(context, OrderListActivity.class);
+			
 			context.startActivity(order);
+			
 			break;
+			
 		case R.id.my_account:
-			if (my_accounts >= 0) {
+			
+			if (my_accounts >= 0) 
+			{
 				Intent account = new Intent(context, UserAccountActivity.class);
+				
 				account.putExtra("account", my_accounts.toString());
+				
+				//vouchers取消的字段
 				account.putExtra("vouchers", my_vouchers.toString());
+				
 				context.startActivity(account);
+				
 			}
+			
 			break;
+			
 		case R.id.my_set:
+			
 			Intent my_set = new Intent(context, UserSet.class);
+			
 			context.startActivity(my_set);
 			break;
+			
 		case R.id.my_event:
+			
 			Intent event = new Intent(context, UserEventListActivity.class);
+			
 			context.startActivity(event);
+			
 			break;
+			
 		case R.id.up_userinfo:
+			
 			Intent up_userinfo = new Intent(context, UpDataUserInfoActivity.class);
+			
 			context.startActivity(up_userinfo);
 			break;
+			
 		case R.id.ib:
+			
 			Intent ib = new Intent(context, UpDataUserInfoActivity.class);
+			
 			context.startActivity(ib);
 			// ShowPickUtils.ShowPickDialog(context);
 			// Intent intent = new Intent(Intent.ACTION_PICK, null);
@@ -173,29 +216,43 @@ public class UserInfoPage extends Mo_BasePage implements OnClickListener {
 			// "image/*");
 			// contextstartActivityForResult(intent, 1);
 			break;
+			
 		case R.id.common_bt:
 			// Intent message = new Intent(context,
 			// UserNotificationActivity.class);
 			Intent message = new Intent(context, UserNotificationMessageActivity.class);
+			
 			context.startActivity(message);
+			
 			break;
+			
 		case R.id.user_new_info:
+			
 			Intent userinfo = new Intent(context, UserInfoNewActivity.class);
+			
 			context.startActivity(userinfo);
+			
 			break;
+			
 		case R.id.user_customer:
+			
 			TelUtils.tel(context, "13302311999");
+			
 			break;
+			
 		default:
-
 			break;
+			
 		}
 	}
 
 	// 更新头像
-	public void upLoad(Intent picdata) {
+	public void upLoad(Intent picdata)
+	{
 		Bundle extras = picdata.getExtras();
-		if (extras != null) {
+		
+		if (extras != null) 
+		{
 			Bitmap photo = extras.getParcelable("data");
 			photo = BitmapUtils.compressImage(photo);
 			Drawable drawable = new BitmapDrawable(photo);
