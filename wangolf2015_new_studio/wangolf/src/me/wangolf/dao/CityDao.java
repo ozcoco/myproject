@@ -24,8 +24,10 @@ public class CityDao {
 
 	private String DB_NAME="mgolf.db3";
 
-	public CityDao(Context context) {
+	public CityDao(Context context) 
+	{
 		helper = new DbHelper(context);
+		
 		this.context=context;
 	}
 	/**

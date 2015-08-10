@@ -22,10 +22,18 @@
 <fullyQualifiedTypeName name="me.wangolf.bean.ball.BallTagDetailEntity.DataEntity"/>
 <fullyQualifiedTypeName name="me.wangolf.bean.shop.Basebean.DataEntity"/>
 <fullyQualifiedTypeName name="me.wangolf.bean.shop.InfoPro.DataEntity"/>
-<fullyQualifiedTypeName name="java.io.Serializable"/>
-<fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="me.wangolf.bean.college.Basebean.DataEntity"/>
 <fullyQualifiedTypeName name="org.json.JSONObject"/>
 <fullyQualifiedTypeName name="me.wangolf.bean.college.Basebean"/>
+<fullyQualifiedTypeName name="me.wangolf.bean.HomePageAdsEntity.DataEntity"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="java.io.Serializable"/>
+<fullyQualifiedTypeName name="android.widget.TextView"/>
+<fullyQualifiedTypeName name="android.app.AlertDialog"/>
+<fullyQualifiedTypeName name="android.app.AlertDialog.Builder"/>
+<fullyQualifiedTypeName name="android.content.DialogInterface.OnClickListener"/>
+<fullyQualifiedTypeName name="me.wangolf.shop.ShopProActivity"/>
 <fullyQualifiedTypeName name="me.wangolf.ConstantValues"/>
+<fullyQualifiedTypeName name="me.wangolf.utils.ToastUtils"/>
+<fullyQualifiedTypeName name="me.wangolf.bean.usercenter.RespUserAdrrEntity.DataEntity"/>
 </qualifiedTypeNameHistroy>

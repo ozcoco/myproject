@@ -40,6 +40,7 @@ public class ServiceFactory {
 		return new PracServiceImpl();
 
 	}
+	
 
 	/**
 	 * 商城相关
@@ -49,6 +50,7 @@ public class ServiceFactory {
 		return new ShopServiceImpl();
 	}
 
+	
 	/**
 	 * 学院相关
 	 */

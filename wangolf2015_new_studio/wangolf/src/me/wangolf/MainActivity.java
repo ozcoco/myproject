@@ -119,6 +119,8 @@ public class MainActivity extends FragmentActivity
 		
 		initDatabase();// 导入城市数据库
 		
+		ToastUtils.showInfo(getBaseContext(), ConstantValues.UNIQUE_KEY + "!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		
 		login();// 缓存登录
 	}
 
@@ -222,7 +224,7 @@ public class MainActivity extends FragmentActivity
 		final String cache_user = SharedPreferencesUtils.getString(this, "mgolf_n");
 		
 		String cache_pwd = SharedPreferencesUtils.getString(this, "mgolf_p");
-		
+				 		
 		//Log.i("wangolf","***********************"+cache_pwd+cache_user);
 		if (!CheckUtils.checkEmpty(cache_user) & !CheckUtils.checkEmpty(cache_pwd)) 
 		{
@@ -253,7 +255,7 @@ public class MainActivity extends FragmentActivity
 							if (user.getStatus().equals("1")) 
 							{
 								UserInfoEntity.DataEntity userinfo = user.getData().get(0);
-								
+																
 								ConstantValues.ISLOGIN = true;
 								
 								ConstantValues.HOME_ISLOGIN = true;
@@ -263,6 +265,8 @@ public class MainActivity extends FragmentActivity
 								if(!CheckUtils.checkEmpty(userinfo.getNick_name())&!CheckUtils.checkEmpty(userinfo.getAvatar()))
 									
 								ConstantValues.ISCOMPLETEINFO = false;
+								
+								ConstantValues.UNIQUE_KEY = userinfo.getUnique_key();
 								
 								ConstantValues.UID = userinfo.getUser_id();
 								

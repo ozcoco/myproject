@@ -17,6 +17,8 @@ public interface IIndexService extends BaseService {
 
 	/**
 	 * 首页广告(version four)
+	 * 
+	 *  最新修改的获取广告数据的接口
 	 * @param iOAuthCallBack
 	 * @throws Exception
 	 */

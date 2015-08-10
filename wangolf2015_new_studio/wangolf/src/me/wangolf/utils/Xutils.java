@@ -63,8 +63,7 @@ public class Xutils
 
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) 
-            {
-            	
+            {          	
                 iOAuthCallBack.getIOAuthCallBack(responseInfo.result);
             }
 

@@ -41,40 +41,61 @@ import me.wangolf.utils.ShowPickUtils;
 import me.wangolf.utils.TelUtils;
 import me.wangolf.utils.ToastUtils;
 
-public class UserInfoPage extends Mo_BasePage implements OnClickListener {
+public class UserInfoPage extends Mo_BasePage implements OnClickListener
+{
 	@ViewInject(R.id.common_title)
 	private TextView common_title;// 标题
+	
 	private View view;
+	
 	DisplayImageOptions options;
+	
 	private boolean flag;
+	
 	LayoutInflater inflater;
+	
 	@ViewInject(R.id.name)
 	private TextView name;// 呢称
+	
 	@ViewInject(R.id.account)
 	private TextView account;// 余额
+	
 	@ViewInject(R.id.ib)
 	private de.hdodenhof.circleimageview.CircleImageView ib; // 圆形图片
+	
 	@ViewInject(R.id.reletag)
 	private ImageView reletag;
+	
 	@ViewInject(R.id.orderlist)
 	private RelativeLayout orderlist;// 订单列表
+	
 	@ViewInject(R.id.my_account)
 	private RelativeLayout my_account;// 我的账户
+	
 	@ViewInject(R.id.my_set)
 	private RelativeLayout my_set;// 设置
+	
 	@ViewInject(R.id.my_event)
 	private RelativeLayout my_event;// 我的活动
+	
 	@ViewInject(R.id.up_userinfo)
 	private RelativeLayout up_userinfo;// 更新资料
+	
 	@ViewInject(R.id.common_bt)
 	private TextView mMessage;// 消息
+	
 	@ViewInject(R.id.user_new_info)
 	private Button mUserInfo;// 个人中心
+	
 	@ViewInject(R.id.user_customer)
 	private Button mCustomer;// 客服中心
+	
 	private Double my_accounts;// 我的账户余额
+	
 	private Double my_vouchers;// 我的代金券余额
+	
 	private String path;
+	
 	private String uid;
 
 	public UserInfoPage(Context context) {
@@ -83,34 +104,56 @@ public class UserInfoPage extends Mo_BasePage implements OnClickListener {
 	}
 
 	@Override
-	public View initView(LayoutInflater inflater) {
+	public View initView(LayoutInflater inflater) 
+	{
 		view = inflater.inflate(R.layout.ac_user_center, null);
+		
 		ViewUtils.inject(this, view);
+		
 		initData();
+		
 		return view;
 
 	}
 
 	@Override
-	public void initData() {
+	public void initData()
+	{
 		common_title.setText("发现");
+		
 		mMessage.setVisibility(0);
+		
 		mMessage.setText("消息");
+		
 		orderlist.setOnClickListener(this);
+		
 		my_set.setOnClickListener(this);
+		
 		my_account.setOnClickListener(this);
+		
 		my_event.setOnClickListener(this);
+		
 		up_userinfo.setOnClickListener(this);
+		
 		ib.setOnClickListener(this);
+		
 		mMessage.setOnClickListener(this);
+		
 		mUserInfo.setOnClickListener(this);
+		
 		mCustomer.setOnClickListener(this);
+		
 		uid = ConstantValues.UID;
+		
 		if (uid == null)
 			return;
+		
 		getData();
+		
 	}
 
+	
+	
 	public void getData() 
 	{
 		try 
@@ -142,6 +185,7 @@ public class UserInfoPage extends Mo_BasePage implements OnClickListener {
 					
 					ImageViewUtil.loadimg(path_1, ib, context);
 				}
+				
 			});
 			
 		} 
@@ -169,6 +213,8 @@ public class UserInfoPage extends Mo_BasePage implements OnClickListener {
 			
 			if (my_accounts >= 0) 
 			{
+				ToastUtils.showInfo(context, "my_account!!!!!!!!");
+				
 				Intent account = new Intent(context, UserAccountActivity.class);
 				
 				account.putExtra("account", my_accounts.toString());
@@ -187,6 +233,7 @@ public class UserInfoPage extends Mo_BasePage implements OnClickListener {
 			Intent my_set = new Intent(context, UserSet.class);
 			
 			context.startActivity(my_set);
+			
 			break;
 			
 		case R.id.my_event:
@@ -254,25 +301,41 @@ public class UserInfoPage extends Mo_BasePage implements OnClickListener {
 		if (extras != null) 
 		{
 			Bitmap photo = extras.getParcelable("data");
+			
 			photo = BitmapUtils.compressImage(photo);
+			
 			Drawable drawable = new BitmapDrawable(photo);
 			// TODO 保存到SDcard
 			HttpUtils.SavePicInLocal(photo);
+			
 			File img = new File(Environment.getExternalStorageDirectory(), "avatar_file.jpg");
+			
 			final String imagepath = img.getPath(); // 图片路径
+			
 			path = imagepath;
+			
 			try {
-				ServiceFactory.getIUserEngineInstatice().upLoad(uid, path, new IOAuthCallBack() {
+				
+				ServiceFactory.getIUserEngineInstatice().upLoad(uid, path, new IOAuthCallBack() 
+				{
 
 					@Override
-					public void getIOAuthCallBack(String result) {
-						if (result.equals(ConstantValues.FAILURE)) {
+					public void getIOAuthCallBack(String result) 
+					{
+						if (result.equals(ConstantValues.FAILURE)) 
+						{
 							Toast.makeText(context, ConstantValues.NONETWORK, 0).show();
-						} else {
+						} 
+						else 
+						{
 							InfoEntity bean = GsonTools.changeGsonToBean(result, InfoEntity.class);
-							if ("1".equals(bean.getStatus())) {
+							
+							if ("1".equals(bean.getStatus()))
+							{
 								ToastUtils.showInfo(context, bean.getInfo());
-							} else {
+							} 
+							else 
+							{
 								ToastUtils.showInfo(context, bean.getInfo());
 							}
 						}

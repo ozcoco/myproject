@@ -78,7 +78,7 @@ public class IndexPage extends Mo_BasePage implements OnClickListener {
 	private LinearLayout shop_viewpager; // 滚动图
 	private List<String> titles;
 	private ArrayList<String> urlList = new ArrayList<String>();
-	private List<HomePageAdsEntity> data;
+	private List<HomePageAdsEntity.DataEntity> data;
 	private boolean isgetdata = true;// 是否是第一次拿数据
 	private ArrayList<EventEntity> event_data;
 	private Dialog dialog;
@@ -301,7 +301,6 @@ public class IndexPage extends Mo_BasePage implements OnClickListener {
 				@Override
 				public void getIOAuthCallBack(String result)
 				{
-					Log.e("result", result);
 					
 					toCacheData(result, "index_adv" + ConstantValues.versionCode);
 					
@@ -373,9 +372,9 @@ public class IndexPage extends Mo_BasePage implements OnClickListener {
 							return;
 						}
 						
-						String advid = data.get(position).getAdvid();
+						String advid = data.get(position).getAdv_id();
 						
-						int type = data.get(position).getType();
+						int type = Integer.valueOf(data.get(position).getType());
 
 						switch (type) 
 						{
@@ -422,13 +421,13 @@ public class IndexPage extends Mo_BasePage implements OnClickListener {
 							
 						case 5:
 							
-							String code = data.get(position).getCode();
+//							String code = data.get(position).getCode();
 							
 							Intent event_notice = new Intent(context, EventnNoticeActivity.class);// 活动公告
 							
 							event_notice.putExtra("noticeid", advid);
 							
-							event_notice.putExtra("code", code);
+//							event_notice.putExtra("code", code);
 							
 							context.startActivity(event_notice);
 							
@@ -538,14 +537,14 @@ public class IndexPage extends Mo_BasePage implements OnClickListener {
 				
 				for (int i = 0; i < data.size(); i++) 
 				{
-					String path = data.get(i).getLogo();
+					String path = data.get(i).getIcon();
 					
-					if (!CheckUtils.checkEmpty(path)) 
-					{
-						String[] s = path.split(",");
-						
-						path = s[0].substring(0, s[0].lastIndexOf(".")) + "_640_395" + s[0].substring(s[0].lastIndexOf("."));
-					}
+//					if (!CheckUtils.checkEmpty(path)) 
+//					{
+//						String[] s = path.split(",");
+//						
+//						path = s[0].substring(0, s[0].lastIndexOf(".")) + "_640_395" + s[0].substring(s[0].lastIndexOf("."));
+//					}
 					
 					urlList.add(path);
 

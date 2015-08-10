@@ -1,13 +1,17 @@
 package me.wangolf.shop;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager.LayoutParams;
+import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -22,6 +26,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import me.wangolf.ConstantValues;
@@ -39,7 +44,7 @@ import me.wangolf.utils.Xutils;
 import me.wangolf.utils.viewUtils.RollViewPager_NORoll;
 import me.wangolf.utils.viewUtils.RollViewPager_NORoll.OnPagerClickCallback;
 
-public class ShopProActivity extends Activity implements OnClickListener
+public class ShopProActivity extends Activity implements View.OnClickListener
 {
 
     @ViewInject(R.id.tv_infopro_name)
@@ -126,10 +131,16 @@ public class ShopProActivity extends Activity implements OnClickListener
         
         proid = getIntent().getStringExtra("proid");
         
+        Log.e("proid", proid);
+        
+//        ToastUtils.showInfo(getApplicationContext(), proid);
+        
         getData();
 
     }
 
+    
+    
     public void getData() 
     {
         try {
@@ -138,7 +149,9 @@ public class ShopProActivity extends Activity implements OnClickListener
             {
                 @Override
                 public void getIOAuthCallBack(String result) 
-                {
+                {               	
+//                	ToastUtils.showInfo(getApplicationContext(), result);
+                	
                     if (result.equals(ConstantValues.FAILURE)) 
                     {
                         ToastUtils.showInfo(ShopProActivity.this, ConstantValues.NONETWORK);// 加载内容失败                        
@@ -147,6 +160,9 @@ public class ShopProActivity extends Activity implements OnClickListener
                     {
                         bean = GsonTools.changeGsonToBean(result, InfoPro.class);
                         
+                        if(bean.getData().size() != 0)
+                        {
+                        	
                         InfoPro.DataEntity data = bean.getData().get(0);
                         
                         tv_infopro_name.setText(data.getSub_name());
@@ -222,6 +238,33 @@ public class ShopProActivity extends Activity implements OnClickListener
 //                        }
                         
                         dialog.cancel();
+                        
+                        }
+                        else
+                        {
+                        	dialog.cancel();
+                        	
+                        	AlertDialog.Builder bulder = new Builder(ShopProActivity.this);
+                        	
+                        	bulder.setTitle("提示");
+                        	
+                        	bulder.setMessage("暂无数据！"); 
+                        	
+                        	bulder.setPositiveButton("返回", new OnClickListener() 
+                        	{								
+								@Override
+								public void onClick(DialogInterface dialog, int which) 
+								{
+									
+									finish();
+									
+								}
+							});
+                        	
+                        	bulder.create().show();                  	
+                        	                   	
+                        }
+                        
                     }
                 }
             });

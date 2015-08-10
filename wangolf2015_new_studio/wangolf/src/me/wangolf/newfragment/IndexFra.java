@@ -113,7 +113,7 @@ public class IndexFra extends BaseFragment implements OnClickListener
     
     private ArrayList<String> urlList = new ArrayList<String>();
     
-    private List<HomePageAdsEntity> data;
+    private List<HomePageAdsEntity.DataEntity> data;
     
     private boolean isgetdata = true;// 是否是第一次拿数据
     
@@ -310,11 +310,15 @@ public class IndexFra extends BaseFragment implements OnClickListener
         // 首页广告
         try 
         {
-            ServiceFactory.getIndexEngineInstatice().getIndexAdv(page, number, version, new IOAuthCallBack() 
+//            ServiceFactory.getIndexEngineInstatice().getIndexAdv(page, number, version, new IOAuthCallBack() 
+        	ServiceFactory.getIndexEngineInstatice().getIndexAdv(new IOAuthCallBack()
             {
                 @Override
                 public void getIOAuthCallBack(String result) 
                 {
+                	
+//                	ToastUtils.showInfo(getActivity(), result);
+                	
                     toCacheData(result, "index_adv" + ConstantValues.versionCode);
                     
                     ProcessAdVdata(result);
@@ -481,9 +485,9 @@ public class IndexFra extends BaseFragment implements OnClickListener
                             return;
                         }
                         
-                        String advid = data.get(position).getAdvid();
+                        String advid = data.get(position).getAdv_id();
                         
-                        int type = data.get(position).getType();
+                        int type = Integer.valueOf(data.get(position).getType());
 
                         switch (type) 
                         {
@@ -531,13 +535,13 @@ public class IndexFra extends BaseFragment implements OnClickListener
                                 
                             case 5:
                             	
-                                String code = data.get(position).getCode();
+//                                String code = data.get(position).getType();
                                 
                                 Intent event_notice = new Intent(getActivity(), EventnNoticeActivity.class);// 活动公告
                                
                                 event_notice.putExtra("noticeid", advid);
                                 
-                                event_notice.putExtra("code", code);
+//                                event_notice.putExtra("code", code);
                                 
                                 getActivity().startActivity(event_notice);
                                 
@@ -568,38 +572,62 @@ public class IndexFra extends BaseFragment implements OnClickListener
     }
 
     // ===========滚动图片view=============
-    private void initDot(int size) {
+    private void initDot(int size)
+    {
         dotList = new ArrayList<View>();
+        
         dots_ll.removeAllViews();
-        for (int i = 0; i < size; i++) {
+        
+        for (int i = 0; i < size; i++) 
+        {
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(CommonUtil.dip2px(getActivity(), 6), CommonUtil.dip2px(getActivity(), 6));
+          
             params.setMargins(5, 0, 5, 0);
+            
             View m = new View(getActivity());
-            if (i == 0) {
+            
+            if (i == 0) 
+            {
                 m.setBackgroundResource(R.drawable.dot_focus);
-            } else {
+            } 
+            else 
+            {
                 m.setBackgroundResource(R.drawable.dot_normal);
             }
+            
             m.setLayoutParams(params);
+            
             dots_ll.addView(m);
+            
             dotList.add(m);
+            
         }
     }
 
     // 处理list数据
-    public void ProcessListdata(String result) {
+    public void ProcessListdata(String result) 
+    {
 
-        if (result.equals(ConstantValues.FAILURE)) {
+        if (result.equals(ConstantValues.FAILURE))
+        {
             ToastUtils.showInfo(getActivity(), ConstantValues.NONETWORK);
-        } else {
+        } 
+        else 
+        {
             EventEntity bean = GsonTools.changeGsonToBean(result, EventEntity.class);
-            if ("1".equals(bean.getStatus())) {
-                if (bean.getData() != null) {
-
+            
+            if ("1".equals(bean.getStatus())) 
+            {
+                if (bean.getData() != null) 
+                {
                     event_data = bean.getData();
+                    
                     adapter.getList().clear();
+                    
                     adapter.setList(event_data);
+                    
                     adapter.notifyDataSetChanged();
+                    
                 }
             }
         }
@@ -608,13 +636,11 @@ public class IndexFra extends BaseFragment implements OnClickListener
     // 处理广告数据
     public void ProcessAdVdata(String result) 
     {
-
         if (result.equals(ConstantValues.FAILURE))
         {
             isnoserver = true;
             
-            ToastUtils.showInfo(getActivity(), ConstantValues.NONETWORK);
-            
+            ToastUtils.showInfo(getActivity(), ConstantValues.NONETWORK);            
         } 
         else
         {
@@ -628,14 +654,14 @@ public class IndexFra extends BaseFragment implements OnClickListener
                 
                 for (int i = 0; i < data.size(); i++) 
                 {
-                    String path = data.get(i).getLogo();
+                    String path = data.get(i).getIcon();
                     
-                    if (!CheckUtils.checkEmpty(path)) 
-                    {
-                        String[] s = path.split(",");
-                        
-                        path = s[0].substring(0, s[0].lastIndexOf(".")) + "_640_395" + s[0].substring(s[0].lastIndexOf("."));
-                    }
+//                    if (!CheckUtils.checkEmpty(path)) 
+//                    {
+//                        String[] s = path.split(",");
+//                        
+//                        path = s[0].substring(0, s[0].lastIndexOf(".")) + "_640_395" + s[0].substring(s[0].lastIndexOf("."));
+//                    }
                     
                     urlList.add(path);
 

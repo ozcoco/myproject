@@ -6,26 +6,32 @@ import me.wangolf.service.IIndexService;
 import me.wangolf.service.IOAuthCallBack;
 import me.wangolf.utils.Xutils;
 
-public class IndexServiceImpl implements IIndexService {
+public class IndexServiceImpl implements IIndexService 
+{
 	public RequestParams params = null;
 
-	static String BaseUrl = "http://192.168.1.222/golf/";
+	static String BaseUrl = "http://www.wangolf.me/golf/";
 	
 	@Override
 	public void getIndexAdv(String page, String number, String version, 
 		IOAuthCallBack iOAuthCallBack) throws Exception 
 	{
 		params = new RequestParams();
-		params.addBodyParameter("m", "ProductType");
-		params.addBodyParameter("a", "indexAdv");
-		params.addBodyParameter("page", page);
-		params.addBodyParameter("page", page);
-		params.addBodyParameter("number", number);
-		params.addBodyParameter("version", version);
-		Xutils.getDataFromServer(params, iOAuthCallBack);
 		
-//		String api = BaseUrl + "webAdvertise/list?";		
-//		Xutils.getDataFromServer(api, iOAuthCallBack);
+		params.addBodyParameter("m", "ProductType");
+		
+		params.addBodyParameter("a", "indexAdv");
+		
+		params.addBodyParameter("page", page);
+		
+		params.addBodyParameter("page", page);
+		
+		params.addBodyParameter("number", number);
+		
+		params.addBodyParameter("version", version);
+		
+		Xutils.getDataFromServer(params, iOAuthCallBack);
+
 	}
 
 	

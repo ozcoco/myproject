@@ -18,11 +18,11 @@ public class InfoPro implements Serializable {
      * data : [{"origin_price":"1280","supplier_id":"43","current_price":"850","sub_name":"Nillkay 韩国女士高尔夫防风外套（热情红 清爽绿）","size":"S M L","discount":"6.64","id":"140","lave":"10","img_list":"http://www.wangolf.me/public/attachment/201411/03/15/54572c5f5ad47.jpg","buy_count":"0","color":"热情红 清爽绿","max_bought":"10","web_app_uri":"http://192.168.1.222//webApp/share/commodity.html?proid=140","brief":"韩国高尔夫服装第一品牌"}]
      * info : 成功
      */
-    private int status;
+    private String status;
     private List<DataEntity> data;
     private String info;
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -34,7 +34,7 @@ public class InfoPro implements Serializable {
         this.info = info;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 

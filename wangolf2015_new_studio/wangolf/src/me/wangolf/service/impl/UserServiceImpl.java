@@ -111,7 +111,8 @@ public class UserServiceImpl implements IUserService
 //		Xutils.getDataFromServer(params, iOAuthCallBack);
 		
 		String api = BaseUrl + "webUser/info?"
-				+ "&user_id=" + user_id;
+				+ "user_id=" + user_id;
+		
 		Xutils.getDataFromServer(api, iOAuthCallBack);
 		
 	}
@@ -158,7 +159,7 @@ public class UserServiceImpl implements IUserService
 		
 		params = new RequestParams();
 		
-		params.addBodyParameter("user_id", user_id);
+//		params.addBodyParameter("user_id", user_id);
 		
 		params.addBodyParameter("opassword", opassword);
 		
@@ -245,8 +246,8 @@ public class UserServiceImpl implements IUserService
 //		params.addBodyParameter("uid", uid);
 //		Xutils.getDataFromServer(params, iOAuthCallBack);
 		
-		String api = BaseUrl + "webUser/getUserAddress?"
-				+ "user_id=" + user_id;	
+		String api = BaseUrl + "webUser/getUserAddress?";
+//				+ "user_id=" + user_id;	
 
 		Xutils.getDataFromServer(api, iOAuthCallBack);
 		
@@ -326,7 +327,8 @@ public class UserServiceImpl implements IUserService
 	 * 
 	 * **/
 	@Override
-	public void upAddrdata(AddressBean bean, IOAuthCallBack iOAuthCallBack) throws Exception {
+	public void upAddrdata(AddressBean bean, IOAuthCallBack iOAuthCallBack) throws Exception
+	{
 		params = new RequestParams();
 //		params.addBodyParameter("m", "UserInfo");
 //		params.addBodyParameter("a", "updateaddr");

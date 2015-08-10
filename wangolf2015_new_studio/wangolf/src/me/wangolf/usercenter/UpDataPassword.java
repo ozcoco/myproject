@@ -24,9 +24,11 @@ import me.wangolf.service.IOAuthCallBack;
 import me.wangolf.utils.CheckUtils;
 import me.wangolf.utils.DialogUtil;
 import me.wangolf.utils.GsonTools;
+import me.wangolf.utils.SharedPreferencesUtils;
 import me.wangolf.utils.ToastUtils;
 
-public class UpDataPassword extends BaseActivity implements OnClickListener {
+public class UpDataPassword extends BaseActivity implements OnClickListener 
+{
     @ViewInject(R.id.common_back)
     private Button common_back; // 后退
     @ViewInject(R.id.common_title)
@@ -46,48 +48,80 @@ public class UpDataPassword extends BaseActivity implements OnClickListener {
     private Dialog dialog;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) 
+    {
         super.onCreate(savedInstanceState);
+        
         setContentView(R.layout.ac_update_pwd);
+        
         ViewUtils.inject(this);
+        
         initData();
     }
 
     @Override
-    public void initData() {
+    public void initData() 
+    {
         dialog = DialogUtil.getDialog(this);
+        
         common_back.setVisibility(View.VISIBLE);
+        
         common_title.setText("修改密码");
+        
         common_back.setOnClickListener(this);
+        
         up_pwd.setOnClickListener(this);
+        
         uid = ConstantValues.UID;
 
     }
 
     @Override
-    public void getData() {
+    public void getData() 
+    {
 
     }
 
-    public void upUserPassword() {
+    public void upUserPassword() 
+    {
         dialog.show();
-        try {
+        
+        try 
+        {
             ServiceFactory.getIUserEngineInstatice().upUserPassword(uid, opassword, npassword, new IOAuthCallBack() {
 
                 @Override
-                public void getIOAuthCallBack(String result) {
-                    if (result.equals(ConstantValues.FAILURE)) {
+                public void getIOAuthCallBack(String result)
+                {
+                	
+//                	ToastUtils.showInfo(getApplication(), result);              	
+                	
+                    if (result.equals(ConstantValues.FAILURE)) 
+                    {
 
                         ToastUtils.showInfo(UpDataPassword.this, ConstantValues.NONETWORK);
-                    } else {
+                        
+                    } 
+                    else 
+                    {
                         InfoEntity bean = GsonTools.changeGsonToBean(result, InfoEntity.class);
-                        if ("1".equals(bean.getStatus())) {
-                            ToastUtils.showInfo(UpDataPassword.this, bean.getInfo());
+                        
+                        if ("1".equals(bean.getStatus())) 
+                        {
+                            
+                        	ToastUtils.showInfo(UpDataPassword.this, bean.getInfo());
+                            
+                        	SharedPreferencesUtils.saveString(getBaseContext(), "mgolf_p", npassword);//缓存密码
+                        	
                             finish();
-                        } else {
+                            
+                        } 
+                        else 
+                        {
                             ToastUtils.showInfo(UpDataPassword.this, bean.getInfo());
                         }
                     }
+                    
                     dialog.cancel();
                 }
 

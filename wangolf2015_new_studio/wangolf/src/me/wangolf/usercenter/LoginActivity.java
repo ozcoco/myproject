@@ -247,6 +247,8 @@ public class LoginActivity extends Activity implements OnClickListener,PlatformA
                             
                             ConstantValues.USER_MOBILE = phone;
                             
+                            ConstantValues.UNIQUE_KEY = userinfo.getUnique_key();
+                            
 //                            if( !CheckUtils.checkEmpty(userinfo.getWeixin_open_id()))
 //                                ConstantValues.ISWXlOGIN =true;
 //                            else
@@ -488,7 +490,8 @@ public class LoginActivity extends Activity implements OnClickListener,PlatformA
     }
 
     // 缓存用户名密码
-    public void setCache(String name, String result) {
-        SharedPreferencesUtils.saveString(this, name, result);
+    public void setCache(String name, String result) 
+    {
+        SharedPreferencesUtils.saveString(this, name, result);                     
     }
 }

@@ -59,35 +59,58 @@ import me.wangolf.utils.ToastUtils;
  *
  * @author andye
  */
-public class MainActivity extends FragmentActivity implements OnClickListener {
+public class MainActivity extends FragmentActivity implements OnClickListener 
+{
 
     private ImageView mSelBg;
+    
     private LinearLayout mTab_item_container;
+    
     private FragmentManager mFM = null;
+    
     @ViewInject(R.id.tab_tv_1)
     private TextView mTv1;//首页Tv
+    
     @ViewInject(R.id.tab_tv_2)
     private TextView mTv2;//球场Tv
+    
     @ViewInject(R.id.tab_tv_3)
     private TextView mTv3;// 商城Tv
+    
     @ViewInject(R.id.tab_tv_4)
     private TextView mTv4;// 社区Tv
+    
     @ViewInject(R.id.tab_tv_5)
     private TextView mTv5;// 发现Tv
+    
     private IndexFra fIndex;//首页Fra
+    
     private BallPracFra fBallPra;//球场Fra
+    
     private ShopFra fShop;// 商城Fra
+    
     private CommunityFra fCommunity;// 社区Fra
+    
     private UserCentenFra fUserCenter;// 发现Fra
+    
     private int mSelectIndex = 0;
+    
     private View last, now;//动画视图
+    
     private int CurrentFlag;//当前点击的频道 0 首页 1球场 2 商城 3 社区 4 个人中心
+    
     LinearLayout content_container, content_container2;
+    
     private LocationClient mLocationClient;// 定位
+    
     private LocationClientOption.LocationMode tempMode = LocationClientOption.LocationMode.Hight_Accuracy;
+    
     private String tempcoor = "bd09ll";// 地址编码
+    
     private int isExit; // 是否退出
+    
     private long lasttime = 0;// 点时间
+    
     FragmentTransaction ft;
     
     @SuppressLint("HandlerLeak")
@@ -172,6 +195,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
         
     }
 
+    
+    
     View v1, v2;
 
     //点击事件监听
@@ -362,26 +387,41 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
     /**
      * 切换fragement
      */
-    public void changeUserContent() {
-        if (!ConstantValues.ISLOGIN) {
+    public void changeUserContent()
+    {
+        if (!ConstantValues.ISLOGIN) 
+        {
             // 去登录
             Intent toLogin = new Intent(this, LoginActivity.class);
+            
             toLogin.putExtra("flag", "userlogin");
+            
             this.startActivityForResult(toLogin, 100);
+            
             return;
         }
+        
         ft = mFM.beginTransaction();
+        
         hideFragments(ft);
-        if (null == fUserCenter) {
+        
+        if (null == fUserCenter) 
+        {
             fUserCenter = new UserCentenFra();
+            
             ft.add(R.id.content_container, fUserCenter);
-        } else {
+        } 
+        else 
+        {
             fUserCenter.getUpData();
+            
             ft.show(fUserCenter);
         }
         //  ft.commit();
         mTv5.setTextColor(getResources().getColor(R.color.main_text_select));
+        
         mTv5.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.main_user_select), null, null);
+       
         ft.commitAllowingStateLoss();
     }
 
@@ -468,27 +508,47 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
     }
 
     //判断登录成功或从登录页返回
-    public void isLogin() {
+    public void isLogin() 
+    {
         //登录成功，进入用户中心,否则如果是返回，回到原频道
-        if (ConstantValues.ISLOGIN) {
+        if (ConstantValues.ISLOGIN) 
+        {
             changeUserContent();
-        } else {
+        } 
+        else
+        {
             last = mTab_item_container.getChildAt(CurrentFlag);
+            
             now = mTab_item_container.getChildAt(CurrentFlag);
+            
             startAnimation(last, now);
+            
             mSelectIndex = CurrentFlag;
-            switch (CurrentFlag) {
+            
+            switch (CurrentFlag) 
+            {
                 case 0:
+                	
                     changeIndex();
+                    
                     break;
+                    
                 case 1:
+                	
                     changeBallPra();
+                    
                     break;
+                    
                 case 2:
+                	
                     changeShop();
+                    
                     break;
+                    
                 case 3:
+                	
                     changeCommunity();
+                    
                     break;
             }
         }
@@ -516,24 +576,37 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
     }
 
     // 使用缓存用户登录
-    public void login() {
+    public void login() 
+    {
         final String cache_user = SharedPreferencesUtils.getString(this, "mgolf_n");
+        
         final String cache_pwd = SharedPreferencesUtils.getString(this, "mgolf_p");
+        
         final  String wx_open_id=SharedPreferencesUtils.getString(this, "mgolf_uid");
 
-        if (!CheckUtils.checkEmpty(cache_user) & !CheckUtils.checkEmpty(cache_pwd)) {
+        if (!CheckUtils.checkEmpty(cache_user) & !CheckUtils.checkEmpty(cache_pwd)) 
+        {
             User u = new User();
+            
             u.setUsername(cache_user);
+            
             u.setPassword(cache_pwd);
-            try {
-                ServiceFactory.getIUserEngineInstatice().UserLogin(u, new IOAuthCallBack() {
+            
+            try 
+            {
+                ServiceFactory.getIUserEngineInstatice().UserLogin(u, new IOAuthCallBack() 
+                {
 
                     @Override
-                    public void getIOAuthCallBack(String result) {
+                    public void getIOAuthCallBack(String result)
+                    {
                         //Log.i("wangolf",result);
-                        if (result.equals(ConstantValues.FAILURE)) {
+                        if (result.equals(ConstantValues.FAILURE)) 
+                        {
                             ToastUtils.showInfo(MainActivity.this, ConstantValues.NONETWORK);
-                        } else {
+                        } 
+                        else 
+                        {
                             UserInfoEntity user = GsonTools.changeGsonToBean(result, UserInfoEntity.class);
 
                             if (user.getStatus().equals("1")) 
@@ -556,8 +629,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
                                 
                                 if(!CheckUtils.checkEmpty(userinfo.getNick_name())&!CheckUtils.checkEmpty(userinfo.getAvatar()))
                                    ConstantValues.ISCOMPLETEINFO = true;
-                                ConstantValues.UID = userinfo.getUser_id() + "";
-                            } else {
+                                
+                                ConstantValues.UID = userinfo.getUser_id();
+                                
+                                ConstantValues.UNIQUE_KEY = userinfo.getUnique_key();
+                                
+                            } 
+                            else 
+                            {
                                 ToastUtils.showInfo(MainActivity.this, user.getInfo());
                             }
                         }

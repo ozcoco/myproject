@@ -58,92 +58,146 @@ import me.wangolf.utils.GsonTools;
 import me.wangolf.utils.SharedPreferencesUtils;
 import me.wangolf.utils.ToastUtils;
 
-public class UserSet extends BaseActivity implements OnClickListener {
+public class UserSet extends BaseActivity implements OnClickListener 
+{
     @ViewInject(R.id.common_back)
     private Button common_back; // 后退
+    
     @ViewInject(R.id.common_title)
     private TextView common_title;// 标题
+    
     @ViewInject(R.id.common_bt)
     private TextView common_bt;// 地图
+    
     @ViewInject(R.id.my_comment)
     private RelativeLayout my_comment;// 我的意见
+    
     @ViewInject(R.id.cooperation)
     private RelativeLayout cooperation;// 招商合作
+    
     @ViewInject(R.id.about)
     private RelativeLayout about;// 关于我们
+    
     @ViewInject(R.id.loginout)
     private Button loginout;// 退出
+    
     @ViewInject(R.id.checkup)
     private RelativeLayout checkup;// 检测更新
+    
     @ViewInject(R.id.load_apk)
     private TextView load_apk;// 更新信息
+    
     @ViewInject(R.id.my_account)
     private RelativeLayout mAccount;
 
     private String uid;
+    
     private String download_url;// 下载链接
+    
     private int version;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
+        
         setContentView(R.layout.ac_setup);
+        
         ViewUtils.inject(this);
+        
         initData();
     }
 
+    
     @Override
-    public void initData() {
+    public void initData()
+    {
         common_back.setVisibility(View.VISIBLE);
+        
         common_title.setText(ConstantValues.USERSET);
+        
         common_back.setOnClickListener(this);
+        
         my_comment.setOnClickListener(this);
+        
         cooperation.setOnClickListener(this);
+        
         about.setOnClickListener(this);
+        
         loginout.setOnClickListener(this);
+        
         checkup.setOnClickListener(this);
+        
         mAccount.setOnClickListener(this);
+        
         uid = ConstantValues.UID;
 
     }
 
     @Override
-    public void getData() {
-
-    }
+    public void getData(){}
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
+    public void onClick(View v) 
+    {
+        switch (v.getId()) 
+        {
             case R.id.common_back:
+            	
                 finish();
+                
                 break;
+                
             case R.id.my_comment:
+            	
                 Intent my_comment = new Intent(this, UserComment.class);
+                
                 startActivity(my_comment);
+                
                 break;
+                
             case R.id.cooperation:
+            	
                 Intent cooperation = new Intent(this, AboutActivity.class);
+                
                 cooperation.putExtra("type", "2");
+                
                 cooperation.putExtra("title", ConstantValues.COOPERATION);
+                
                 startActivity(cooperation);
+                
                 break;
+                
             case R.id.about:
+            	
                 Intent about = new Intent(this, AboutActivity.class);
+                
                 about.putExtra("type", "3");
+                
                 about.putExtra("title", ConstantValues.ABOUT);
+                
                 startActivity(about);
+                
                 break;
+                
             case R.id.loginout:
                 // toLoginOut();
                 ConstantValues.ISLOGIN = false;
+                
                 ConstantValues.UID = null;
+                
                 SharedPreferencesUtils.saveString(this, "mgolf_n", null);
+                
                 SharedPreferencesUtils.saveString(this, "mgolf_p", null);
+                
                 SharedPreferencesUtils.saveString(this, "wx_open_id", null);
+                
                 SharedPreferencesUtils.saveString(this, "mgolf_uid", null);
+                
                 finish();
+                
                 break;
+                
             case R.id.checkup:
                 // 检测更新版本
                 toCheckup();
@@ -152,8 +206,11 @@ public class UserSet extends BaseActivity implements OnClickListener {
             case R.id.my_account:
                 //账号管理
                 Intent account = new Intent(this,UserAccountSet.class);
+                
                 startActivity(account);
+                
                 break;
+                
             default:
                 break;
         }

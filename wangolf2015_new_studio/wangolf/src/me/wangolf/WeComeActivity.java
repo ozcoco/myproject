@@ -89,12 +89,14 @@ public class WeComeActivity extends BaseActivity
                 
                 if (!CheckUtils.checkEmpty(urls))
                 {
+                	
                     start = new Intent(getApplicationContext(), SplashActivity.class);
                     
                     start.putExtra("urls", urls);                   
                 } 
                 else 
                 {
+                	
                     start = new Intent(getApplicationContext(), me.wangolf.newfragment.MainActivity.class);
                 }
                 

@@ -17,7 +17,6 @@ logcat.view.colsize.TID=58
 logcat.view.colsize.Tag=306
 logcat.view.colsize.Text=613
 logcat.view.colsize.Time=150
-logcat.view.display.filters=false
 logcat.view.filters.list=name\: 'wangolf', tag\: 'wangolf', text\: '', pid\: '', app\: '', level\: 'verbose', name\: 'System.out', tag\: 'System.out', text\: '', pid\: '', app\: '', level\: 'verbose', name\: 'wangolf', tag\: 'wangolf', text\: '', pid\: '', app\: 'wangolf', level\: 'verbose', 
 threadPanel.Col0=35
 threadPanel.Col1=49

@@ -56,7 +56,7 @@ public class ShopServiceImpl implements IShopService
 //		Xutils.getDataFromServer(params, iOAuthCallBack);
 		
 		String api = BaseUrl + "webCommodity/detail?"				
-				+ "&commodity_id=" + commodity_id;
+				+ "commodity_id=" + commodity_id;
 		
 		Xutils.getDataFromServer(api, iOAuthCallBack);
 		

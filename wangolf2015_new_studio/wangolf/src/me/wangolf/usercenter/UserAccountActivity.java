@@ -17,7 +17,8 @@ import me.wangolf.ConstantValues;
 import me.wangolf.base.BaseActivity;
 import me.wangolf.utils.ToastUtils;
 
-public class UserAccountActivity extends BaseActivity implements OnClickListener {
+public class UserAccountActivity extends BaseActivity implements OnClickListener 
+{
 	@ViewInject(R.id.common_back)
 	private Button common_back; // 后退
 	@ViewInject(R.id.common_title)
@@ -38,60 +39,100 @@ public class UserAccountActivity extends BaseActivity implements OnClickListener
 	private RelativeLayout my_vip;//会员
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) 
+	{
 		super.onCreate(savedInstanceState);
+		
 		setContentView(R.layout.ac_account);
+		
 		ViewUtils.inject(this);
+		
 		initData();
 	}
 
 	@Override
-	public void initData() {
+	public void initData() 
+	{
 		common_back.setVisibility(View.VISIBLE);
+		
 		common_title.setText(ConstantValues.USERACCOUNT);
+		
 		common_back.setOnClickListener(this);
+		
 		my_paydetail.setOnClickListener(this);
+		
 		my_ticket.setOnClickListener(this);
+		
 		my_rechare.setOnClickListener(this);
+		
 		my_hongbao.setOnClickListener(this);
+		
 		my_vip.setOnClickListener(this);
+		
 		account.setText("￥" + getIntent().getStringExtra("account"));
-		vouchers.setText("￥" + getIntent().getStringExtra("vouchers"));
+		
+//		vouchers.setText("￥" + getIntent().getStringExtra("vouchers"));
 
 	}
 
 	@Override
-	public void getData() {
+	public void getData()
+	{
 
 	}
 
 	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
+	public void onClick(View v) 
+	{
+		switch (v.getId()) 
+		{
 		case R.id.common_back:
+			
 			finish();
+			
 			break;
+			
 		case R.id.my_paydetail:
+			
 			Intent paydetail = new Intent(this, ConsumerDetailActivity.class);
+			
 			startActivity(paydetail);
+			
 			break;
+			
 		case R.id.my_ticket:
+			
 			Intent ticket = new Intent(this, VouchersListActivity.class);
+			
 			startActivity(ticket);
+			
 			break;
+			
 		case R.id.my_rechare:
+			
 			Intent rechare = new Intent(this, RechargeActivity.class);
+			
 			startActivity(rechare);
+			
 			break;
+			
 		case R.id.my_hongbao:
+			
 			Intent hongbao = new Intent(this, RedPackListActivity.class);
+			
 			startActivity(hongbao);
+			
 			break;
+			
 		case R.id.my_vip:
+			
 			ToastUtils.showInfo(UserAccountActivity.this, "暂停VIP开通");
+			
 			break;
+			
 		default:
 			break;
+			
 		}
 
 	}
