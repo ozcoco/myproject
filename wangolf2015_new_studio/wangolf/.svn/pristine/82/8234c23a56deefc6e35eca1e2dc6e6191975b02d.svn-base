@@ -1,0 +1,241 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black" >
+
+    <include
+        android:id="@+id/common_bar"
+        layout="@layout/layout_title_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/common_bar"
+        android:background="@color/all_bg_color"
+        android:fillViewport="true"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="1dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="余额："
+                    android:textColor="@color/common_text" />
+
+                <TextView
+                    android:id="@+id/account"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/common_orange" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="70dp"
+                    android:text="代金券："
+                    android:textColor="@color/common_text"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/vouchers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" 
+                    android:textColor="@color/common_orange"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-2dp"
+                android:background="@drawable/textlines_all"
+                android:orientation="vertical"
+                android:padding="1dp" >
+
+                <RelativeLayout
+                    android:id="@+id/my_vip"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/layout_height_50"
+                    android:layout_marginTop="-2dp"
+                    android:background="@drawable/gray_light_selector"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/layout_height_8" >
+
+                    <TextView
+                        android:id="@+id/TextView05"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="开通会员"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/common_text" />
+
+                    <ImageView
+                        android:id="@+id/ImageView06"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:src="@drawable/xiaojiangtou" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-2dp"
+                android:background="@drawable/textlines_all"
+                android:orientation="vertical"
+                android:padding="1dp" >
+
+                <RelativeLayout
+                    android:id="@+id/my_rechare"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/layout_height_50"
+                    android:background="@drawable/gray_light_selector"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/layout_height_8" >
+
+                    <TextView
+                        android:id="@+id/TextView06"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="账户充值"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/common_text" />
+
+                    <ImageView
+                        android:id="@+id/ImageView07"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:src="@drawable/xiaojiangtou" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-2dp"
+                android:background="@drawable/textlines_all"
+                android:orientation="vertical"
+                android:padding="1dp" >
+
+                <RelativeLayout
+                    android:id="@+id/my_hongbao"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/layout_height_50"
+                    android:background="@drawable/gray_light_selector"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/layout_height_8" >
+
+                    <TextView
+                        android:id="@+id/TextView07"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="我的红包"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/common_text" />
+
+                    <ImageView
+                        android:id="@+id/ImageView01"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:src="@drawable/xiaojiangtou" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-2dp"
+                android:background="@drawable/textlines_all"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:padding="1dp" >
+
+                <RelativeLayout
+                    android:id="@+id/my_ticket"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/layout_height_50"
+
+                    android:background="@drawable/gray_light_selector"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/layout_height_8" >
+
+                    <TextView
+                        android:id="@+id/TextView0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="我的代金券"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/common_text" />
+
+                    <ImageView
+                        android:id="@+id/ImageView011"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:src="@drawable/xiaojiangtou" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-2dp"
+                android:background="@drawable/textlines_all"
+                android:orientation="vertical"
+                android:padding="1dp" >
+
+                <RelativeLayout
+                    android:id="@+id/my_paydetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/layout_height_50"
+                    android:background="@drawable/gray_light_selector"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/layout_height_8" >
+
+                    <TextView
+                        android:id="@+id/TextView08"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="消费明细"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/common_text" />
+
+                    <ImageView
+                        android:id="@+id/ImageView08"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:src="@drawable/xiaojiangtou" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

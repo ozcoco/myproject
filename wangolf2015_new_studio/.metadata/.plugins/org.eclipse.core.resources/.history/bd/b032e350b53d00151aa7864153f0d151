@@ -1,0 +1,69 @@
+package me.wangolf.test;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+public class Test {
+
+   static String url = "http://192.168.1.222/golf/webRange/list?city_id=77&latitude=22.561133&longitude=114.15759&terminal=1&%20user_id=&%20range_name=";
+	
+	public static void main(String[] args)
+	{
+	
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+
+	
+	private static String MD5(String sourceStr) 
+	{
+        String result = "";
+        try 
+        {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            
+            md.update(sourceStr.getBytes());
+            
+            byte b[] = md.digest();
+            
+            int i;
+            
+            StringBuffer buf = new StringBuffer("");
+            
+            for (int offset = 0; offset < b.length; offset++)
+            {
+                i = b[offset];
+                
+                if (i < 0)
+                    i += 256;
+                
+                if (i < 16)
+                    buf.append("0");
+                
+                buf.append(Integer.toHexString(i));
+                
+            }
+            
+            result = buf.toString();
+            
+            System.out.println("MD5(" + sourceStr + ",32) = " + result);
+            
+            System.out.println("MD5(" + sourceStr + ",16) = " + buf.toString().substring(8, 24));
+            
+        } 
+        catch (NoSuchAlgorithmException e) 
+        {
+            System.out.println(e);
+        }
+        
+        return result;
+    }
+	
+	
+}
