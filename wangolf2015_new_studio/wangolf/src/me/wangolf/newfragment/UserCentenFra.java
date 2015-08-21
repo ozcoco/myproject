@@ -3,7 +3,6 @@ package me.wangolf.newfragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,9 +19,11 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 
 
 import me.wangolf.ConstantValues;
+import me.wangolf.base.BaseFragment;
 import me.wangolf.bean.usercenter.UserInfoEntity;
 import me.wangolf.factory.ServiceFactory;
 import me.wangolf.service.IOAuthCallBack;
+import me.wangolf.usercenter.LoginActivity;
 import me.wangolf.usercenter.OrderListActivity;
 import me.wangolf.usercenter.UpDataUserInfoActivity;
 import me.wangolf.usercenter.UserAccountActivity;
@@ -43,7 +44,7 @@ import me.wangolf.utils.viewUtils.PullToRefreshBase;
 import me.wangolf.utils.viewUtils.PullToRefreshListView;
 import me.wangolf.utils.viewUtils.RollViewPager;
 
-public class UserCentenFra extends Fragment implements OnClickListener 
+public class UserCentenFra extends BaseFragment implements OnClickListener 
 {
     @ViewInject(R.id.common_title)
     private TextView common_title;// 标题
@@ -112,6 +113,8 @@ public class UserCentenFra extends Fragment implements OnClickListener
         return view;
     }
 
+    
+    
     public void initData() 
     {
         common_title.setText("发现");
@@ -145,9 +148,36 @@ public class UserCentenFra extends Fragment implements OnClickListener
             return;
         }
         
-        getData();
+        if(ConstantValues.ISLOGIN)
+        {
+        
+        	getData();
+        
+        }
+        else
+        {
+    			// 去登录
+    			Intent toLogin = new Intent(getActivity(), LoginActivity.class);
+
+    			toLogin.putExtra("flag", "usercenter");
+
+    			this.startActivityForResult(toLogin, 100);
+
+        }
     }
 
+    
+    
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+    	
+    	if(ConstantValues.USERCENT_ISLOGIN) getData();
+ 	
+    	super.onActivityResult(requestCode, resultCode, data);
+    }
+    
+    
     public void getData() 
     {
         try 

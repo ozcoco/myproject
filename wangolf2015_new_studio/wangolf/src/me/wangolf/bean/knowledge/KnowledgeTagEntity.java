@@ -8,7 +8,8 @@ import java.util.ArrayList;
 
  * ============================================================
  */
-public class KnowledgeTagEntity implements Serializable {
+public class KnowledgeTagEntity implements Serializable 
+{
 
     private String status;
     private String info;

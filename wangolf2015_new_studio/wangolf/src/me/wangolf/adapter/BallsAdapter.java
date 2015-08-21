@@ -119,7 +119,7 @@ public class BallsAdapter extends BaseAdapter {
 			
 			holder.tvAddress.setText(bean.getAddress());
 			
-			holder.tvDistance.setText(String.valueOf(distance) + "km");
+			holder.tvDistance.setText(String.valueOf(distance));
 			
 			String path = bean.getIcon();
 			

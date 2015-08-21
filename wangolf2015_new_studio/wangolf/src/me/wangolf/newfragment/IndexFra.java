@@ -4,13 +4,33 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.topnewgrid.bean.ChannelManage;
-import com.example.topnewgrid.bean.KnowledgeChannelManage;
-import com.example.topnewgrid.bean.ShopChannelManage;
-import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.view.annotation.ViewInject;
-import com.meigao.mgolf.R;
-
+import me.wangolf.ConstantValues;
+import me.wangolf.adapter.MainAdapter;
+import me.wangolf.ballprac.BallInfoActivity;
+import me.wangolf.ballprac.BallMainActivity;
+import me.wangolf.base.BaseFragment;
+import me.wangolf.bean.HomePageAdsEntity;
+import me.wangolf.bean.event.EventEntity;
+import me.wangolf.college.CollegeCollegePage;
+import me.wangolf.college.CollegePage;
+import me.wangolf.event.EventDetailActivity;
+import me.wangolf.event.EventnNoticeActivity;
+import me.wangolf.factory.ServiceFactory;
+import me.wangolf.knowledge.KnowledgePageActivity;
+import me.wangolf.myteam.MyTeamMainActivity;
+import me.wangolf.practice.PracticeInfoActivity;
+import me.wangolf.practice.PracticeListActivity;
+import me.wangolf.service.IOAuthCallBack;
+import me.wangolf.shop.ShopIndexActivity;
+import me.wangolf.shop.ShopProActivity;
+import me.wangolf.usercenter.RechargeActivity;
+import me.wangolf.utils.CommonUtil;
+import me.wangolf.utils.DialogUtil;
+import me.wangolf.utils.GsonTools;
+import me.wangolf.utils.SharedPreferencesUtils;
+import me.wangolf.utils.ToastUtils;
+import me.wangolf.utils.viewUtils.PullToRefreshListView;
+import me.wangolf.utils.viewUtils.RollViewPager;
 import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.Intent;
@@ -21,35 +41,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import me.wangolf.ConstantValues;
-import me.wangolf.adapter.MainAdapter;
-import me.wangolf.ballprac.BallInfoActivity;
-import me.wangolf.ballprac.BallMainActivity;
-import me.wangolf.base.BaseFragment;
-import me.wangolf.bean.HomePageAdsEntity;
-import me.wangolf.bean.event.EventEntity;
-import me.wangolf.college.CollegePage;
-import me.wangolf.event.EventDetailActivity;
-import me.wangolf.event.EventnNoticeActivity;
-import me.wangolf.factory.ServiceFactory;
-import me.wangolf.knowledge.KnowledgePageActivity;
-import me.wangolf.practice.PracticeInfoActivity;
-import me.wangolf.practice.PracticeListActivity;
-import me.wangolf.service.IOAuthCallBack;
-import me.wangolf.shop.ShopIndexActivity;
-import me.wangolf.shop.ShopProActivity;
-import me.wangolf.utils.CheckUtils;
-import me.wangolf.utils.CommonUtil;
-import me.wangolf.utils.DialogUtil;
-import me.wangolf.utils.GsonTools;
-import me.wangolf.utils.SharedPreferencesUtils;
-import me.wangolf.utils.ToastUtils;
-import me.wangolf.utils.viewUtils.PullToRefreshListView;
-import me.wangolf.utils.viewUtils.RollViewPager;
+
+import com.example.topnewgrid.bean.ChannelManage;
+import com.example.topnewgrid.bean.KnowledgeChannelManage;
+import com.example.topnewgrid.bean.ShopChannelManage;
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
+import com.meigao.mgolf.R;
 
 public class IndexFra extends BaseFragment implements OnClickListener
 {
@@ -57,35 +58,59 @@ public class IndexFra extends BaseFragment implements OnClickListener
 	@ViewInject(R.id.pull_refresh_list)
 	private PullToRefreshListView				pull_refresh_list;
 
-	@ViewInject(R.id.practice)
-	private TextView							practice;								// 练习场
+	// @ViewInject(R.id.practice)
+	// private TextView practice; // 练习场
+	//
+	// @ViewInject(R.id.ballsearch)
+	// private TextView ballsearch; // 球场
+	//
+	// @ViewInject(R.id.knowledge)
+	// private TextView mKnowledge; // 高球常识
 
-	@ViewInject(R.id.ballsearch)
-	private TextView							ballsearch;							// 球场
+	// @ViewInject(R.id.event)
+	// private TextView event; // 最新活动
 
-	@ViewInject(R.id.knowledge)
-	private TextView							mKnowledge;								// 高球常识
+	// @ViewInject(R.id.more_event)
+	// private RelativeLayout more_event; // 更多活动
 
-	@ViewInject(R.id.event)
-	private TextView							event;									// 最新活动
+	// @ViewInject(R.id.main_shop)
+	// private TextView mShop;
 
-	@ViewInject(R.id.more_event)
-	private RelativeLayout						more_event;								// 更多活动
+	// @ViewInject(R.id.common_title)
+	// private TextView mLogo;
 
-	@ViewInject(R.id.main_shop)
-	private TextView							mShop;
-
-	@ViewInject(R.id.common_title)
-	private TextView							mLogo;
-
-	@ViewInject(R.id.ball_main)
-	private TextView							mBall;
+	// @ViewInject(R.id.ball_main)
+	// private TextView mBall;
 
 	@ViewInject(R.id.index_list)
 	private ListView							mList;
 
-	@ViewInject(R.id.tv_Saleexchange)
-	private TextView							mSaleexchange;
+	// @ViewInject(R.id.tv_Saleexchange)
+	// private TextView mSaleexchange;
+
+	@ViewInject(R.id.txt_action)
+	private Button								txt_action;
+
+	@ViewInject(R.id.txt_ballpark)
+	private Button								txt_ballpark;
+
+	@ViewInject(R.id.txt_college)
+	private Button								txt_college;
+
+	@ViewInject(R.id.txt_knowledge)
+	private Button								txt_knowledge;
+
+	@ViewInject(R.id.txt_myteam)
+	private Button								txt_myteam;
+
+	@ViewInject(R.id.txt_practice)
+	private Button								txt_practice;
+
+	@ViewInject(R.id.txt_store)
+	private Button								txt_store;
+
+	@ViewInject(R.id.btn_topup)
+	private Button								btn_topup;
 
 	private MainAdapter							adapter;
 
@@ -115,109 +140,47 @@ public class IndexFra extends BaseFragment implements OnClickListener
 
 	private List<HomePageAdsEntity.DataEntity>	data;
 
-	private boolean								isgetdata	= true;						// 是否是第一次拿数据
+	private boolean								isgetdata	= true;					// 是否是第一次拿数据
 
 	private ArrayList<EventEntity>				event_data;
 
 	private Dialog								dialog;
 
-	public boolean								isnoserver;								// 连接不到服务器
+	public boolean								isnoserver;							// 连接不到服务器
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		View view = inflater.inflate(R.layout.ac_index, null);
+		// View view = inflater.inflate(R.layout.ac_index, null);
 
-		View head = inflater.inflate(R.layout.head_main_new, null);
+		// View head = inflater.inflate(R.layout.head_main_new, null);
 
-		View foot = inflater.inflate(R.layout.main_list_foot, null);
+		View head = inflater.inflate(R.layout.fragment_index_new, null);
 
-		ViewUtils.inject(this, view);
+		// View foot = inflater.inflate(R.layout.main_list_foot, null);
+
+		// ViewUtils.inject(this, view);
 
 		ViewUtils.inject(this, head);
 
-		ViewUtils.inject(this, foot);
+		// ViewUtils.inject(this, foot);
 
-		if (adapter == null)
-		{
-			adapter = new MainAdapter(getActivity());
-		}
-		else
-		{
-			adapter.notifyDataSetChanged();
-		}
+		// if (adapter == null)
+		// {
+		// adapter = new MainAdapter(getActivity());
+		// }
+		// else
+		// {
+		// adapter.notifyDataSetChanged();
+		// }
 
-		mList.addHeaderView(head);
-
-		mList.setAdapter(adapter);
-
-		// pull_refresh_list.getRefreshableView().addHeaderView(head);
-		// //pull_refresh_list.getRefreshableView().addFooterView(foot);
-		// pull_refresh_list.getRefreshableView().setAdapter(adapter);
-
-		// pull_refresh_list.setPullLoadEnabled(false);
-		// // 滚动到底自动加载可用
-		// pull_refresh_list.setScrollLoadEnabled(false);
-		// // 得到实际的ListView 设置点击
-		// pull_refresh_list.getRefreshableView().setOnItemClickListener(new
-		// AdapterView.OnItemClickListener() {
+		// mList.addHeaderView(head);
 		//
-		// @Override
-		// public void onItemClick(AdapterView<?> parent, View view, int
-		// position, long id) {
-		//
-		// if (CommonUtil.isNetworkAvailable(getActivity()) == 0) {
-		// ToastUtils.showInfo(getActivity(), ConstantValues.NONETWORK);
-		//
-		// } else {
-		// if (event_data != null) {
-		// EventEntity bean = (EventEntity) adapter.getItem(position - 1);
-		// Intent intent = new Intent(getActivity(), EventDetailActivity.class);
-		// intent.putExtra("eventid", bean.getId() + "");
-		// intent.putExtra("submit", bean.getSubmit() + "");
-		// intent.putExtra("price", bean.getPrice() + "");
-		// intent.putExtra("logo", bean.getLogo());
-		// intent.putExtra("title", bean.getTitle());
-		// getActivity().startActivity(intent);
-		// }
-		// }
-		// }
-		// });
-		//
-		// // 设置下拉刷新的listener
-		// pull_refresh_list.setOnRefreshListener(new
-		// PullToRefreshBase.OnRefreshListener<ListView>() {
-		//
-		// @Override
-		// public void onPullDownToRefresh(PullToRefreshBase<ListView>
-		// refreshView) {
-		// // initData();
-		// if (CommonUtil.isNetworkAvailable(getActivity()) == 0 | isnoserver) {
-		// ToastUtils.showInfo(getActivity(), ConstantValues.NONETWORK);
-		// } else {
-		// isnoserver = false;
-		// urlList = new ArrayList<>();
-		// getData();
-		// }
-		//
-		// onLoaded(); // 加载完 关闭加载框
-		// // initDot(urlList.size());// 初始化滚动图
-		// // initRoll();
-		// //
-		// refreshView.findViewById(R.id.pull_to_refresh_header_content).setVisibility(8);
-		// }
-		//
-		// @Override
-		// public void onPullUpToRefresh(PullToRefreshBase<ListView>
-		// refreshView) {
-		// onLoaded(); // 加载完 关闭加载框
-		//
-		// }
-		// });
+		// mList.setAdapter(adapter);
 
 		initData();
 
-		return view;
+		return head;
 	}
 
 	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -229,40 +192,42 @@ public class IndexFra extends BaseFragment implements OnClickListener
 
 		time = sDateFormat.format(new java.util.Date());
 
-		practice.setOnClickListener(this);
+		// practice.setOnClickListener(this);
+		//
+		// ballsearch.setOnClickListener(this);
+		//
+		// event.setOnClickListener(this);
 
-		ballsearch.setOnClickListener(this);
+		// more_event.setOnClickListener(this);
 
-		event.setOnClickListener(this);
+		// mShop.setOnClickListener(this);
+		//
+		// mKnowledge.setOnClickListener(this);
+		//
+		// mBall.setOnClickListener(this);
+		//
+		// mSaleexchange.setOnClickListener(this);
+		//
+		// mLogo.setBackground(getResources().getDrawable(R.drawable.logo));
 
-		more_event.setOnClickListener(this);
+		txt_action.setOnClickListener(this);
 
-		mShop.setOnClickListener(this);
+		txt_ballpark.setOnClickListener(this);
 
-		mKnowledge.setOnClickListener(this);
+		txt_college.setOnClickListener(this);
 
-		mBall.setOnClickListener(this);
+		txt_knowledge.setOnClickListener(this);
 
-		mSaleexchange.setOnClickListener(this);
+		txt_myteam.setOnClickListener(this);
 
-		mLogo.setBackground(getResources().getDrawable(R.drawable.logo));
+		txt_practice.setOnClickListener(this);
 
-		// String cache_1 = SharedPreferencesUtils.getString(getActivity(),
-		// "index_list" + ConstantValues.versionCode);
+		txt_store.setOnClickListener(this);
 
+		btn_topup.setOnClickListener(this);
+		
 		String cache_2 = SharedPreferencesUtils
 				.getString(getActivity(), "index_adv" + ConstantValues.versionCode);
-
-		// if (urlList.size() == 0) {
-		// if (!TextUtils.isEmpty(cache_1)) {
-		// // ProcessListdata(cache_1.toString());
-		// }
-		// if (!CheckUtils.checkEmpty(cache_2)) {
-		// ProcessAdVdata(cache_2.toString());
-		// } else {
-		// dialog.show();
-		// }
-		// }
 
 		// 到服务器拿数据
 		if (isgetdata)
@@ -288,45 +253,22 @@ public class IndexFra extends BaseFragment implements OnClickListener
 	public void getData()
 	{
 
-		// dialog.show();
-		// getEventData();
 		getAdvData();
 
 	}
-
-	// public void getEventData() {
-	// // 首页活动
-	// try {
-	// ServiceFactory.getEventEngineInstatice().getEventList(time, page, number,
-	// version, recommend, new IOAuthCallBack() {
-	//
-	// @Override
-	// public void getIOAuthCallBack(String result) {
-	// toCacheData(result, "index_list" + ConstantValues.versionCode);
-	// // ProcessListdata(result);
-	// }
-	// });
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// }
-	//
-	// }
 
 	public void getAdvData()
 	{
 		// 首页广告
 		try
 		{
-			// ServiceFactory.getIndexEngineInstatice().getIndexAdv(page,
-			// number, version, new IOAuthCallBack()
+
 			ServiceFactory.getIndexEngineInstatice()
 					.getIndexAdv(new IOAuthCallBack()
 					{
 						@Override
 						public void getIOAuthCallBack(String result)
 						{
-
-							// ToastUtils.showInfo(getActivity(), result);
 
 							toCacheData(result, "index_adv" + ConstantValues.versionCode);
 
@@ -337,7 +279,6 @@ public class IndexFra extends BaseFragment implements OnClickListener
 
 					});
 
-			// dialog.cancel();
 		}
 		catch(Exception e)
 		{
@@ -356,6 +297,55 @@ public class IndexFra extends BaseFragment implements OnClickListener
 		{
 			switch (v.getId())
 			{
+
+				case R.id.txt_action:
+
+					onAction(null);
+
+					break;
+
+				case R.id.txt_ballpark:
+
+					onBallpark(null);
+
+					break;
+
+				case R.id.txt_college:
+
+					onCollege(null);
+
+					break;
+
+				case R.id.txt_myteam:
+
+					onMyTeam(null);
+
+					break;
+
+				case R.id.txt_practice:
+
+					onPractice(null);
+
+					break;
+
+				case R.id.txt_store:
+
+					onStore(null);
+
+					break;
+
+				case R.id.txt_knowledge:
+
+					onKnowledge(null);
+
+					break;
+					
+				case R.id.btn_topup:
+
+					onTopUp(null);
+
+					break;
+
 				case R.id.tv_Saleexchange:
 
 					Intent tv_Saleexchange = new Intent(getActivity(), SaleExchangeActivity.class);
@@ -669,14 +659,6 @@ public class IndexFra extends BaseFragment implements OnClickListener
 				{
 					String path = data.get(i).getIcon();
 
-					// if (!CheckUtils.checkEmpty(path))
-					// {
-					// String[] s = path.split(",");
-					//
-					// path = s[0].substring(0, s[0].lastIndexOf(".")) +
-					// "_640_395" + s[0].substring(s[0].lastIndexOf("."));
-					// }
-
 					urlList.add(path);
 
 				}
@@ -708,6 +690,158 @@ public class IndexFra extends BaseFragment implements OnClickListener
 		pull_refresh_list.onPullDownRefreshComplete();
 
 		pull_refresh_list.onPullUpRefreshComplete();
+	}
+
+	/**
+	 * @Title: onTopUp
+	 * @Description: 充值按钮单击事件回调事件
+	 * @param @param view 设定文件
+	 * @return void 返回类型
+	 * @throws
+	 */
+	public void onTopUp(View view)
+	{
+
+		Intent opUp = new Intent(getActivity(), RechargeActivity.class);
+
+		getActivity().startActivity(opUp);
+
+	}
+
+	/**
+	 * @Title: onKnowledge
+	 * @Description: 知识按钮单击事件回调事件
+	 * @param @param view 设定文件
+	 * @return void 返回类型
+	 * @throws
+	 */
+	public void onKnowledge(View view)
+	{
+
+		if (ConstantValues.knoledge_title_size == 0)
+		{
+			// 如果开始初始失败
+			KnowledgeChannelManage KonwledgeChannle = new KnowledgeChannelManage();
+
+			KonwledgeChannle.initData(getActivity());// 初始高球常识频道数据存入数据库
+		}
+
+		if (ConstantValues.knoledge_title_size > 0)
+		{
+			Intent knowledge = new Intent(getActivity(), KnowledgePageActivity.class);
+
+			getActivity().startActivity(knowledge);
+
+		}
+		else
+		{
+			ToastUtils.showInfo(getActivity(), "频道维护中,稍后再试");
+		}
+
+	}
+
+	/**
+	 * @Title: onPractice
+	 * @Description: 练习场按钮单击事件回调事件
+	 * @param @param view 设定文件
+	 * @return void 返回类型
+	 * @throws
+	 */
+	public void onPractice(View view)
+	{
+
+		Intent practice = new Intent(getActivity(), PracticeListActivity.class);
+
+		getActivity().startActivity(practice);
+
+	}
+
+	/**
+	 * @Title: onBallpark
+	 * @Description: 球场按钮单击事件回调事件
+	 * @param @param view 设定文件
+	 * @return void 返回类型
+	 * @throws
+	 */
+	public void onBallpark(View view)
+	{
+		Intent ball = new Intent(getActivity(), BallMainActivity.class);
+
+		getActivity().startActivity(ball);
+	}
+
+	
+	
+	/**
+	 * @Title: onMyTeam
+	 * @Description: 战队按钮单击事件回调事件
+	 * @param @param view 设定文件
+	 * @return void 返回类型
+	 * @throws
+	 */
+	public void onMyTeam(View view)
+	{
+
+		Intent myTeam = new Intent(getActivity(), MyTeamMainActivity.class);
+		
+		getActivity().startActivity(myTeam);
+	}
+
+	/**
+	 * @Title: onAction
+	 * @Description: 活动按钮单击事件回调事件
+	 * @param @param view 设定文件
+	 * @return void 返回类型
+	 * @throws
+	 */
+	public void onAction(View view)
+	{
+		Intent dayday = new Intent(getActivity(), DaydayGiftActivity.class);
+
+		getActivity().startActivity(dayday);
+
+	}
+
+	/**
+	 * @Title: onCollege
+	 * @Description: 学院按钮单击事件回调事件
+	 * @param @param view 设定文件
+	 * @return void 返回类型
+	 * @throws
+	 */
+	public void onCollege(View view)
+	{
+		
+		Intent college = new Intent(getActivity(), CollegeCollegePage.class);
+
+		getActivity().startActivity(college);;
+
+	}
+
+	/**
+	 * @Title: onStore
+	 * @Description: 商城按钮单击事件回调事件
+	 * @param @param view 设定文件
+	 * @return void 返回类型
+	 * @throws
+	 */
+	public void onStore(View view)
+	{
+		if (ConstantValues.shop_title_size == 0)
+		{
+			// 如果开始初始失败
+			ShopChannelManage ShopChannle = new ShopChannelManage();
+
+			ShopChannle.initData(getActivity());// 初始学院化频道数据存入数据库
+		}
+
+		if (ConstantValues.knoledge_title_size > 0)
+		{
+			Intent shop = new Intent(getActivity(), ShopIndexActivity.class);
+
+			getActivity().startActivity(shop);
+		}
+
 	}
 
 }

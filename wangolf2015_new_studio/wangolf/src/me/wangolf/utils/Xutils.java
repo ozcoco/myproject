@@ -20,6 +20,7 @@ import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
+import com.meigao.mgolf.R;
 
 public class Xutils
 {
@@ -232,7 +233,11 @@ public class Xutils
 		// BitmapUtils bitmapUtils = new BitmapUtils(context);
 		// 加载网络图片
 		BitmapUtils bitmapUtils = new BitmapUtils(context, null, 1024 * 10);
+		
 		bitmapUtils.configDiskCacheEnabled(true);
+		
+		bitmapUtils.configDefaultLoadingImage(R.drawable.loading_img);
+		
 		bitmapUtils.display(image, url);
 	}
 

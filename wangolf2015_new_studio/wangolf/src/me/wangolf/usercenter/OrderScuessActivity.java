@@ -9,6 +9,7 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import com.meigao.mgolf.R;
 
 
+import me.wangolf.ConstantValues;
 import me.wangolf.base.BaseActivity;
 import me.wangolf.bean.usercenter.PlaySuccessEntity;
 import me.wangolf.factory.ServiceFactory;
@@ -102,16 +104,23 @@ public class OrderScuessActivity extends BaseActivity implements OnClickListener
         getData();
     }
 
+    
     @Override
     public void getData() {
 
         try {
+        	
             ServiceFactory.getIUserEngineInstatice().toPay(sn, user_id, payment, new IOAuthCallBack() {
 
                 @Override
                 public void getIOAuthCallBack(String result)
                 {
-
+                	Log.e("paraser", "sn="+sn+",user_id="+user_id+",payment="+payment+",unique_key="+ConstantValues.UNIQUE_KEY);
+                	
+                	Log.e("result", result);
+                	
+                	ToastUtils.showInfo(getBaseContext(), result);
+                	
                     PlaySuccessEntity beans = GsonTools.jsonToBean(result, PlaySuccessEntity.class);
                     
                     if (1 == beans.getStatus())
@@ -120,9 +129,9 @@ public class OrderScuessActivity extends BaseActivity implements OnClickListener
                         
                         if("0".equals(bean.getGift()))
                         {
-                        mWindows.showAsDropDown(mPop);
+                        	mWindows.showAsDropDown(mPop);
                         
-                        mWindows.isShowing();
+                        	mWindows.isShowing();
                         
                             mComtent.setText(bean.getShare_content());
                             
@@ -132,7 +141,7 @@ public class OrderScuessActivity extends BaseActivity implements OnClickListener
                             
                             share_content=bean.getShow_content();
                             
-                        shareUrl=bean.getWeb_app_uri();
+                            shareUrl=bean.getWeb_app_uri();
                         }
                     }
                     else 

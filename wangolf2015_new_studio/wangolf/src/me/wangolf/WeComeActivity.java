@@ -21,6 +21,37 @@ package me.wangolf;
 
 import java.io.File;
 
+import me.wangolf.base.BaseActivity;
+import me.wangolf.bean.usercenter.ApkInfo;
+import me.wangolf.factory.ServiceFactory;
+import me.wangolf.service.IOAuthCallBack;
+import me.wangolf.utils.CheckUtils;
+import me.wangolf.utils.CommonUtil;
+import me.wangolf.utils.GsonTools;
+import me.wangolf.utils.SharedPreferencesUtils;
+import me.wangolf.utils.ToastUtils;
+import me.wangolf.utils.Wecome_CheckApkUtils;
+import me.wangolf.view.LoopView;
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
+import android.view.Gravity;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.ImageView.ScaleType;
+
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -32,31 +63,6 @@ import com.meigao.mgolf.R;
 import com.umeng.analytics.AnalyticsConfig;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.PushAgent;
-import com.umeng.message.UmengRegistrar;
-
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.Environment;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
-
-import me.wangolf.base.BaseActivity;
-import me.wangolf.bean.usercenter.ApkInfo;
-import me.wangolf.factory.ServiceFactory;
-import me.wangolf.newfragment.*;
-import me.wangolf.service.IOAuthCallBack;
-import me.wangolf.utils.CheckUtils;
-import me.wangolf.utils.CommonUtil;
-import me.wangolf.utils.GsonTools;
-import me.wangolf.utils.ToastUtils;
-import me.wangolf.utils.Wecome_CheckApkUtils;
 
 public class WeComeActivity extends BaseActivity 
 {
@@ -96,8 +102,9 @@ public class WeComeActivity extends BaseActivity
                 } 
                 else 
                 {
+//                	start = new Intent(getApplicationContext(), me.wangolf.newfragment.MainActivity.class);
                 	
-                    start = new Intent(getApplicationContext(), me.wangolf.newfragment.MainActivity.class);
+                    start = new Intent(getApplicationContext(), me.wangolf.newfragment.MainActivityNew.class);
                 }
                 
                 startActivity(start);
@@ -115,10 +122,10 @@ public class WeComeActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        
+                
         setContentView(R.layout.ac_wecome);
         
-        ViewUtils.inject(this);
+        ViewUtils.inject(this);                    
         // 开启推送****
         PushAgent mPushAgent = PushAgent.getInstance(this);
         
@@ -133,7 +140,13 @@ public class WeComeActivity extends BaseActivity
         
     }
 
-    // 进入主页
+    
+    
+    
+
+    
+    
+	// 进入主页
     public void goHome()
     {
         handler.sendEmptyMessageDelayed(1, 1000);

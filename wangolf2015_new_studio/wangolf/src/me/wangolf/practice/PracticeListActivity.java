@@ -149,8 +149,8 @@ public class PracticeListActivity extends BaseActivity implements
 									.getRange_name());
 
 							intent.putExtra("cityname", cityname);
-
-							getApplicationContext().startActivity(intent);
+							
+							startActivity(intent);
 
 						}
 					}

@@ -59,14 +59,7 @@ public class KnowledgeServiceImpl implements IKnowledgeService
      * */
     @Override
     public void getKnowledgeList(String tags_id, int page, int number, IOAuthCallBack iOAuthCallBack) throws Exception {
-//        params = new RequestParams();
-//        params.addBodyParameter("m", "Information");
-//        params.addBodyParameter("a", "newsList");
-//        params.addBodyParameter("tags_id", tags_id);
-//        params.addBodyParameter("page", page + "");
-//        params.addBodyParameter("number", number + "");        
-//        Xutils.getDataFromServer(params, iOAuthCallBack);
-    	
+   	
     	  String api = BaseUrl + "webInformation/list?"
     	  		+ "&tags_id=" + tags_id
     	  		+ "&page=" + page

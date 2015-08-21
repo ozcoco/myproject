@@ -10,5 +10,6 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="lib" path="libs/appubk_sdk_pro_v1.0.42.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

@@ -1,5 +1,52 @@
 <resources>
 
+    
+    <!--主页尺寸定义-->
+    <dimen name="padding_top_navigation">10.7dip</dimen>
+    <dimen name="font_size_navigation">20sp</dimen>
+    <dimen name="layout_height_navigation">96dip</dimen>
+    <dimen name="margin_bottom_container">96dip</dimen>
+    <dimen name="padding_container">8dip</dimen>
+ 
+      <!--首页尺寸定义  -->
+    <dimen name="index_title_textSize">16sp</dimen>
+    <dimen name="index_title_layoutHeight">48dip</dimen>
+
+    <dimen name="index_loop_marginTop">4dip</dimen>
+    <dimen name="index_content_menu_padding">4dip</dimen>
+    <dimen name="index_menu_layout_marginLeft">2dip</dimen>
+    <dimen name="index_menu_layout_marginRight">2dip</dimen>
+    <dimen name="index_menu_marginTop">4dip</dimen>
+    <dimen name="index_menu_textSize">14sp</dimen>
+
+    <!--knowledge-->
+    <dimen name="index_menu_knowledge_paddingLeft">22.67dip</dimen>
+    <dimen name="index_menu_knowledge_paddingRight">22.67dip</dimen>
+
+    <!--practice-->
+    <dimen name="index_menu_practice_paddingTop">46.67dip</dimen>
+    <dimen name="index_menu_practice_paddingBottom">46.67dip</dimen>
+
+    <!--ballpark-->
+    <dimen name="index_menu_ballpark_paddingLeft">24dip</dimen>
+    <dimen name="index_menu_ballpark_paddingRight">24dip</dimen>
+
+    <!--myteam-->
+    <dimen name="index_menu_myteam_paddingLeft">17.3dip</dimen>
+    <dimen name="index_menu_myteam_paddingRight">17.3dip</dimen>
+
+    <!--action-->
+    <dimen name="index_menu_action_paddingLeft">18.67dip</dimen>
+    <dimen name="index_menu_action_paddingRight">18.67dip</dimen>
+
+    <!--college-->
+    <dimen name="index_menu_college_paddingLeft">24.67dip</dimen>
+    <dimen name="index_menu_college_paddingRight">24.67dip</dimen>
+
+    <!--store-->
+    <dimen name="index_menu_store_paddingLeft">24dip</dimen>
+    <dimen name="index_menu_store_paddingRight">24dip</dimen>
+    
     <!--
          Customize dimensions originally defined in res/values/dimens.xml (such as
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.

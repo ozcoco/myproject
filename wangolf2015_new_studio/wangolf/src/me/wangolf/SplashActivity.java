@@ -33,6 +33,7 @@ import java.util.ArrayList;
 
 import me.wangolf.base.BaseActivity;
 import me.wangolf.newfragment.MainActivity;
+import me.wangolf.newfragment.MainActivityNew;
 import me.wangolf.utils.CheckUtils;
 import me.wangolf.utils.Xutils;
 
@@ -54,7 +55,7 @@ public class SplashActivity extends BaseActivity
 			super.handleMessage(msg);
 			
 			Intent start = new Intent(getApplicationContext(), MainActivity.class);
-			
+						
 			startActivity(start);
 			
 			finish();

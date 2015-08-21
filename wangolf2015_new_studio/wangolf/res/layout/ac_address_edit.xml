@@ -236,9 +236,11 @@
                 </RelativeLayout>
 
                 <Button
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
                     android:id="@+id/btn_del_addr"
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="@dimen/picture_user_guide_margin"
                     android:background="@drawable/common_title_selector"

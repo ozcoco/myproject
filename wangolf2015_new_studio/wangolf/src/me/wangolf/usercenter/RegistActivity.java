@@ -147,7 +147,6 @@ public class RegistActivity extends BaseActivity implements OnClickListener
 					} 
 					else 
 					{						
-						ToastUtils.showInfo(getBaseContext(), result);
 						
 						UserOptionEntity bean = GsonTools.changeGsonToBean(result, UserOptionEntity.class);
 						

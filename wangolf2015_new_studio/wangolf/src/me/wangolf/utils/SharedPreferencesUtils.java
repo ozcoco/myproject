@@ -22,4 +22,29 @@ public class SharedPreferencesUtils {
 		String value = sp.getString(key, "");
 		return value;
 	}
+	
+	
+	public static void saveBoolean(Context c, String key, boolean value) 
+	{
+
+		sp = c.getSharedPreferences(CONFIG, 0);
+		
+		Editor edit = sp.edit();
+		
+		edit.putBoolean(key, value);
+		
+		edit.commit();
+	}
+
+	
+	public static boolean getBoolean(Context c, String key) 
+	{
+
+		sp = c.getSharedPreferences(CONFIG, 0);
+		
+		boolean value = sp.getBoolean(key, true);
+		
+		return value;
+	}
+	
 }

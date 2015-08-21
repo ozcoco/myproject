@@ -106,7 +106,7 @@ public class KnowledgePageActivity extends Activity implements OnClickListener
     public void initData() 
     {
 
-        common_title.setText("高球通");// 设置顶上标题
+        common_title.setText("高尔夫知识");// 设置顶上标题
         
         iv_newtag.setVisibility(View.VISIBLE); // 显示选项
         

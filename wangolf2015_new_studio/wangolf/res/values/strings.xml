@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="no_data">没有找到符合条件的房源</string>
-    <string name="app_name">打球</string>
+    <string name="app_name">全民高尔夫</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">dummy_content</string>
     <string name="tab_index">首页</string>

@@ -181,11 +181,11 @@ public class BallInfoActivity extends BaseActivity implements OnClickListener
 		
 		dates = date.split("%20");
 		
-		tv_date.setText(dates[0].substring(dates[0].indexOf("-") + 1));
-		
+//		tv_date.setText(dates[0].substring(dates[0].indexOf("-") + 1));
+		tv_date.setText(dates[0]);
 		// tv_date.setText(DateFormatUtils.formaToDate(dates[0]).toString());
-		tv_time.setText(dates[1].substring(0, dates[1].lastIndexOf(":")));
-		
+//		tv_time.setText(dates[1].substring(0, dates[1].lastIndexOf(":")));
+		tv_time.setText(dates[1]);
 		common_bt.setText(ConstantValues.SHARE);
 		
 		common_bt.setOnClickListener(this);

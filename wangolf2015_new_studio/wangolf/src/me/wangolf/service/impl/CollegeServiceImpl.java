@@ -7,26 +7,27 @@ import me.wangolf.service.ICollegeService;
 import me.wangolf.service.IOAuthCallBack;
 import me.wangolf.utils.Xutils;
 
-public class CollegeServiceImpl implements ICollegeService 
+public class CollegeServiceImpl implements ICollegeService
 {
-	public RequestParams params = null;
+	public RequestParams	params	= null;
 
-	static String BaseUrl = ConstantValues.BaseApi;
-	
+	static String			BaseUrl	= ConstantValues.BaseApi;
+
 	@Override
-	public void getKnowledge(String type, String size, String lastid, IOAuthCallBack iOAuthCallBack) throws Exception {
+	public void getKnowledge(String type, String size, String lastid, IOAuthCallBack iOAuthCallBack) throws Exception
+	{
 		params = new RequestParams();
 		params.addBodyParameter("m", "Information");
 		params.addBodyParameter("a", "knowledge");
 		params.addBodyParameter("size", size);
-		if (!"-1".equals(lastid)) {
+		if (!"-1".equals(lastid))
+		{
 			params.addBodyParameter("lastid", lastid);
 		}
 		params.addBodyParameter("type", type);
 		Xutils.getDataFromServer(params, iOAuthCallBack);
 	}
 
-	
 	/**
 	 * 
 	 * getInfoDetail
@@ -35,23 +36,24 @@ public class CollegeServiceImpl implements ICollegeService
 	 * 
 	 * **/
 	@Override
-	public void getInfoDetail(String knowid, IOAuthCallBack iOAuthCallBack) throws Exception {
-//		params = new RequestParams();
-//		params.addBodyParameter("m", "Information");
-//		params.addBodyParameter("a", "infoDetail");
-//		params.addBodyParameter("knowid", knowid);
-//		Xutils.getDataFromServer(params, iOAuthCallBack);
-		
-		String api = BaseUrl + "webInformation/detail?"
-				+ "&information_id="+knowid;
-		
+	public void getInfoDetail(String knowid, IOAuthCallBack iOAuthCallBack) throws Exception
+	{
+		// params = new RequestParams();
+		// params.addBodyParameter("m", "Information");
+		// params.addBodyParameter("a", "infoDetail");
+		// params.addBodyParameter("knowid", knowid);
+		// Xutils.getDataFromServer(params, iOAuthCallBack);
+
+		String api = BaseUrl + "webInformation/detail?" + "&information_id=" + knowid;
+
 		Xutils.getDataFromServer(api, iOAuthCallBack);
-		
+
 	}
 
+	
 	@Override
-	public void getCoachList(String rangeid, String sorttype, String sort, String page, String number, String collegeid, String latitude,
-			String longitude, IOAuthCallBack iOAuthCallBack) throws Exception {
+	public void getCoachList(String rangeid, String sorttype, String sort, String page, String number, String collegeid, String latitude, String longitude, IOAuthCallBack iOAuthCallBack) throws Exception
+	{
 		params = new RequestParams();
 		params.addBodyParameter("m", "Coach");
 		params.addBodyParameter("a", "CoachList");
@@ -68,7 +70,8 @@ public class CollegeServiceImpl implements ICollegeService
 	}
 
 	@Override
-	public void getCoachInfo(String coachid, String uuid, IOAuthCallBack iOAuthCallBack) throws Exception {
+	public void getCoachInfo(String coachid, String uuid, IOAuthCallBack iOAuthCallBack) throws Exception
+	{
 		params = new RequestParams();
 		params.addBodyParameter("m", "Coach");
 		params.addBodyParameter("a", "CoachInfo");
@@ -78,26 +81,48 @@ public class CollegeServiceImpl implements ICollegeService
 
 	}
 
+	
+	
+	/* (非 Javadoc) 
+	* <p>Title: getCollegeList</p> 
+	* <p>Description: 学院列表</p> 
+	* @param sort_type
+	* @param sort
+	* @param latitude
+	* @param longitude
+	* @param page
+	* @param number
+	* @param iOAuthCallBack
+	* @throws Exception 
+	* @see me.wangolf.service.ICollegeService#getCollegeList(int, int, java.lang.String, java.lang.String, java.lang.String, java.lang.String, me.wangolf.service.IOAuthCallBack) 
+	*/
 	@Override
-	public void getCollegeList(int sort_type, int sort, String latitude, String longitude, String page, String number, IOAuthCallBack iOAuthCallBack)
-			throws Exception {
+	public void getCollegeList(int sort_type, int sort, String latitude, String longitude, String page, String number, IOAuthCallBack iOAuthCallBack) throws Exception
+	{
 		params = new RequestParams();
+		
 		params.addBodyParameter("m", "Coach");
+		
 		params.addBodyParameter("a", "CollegeList");
+		
 		params.addBodyParameter("sorttype", sort_type + "");
+		
 		params.addBodyParameter("sort", sort + "");
+		
 		params.addBodyParameter("latitude", latitude);
+		
 		params.addBodyParameter("longitude", longitude);
+		
 		params.addBodyParameter("page", page);
+		
 		params.addBodyParameter("number", number);
-//		System.out.println("m=" + "Coach" + "a=" + "CollegeList" + "&sort_type=" + sort_type + "&sort=" + sort + "&latitude=" + latitude + "&longitude="
-//				+ longitude + "&page=" + page + "&number=" + number);
+		
 		Xutils.getDataFromServer(params, iOAuthCallBack);
-
 	}
 
 	@Override
-	public void getCollgetInfo(String collegeid, IOAuthCallBack iOAuthCallBack) throws Exception {
+	public void getCollgetInfo(String collegeid, IOAuthCallBack iOAuthCallBack) throws Exception
+	{
 		params = new RequestParams();
 		params.addBodyParameter("m", "Coach");
 		params.addBodyParameter("a", "College");
@@ -106,7 +131,8 @@ public class CollegeServiceImpl implements ICollegeService
 	}
 
 	@Override
-	public void UpCoachZan(String coachid, String uuid, IOAuthCallBack iOAuthCallBack) throws Exception {
+	public void UpCoachZan(String coachid, String uuid, IOAuthCallBack iOAuthCallBack) throws Exception
+	{
 		params = new RequestParams();
 		params.addBodyParameter("m", "Coach");
 		params.addBodyParameter("a", "praise");
@@ -124,15 +150,15 @@ public class CollegeServiceImpl implements ICollegeService
 	 * 
 	 * **/
 	@Override
-	public void getNewsTags(IOAuthCallBack iOAuthCallBack) 
+	public void getNewsTags(IOAuthCallBack iOAuthCallBack)
 	{
-//		params = new RequestParams();
-//		params.addBodyParameter("m", "Information");
-//		params.addBodyParameter("a", "newsTags");
-//		Xutils.getDataFromServer(params, iOAuthCallBack);
+		// params = new RequestParams();
+		// params.addBodyParameter("m", "Information");
+		// params.addBodyParameter("a", "newsTags");
+		// Xutils.getDataFromServer(params, iOAuthCallBack);
 
 		String api = BaseUrl + "webInformation/newsTags?";
-		
+
 		Xutils.getDataFromServer(api, iOAuthCallBack);
 
 	}
@@ -145,22 +171,20 @@ public class CollegeServiceImpl implements ICollegeService
 	 * 
 	 * **/
 	@Override
-	public void getNewsList(String tags_id, int page, int number, IOAuthCallBack iOAuthCallBack) throws Exception {
-//		params = new RequestParams();
-//		params.addBodyParameter("m", "Information");
-//		params.addBodyParameter("a", "newsList");
-//		params.addBodyParameter("tags_id", tags_id);
-//		params.addBodyParameter("page", page + "");
-//		params.addBodyParameter("number", number + "");
-//		Xutils.getDataFromServer(params, iOAuthCallBack);
+	public void getNewsList(String tags_id, int page, int number, IOAuthCallBack iOAuthCallBack) throws Exception
+	{
+		// params = new RequestParams();
+		// params.addBodyParameter("m", "Information");
+		// params.addBodyParameter("a", "newsList");
+		// params.addBodyParameter("tags_id", tags_id);
+		// params.addBodyParameter("page", page + "");
+		// params.addBodyParameter("number", number + "");
+		// Xutils.getDataFromServer(params, iOAuthCallBack);
 
-		String api = BaseUrl + "webInformation/list?"
-				+ "&tags_id="+tags_id
-				+ "&page="+page
-				+ "&number="+number;
-		
+		String api = BaseUrl + "webInformation/list?" + "&tags_id=" + tags_id + "&page=" + page + "&number=" + number;
+
 		Xutils.getDataFromServer(api, iOAuthCallBack);
-		
+
 	}
 
 }

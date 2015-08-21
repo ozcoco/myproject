@@ -19,6 +19,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager.LayoutParams;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -57,7 +58,7 @@ import me.wangolf.utils.viewUtils.RollViewPager_NORoll;
 import me.wangolf.utils.viewUtils.RollViewPager_NORoll.OnPagerClickCallback;
 
 public class PracticeInfoActivity extends BaseActivity implements
-		OnClickListener, OnItemClickListener
+		OnClickListener, OnItemClickListener, Thread.UncaughtExceptionHandler
 {
 
 	@ViewInject(R.id.common_back)
@@ -127,6 +128,8 @@ public class PracticeInfoActivity extends BaseActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
+		Thread.setDefaultUncaughtExceptionHandler(this);
+		
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.ac_prac_info);
@@ -157,31 +160,49 @@ public class PracticeInfoActivity extends BaseActivity implements
 	{
 
 		dialog = DialogUtil.getDialog(this);
+		
 		dialog.show();
+		
 		rgid = getIntent().getStringExtra("rgid");
+		
 		rgname = getIntent().getStringExtra("rgname");
+		
 		cityname = getIntent().getStringExtra("cityname");
+		
 		sharetitle = cityname + "   " + rgname;
+		
 		common_back.setVisibility(View.VISIBLE);
+		
 		common_bt.setVisibility(View.VISIBLE);
+		
 		// common_title.setText(rgname);
 		common_bt.setText(ConstantValues.SHARE);
+		
 		common_bt.setOnClickListener(this);
+		
 		common_back.setOnClickListener(this);
+		
 		layout_coachs.setOnClickListener(this);
+		
 		layout_phone.setOnClickListener(this);
+		
 		layout_detail.setOnClickListener(this);
+		
 		layout_native.setOnClickListener(this);
+		
 		mCoach.setOnClickListener(this);
+		
 		mNagtive.setOnClickListener(this);
+		
 		mPhone.setOnClickListener(this);
 
 		getData();
-
+				
 		getWeather();
 
 	}
 
+	
 	public void setView()
 	{
 		hardView = (LinearLayout) View
@@ -472,10 +493,23 @@ public class PracticeInfoActivity extends BaseActivity implements
 		// }
 	}
 
+	
+	/** 
+	* @Title: getWeather 
+	* @Description: 获取当地天气情况 
+	* @param     设定文件 
+	* @return void    返回类型 
+	* @throws 
+	*/
 	public void getWeather()
 	{
-		String path = WeatherUtils.getWeatherUrl(cityname, this
-				.getApplicationContext());
+		
+		ToastUtils.showInfo(this, cityname);
+	
+		String path = WeatherUtils.getWeatherUrl(cityname, this);
+		
+		if("".equals(path)) return;
+		
 		ServiceFactory.getPracEngineInstatice()
 				.getWeather(path, new IOAuthCallBack()
 				{
@@ -651,6 +685,8 @@ public class PracticeInfoActivity extends BaseActivity implements
 
 	}
 
+	
+	
 	public void initRoll()
 	{
 
@@ -702,6 +738,13 @@ public class PracticeInfoActivity extends BaseActivity implements
 			dots_ll.addView(m);
 			dotList.add(m);
 		}
+	}
+
+	@Override
+	public void uncaughtException(Thread thread, Throwable ex)
+	{
+		Log.e("focus close", ex.getMessage());
+		
 	}
 
 }

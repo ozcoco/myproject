@@ -29,14 +29,21 @@ public class WeatherUtils {
 		Properties property = new Properties();
 		InputStream in = null;
 		try {
+			
 			in = context.getAssets().open("weather_city_code.properties");
+			
 			property.load(in);
+			
 			code = (String) property.get(cityname);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			
+		} 
+		catch (FileNotFoundException e) 
+		{
 			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
+		} 
+		catch (IOException e)
+		{
 			e.printStackTrace();
 		}
 		return code;
@@ -58,7 +65,8 @@ public class WeatherUtils {
 	 *            城市名称
 	 * @return
 	 */
-	public static String getWeatherUrl(String cityname, Context context) {
+	public static String getWeatherUrl(String cityname, Context context)
+	{
 		String path = "";
 		String code = getcitycode(cityname, context);
 		String scode = getShortCode(code);

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CommitComments>	<CommitComment>修改至第25个接口</CommitComment>
+<CommitComments>	<CommitComment>完成充值界面的改版、完成高尔夫学院界面</CommitComment>
+	<CommitComment>主页完成</CommitComment>
+	<CommitComment>修改至第25个接口</CommitComment>
 	<CommitComment>修改登录、注册、修改用户信息、注册时发送验证码、重置密码时发送验证码接口</CommitComment>
 	<CommitComment>修改第7、8、9、10、11、12个接口</CommitComment>
 	<CommitComment>修改第7、8、9几个接口</CommitComment>

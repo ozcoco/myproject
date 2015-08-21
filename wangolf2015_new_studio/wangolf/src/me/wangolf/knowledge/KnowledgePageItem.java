@@ -10,6 +10,7 @@ import com.meigao.mgolf.R;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,7 +33,8 @@ import me.wangolf.utils.viewUtils.PullToRefreshBase;
 import me.wangolf.utils.viewUtils.PullToRefreshBase.OnRefreshListener;
 import me.wangolf.utils.viewUtils.PullToRefreshListView;
 
-public class KnowledgePageItem extends Mo_BasePage {
+public class KnowledgePageItem extends Mo_BasePage 
+{
     private String type;
     private boolean ismore = false; // 断判是否有更多数据
     // public boolean isLoadSuccess;
@@ -178,7 +180,7 @@ public class KnowledgePageItem extends Mo_BasePage {
                     } 
                     else 
                     {
-                        Basebean bean = GsonTools.changeGsonToBean(result, Basebean.class);
+                        Basebean bean = GsonTools.changeGsonToBean(result, Basebean.class);                      
                         
                         if ("1".equals(bean.getStatus())) 
                         {

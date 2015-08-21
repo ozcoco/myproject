@@ -127,7 +127,7 @@ public class CollegeAdapter extends BaseAdapter
 		
 		if (!bean.getIcon().equals("")) 
 		{
-			String path = ConstantValues.BaseUrl + bean.getIcon();
+			String path = bean.getIcon();
 			
 //			String[] s = path.split(",");
 			

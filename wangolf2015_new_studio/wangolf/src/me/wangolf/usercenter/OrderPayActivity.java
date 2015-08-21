@@ -135,6 +135,8 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 	private double				pay_amount;		// 网银支付的钱
 	private Dialog				dialog;
 
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -192,7 +194,7 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 			order_bean = (OrderpayBean) getIntent()
 					.getSerializableExtra("order_bean");
 			// order_bean.setOrder_amount(0.1);
-			order_amount = order_bean.getOrder_amount();
+			order_amount = order_bean.getOrder_amount() - Double.valueOf("".equals(order_bean.getReturn_amount())?"0":order_bean.getReturn_amount());
 
 			order_bean.setUser_id(user_id);
 
@@ -224,6 +226,7 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 			}
 		}
 
+		
 		if (order_amount > 0.0)
 		{
 			// 订单总额为0则无需选择支付方式
@@ -249,6 +252,7 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 		// testBean();
 	}
 
+	
 	@Override
 	public void getData()
 	{
@@ -312,41 +316,41 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 	{
 		dialog.show();
 
-//		ToastUtils.showInfo(getBaseContext(), order_bean.toString());
-//		
-//		Log.w("order_bean", order_bean.toString().replace(",", "&"));
-		
+		// ToastUtils.showInfo(getBaseContext(), order_bean.toString());
+		//
+		// Log.w("order_bean", order_bean.toString().replace(",", "&"));
+
 		try
 		{
 			ServiceFactory.getIUserEngineInstatice()
 					.toPrepay(order_bean, new IOAuthCallBack()
 					{
-
 						@Override
 						public void getIOAuthCallBack(String result)
 						{
 							JSONObject jsonObj;
-
+							
 							try
 							{
-
-//								ToastUtils.showInfo(getBaseContext(), "result=" + result);
-
+//							    ToastUtils.showInfo(getBaseContext(),
+//								 "result=" + result);
+//
+//								Log.e("result", result);
+								 
 								jsonObj = new JSONObject(result);
 
 								String status = jsonObj.getString("status");
 
 								if ("1".equals(status))
 								{
-									JSONArray jsonArray = jsonObj
-											.getJSONArray("data");
+									JSONArray jsonArray = jsonObj.getJSONArray("data");
 
 									if (jsonArray.length() > 0)
 									{
 										JSONObject obj = jsonArray
 												.getJSONObject(0);
 
-										sn = obj.getString("sn");
+										sn = obj.getString("out_trade_no");
 									}
 
 									if (sn != null)
@@ -378,42 +382,54 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 	}
 
 	// 修改订单添加代金券、余额接口(新版),提交订单后返回值中拿到订单ID 然后判断用户是否有余款及代金券（余额支付）
-	public void payExtra(double self_amount)
+	public void payExtra(final double self_amount)
 	{
 		try
 		{
-			ServiceFactory
-					.getIUserEngineInstatice()
-					.topayExtra(sn, self_amount, vouchers_sn, vouchers_amount, order_amount, user_id, new IOAuthCallBack()
+			ServiceFactory.getIUserEngineInstatice()
+			// .topayExtra(sn, self_amount, vouchers_sn,
+			// vouchers_amount, order_amount, user_id, new
+			// IOAuthCallBack()
+					.topayExtra(sn, self_amount, order_amount, new IOAuthCallBack()
 					{
 
 						@Override
 						public void getIOAuthCallBack(String result)
 						{
-
 							JSONObject jsonObj;
 							try
 							{
 								jsonObj = new JSONObject(result);
+
 								String status = jsonObj.getString("status");
+
 								String info = jsonObj.getString("info");
+
 								if ("1".equals(status))
 								{
 									if (pay_type == 4)
 									{
 										// 全余款支付
 										Intent intent = new Intent(getApplicationContext(), OrderScuessActivity.class);
+
 										intent.putExtra("sn", sn);
+
 										intent.putExtra("user_id", user_id);
+
 										intent.putExtra("payment", payment);
+
 										intent.putExtra("message", "您的订单号(" + sn + ")已支付成功，请到个人中心我的订单查看！");
+
 										intent.putExtra("title", "支付成功");
+
 										intent.putExtra("flag", flag);
+
 										intent.putExtra("type", type);// 用于查看订单列表
 										// intent.putExtra("type",
 										// (Integer.parseInt(order_bean.getType()))
 										// + "");// 用于查看订单列表
 										startActivity(intent);
+
 										finish();
 									}
 								}
@@ -588,6 +604,7 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 				startActivity(intent);
 				finish();
 			}
+			
 			else if (str.equalsIgnoreCase("fail"))
 			{
 				msg = "支付失败";
@@ -659,10 +676,15 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 			{
 				// System.out.println("无代金");
 				vouchers_amount = 0.0;
+				
 				pamount_pay.setClickable(true);
+				
 				rdAlipay.setClickable(true);
+				
 				rdUnionPay.setClickable(true);
+				
 				rdWeipay.setClickable(true);
+				
 				if (checkbox.isChecked())
 				{
 					if (self_amount > order_amount)
@@ -799,6 +821,7 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 
 	}
 
+	
 	private String getNewOrderInfo(String sn)
 	{
 
@@ -1042,6 +1065,7 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 				}
 
 				break;
+
 			case R.id.rdUnionPay:
 				// 点击网银支付
 				needpay.setText(self_amount > order_amount ? "￥" + (order_amount - vouchers_amount) : "￥" + (order_amount - self_amount - vouchers_amount));
@@ -1058,10 +1082,15 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 					checkbox.setChecked(false);
 					tv_kou_yue.setVisibility(View.GONE);
 				}
+
 				payment = "1";
+
 				pay_type = 1;
+
 				setDrawable(rdUnionPay);
+
 				break;
+
 			case R.id.rdAlipay:
 				// 点击支付宝支付
 				needpay.setText(self_amount > order_amount ? "￥" + (order_amount - vouchers_amount) : "￥" + (order_amount - self_amount - vouchers_amount));
@@ -1119,7 +1148,6 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 
 	public void btPay()
 	{
-		ToastUtils.showInfo(getBaseContext(), "付款!!!!!");
 		// 点击付款
 		// weipay("12111111111");// 微信支付
 		if (!CheckUtils.checkEmpty(sn))

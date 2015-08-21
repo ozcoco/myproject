@@ -7,6 +7,10 @@ public class ConstantValues
 	
 	public static String BaseApi = "http://192.168.1.222/golf/";
 	
+//	public static String BaseApi = "http://www.wangolf.me/golf/";
+		
+	public static boolean isFirstRun = true;
+	
 	public static final int ERROR = 100;
 	
 	public static final String ENCODING = "utf-8";

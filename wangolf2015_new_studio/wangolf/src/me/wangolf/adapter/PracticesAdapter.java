@@ -139,7 +139,7 @@ public class PracticesAdapter extends BaseAdapter
             
             String distance = String.valueOf(bean.getDistance());
             
-            holder.tvDistance.setText(distance + "km");
+            holder.tvDistance.setText(distance);
             
             String address = bean.getAddress();
             holder.tvAddress.setText(address);

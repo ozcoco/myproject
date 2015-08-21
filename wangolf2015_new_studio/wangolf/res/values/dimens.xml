@@ -1,6 +1,5 @@
 <resources>
-
-    <!-- Default screen margins, per the Android Design guidelines. -->
+     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="slidingmenu_offset">60dp</dimen>
@@ -34,7 +33,7 @@
     <dimen name="layout_height_115">115dip</dimen>
     <dimen name="layout_height_75">75dip</dimen>
     <dimen name="layout_height_150">150dip</dimen>
-    <dimen name="img_main_top">145dip</dimen>
+    <dimen name="img_main_top">182dip</dimen>
     <dimen name="h11">11dip</dimen>
     <dimen name="h180">180dip</dimen>
     <dimen name="h60">60dip</dimen>
@@ -43,11 +42,59 @@
     <dimen name="h115">115dip</dimen>
     <dimen name="h90">90dip</dimen>
     <dimen name="h95">95dip</dimen>
-    <dimen name="h55">55dip</dimen>
     <dimen name="button_text_size">14sp</dimen>
     <dimen name="expand_tab_item_height">30dp</dimen>
     <dimen name="expand_tab_eara_height">380dp</dimen>
     <dimen name="head_bar_height">45dp</dimen>
     <!-- 配置进度条的大小 -->
     <dimen name="progress_bar_size">128px</dimen>
+    
+    
+    <!--主页尺寸定义-->
+    <dimen name="padding_top_navigation">5.3dip</dimen>
+    <dimen name="font_size_navigation">10sp</dimen>
+    <dimen name="layout_height_navigation">72dip</dimen>
+    <dimen name="margin_bottom_container">72dip</dimen>
+    <dimen name="padding_container">4dip</dimen>
+    
+    
+    <!--首页尺寸定义  -->
+    <dimen name="index_title_textSize">17.3sp</dimen>
+    <dimen name="index_title_layoutHeight">48dip</dimen>
+
+    <dimen name="index_loop_marginTop">4dip</dimen>
+    <dimen name="index_content_menu_padding">4dip</dimen>
+    <dimen name="index_menu_layout_marginLeft">2dip</dimen>
+    <dimen name="index_menu_layout_marginRight">2dip</dimen>
+    <dimen name="index_menu_marginTop">4dip</dimen>
+    <dimen name="index_menu_textSize">14sp</dimen>
+
+    <!--knowledge-->
+    <dimen name="index_menu_knowledge_paddingLeft">26.7dip</dimen>
+    <dimen name="index_menu_knowledge_paddingRight">26.7dip</dimen>
+
+    <!--practice-->
+    <dimen name="index_menu_practice_paddingTop">80.7dip</dimen>
+    <dimen name="index_menu_practice_paddingBottom">80.7dip</dimen>
+
+    <!--ballpark-->
+    <dimen name="index_menu_ballpark_paddingLeft">27.3dip</dimen>
+    <dimen name="index_menu_ballpark_paddingRight">27.3dip</dimen>
+
+    <!--myteam-->
+    <dimen name="index_menu_myteam_paddingLeft">20.7dip</dimen>
+    <dimen name="index_menu_myteam_paddingRight">20.7dip</dimen>
+
+    <!--action-->
+    <dimen name="index_menu_action_paddingLeft">21.3dip</dimen>
+    <dimen name="index_menu_action_paddingRight">21.3dip</dimen>
+
+    <!--college-->
+    <dimen name="index_menu_college_paddingLeft">28dip</dimen>
+    <dimen name="index_menu_college_paddingRight">28dip</dimen>
+
+    <!--store-->
+    <dimen name="index_menu_store_paddingLeft">26.7dip</dimen>
+    <dimen name="index_menu_store_paddingRight">26.7dip</dimen>
+    
 </resources>

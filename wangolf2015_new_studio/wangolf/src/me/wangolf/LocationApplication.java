@@ -1,8 +1,9 @@
 package me.wangolf;
 
-import me.wangolf.practice.PracticeListActivity;
+
 import me.wangolf.utils.CheckUtils;
 import me.wangolf.utils.CommonUtil;
+import me.wangolf.utils.SharedPreferencesUtils;
 import me.wangolf.utils.ToastUtils;
 
 import com.baidu.location.BDLocation;
@@ -13,14 +14,14 @@ import com.baidu.mapapi.BMapManager;
 import com.baidu.mapapi.MKGeneralListener;
 import com.baidu.mapapi.map.MKEvent;
 import com.example.topnewgrid.db.SQLHelper;
-import com.umeng.common.message.Log;
+import com.feelwx.ubk.sdk.api.UBKAd;
 
 import android.app.Application;
 import android.app.Service;
 import android.content.Context;
 import android.os.Vibrator;
+import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class LocationApplication extends Application 
 {
@@ -44,10 +45,19 @@ public class LocationApplication extends Application
 	
 	private SQLHelper sqlHelper;
 
+	
+
+	
+	
+	
 	@Override
 	public void onCreate()
 	{
 		super.onCreate();
+		
+		UBKAd.initialize(this);
+		
+		UBKAd.setDebug(true); // 调试模式，正式发布注释改行
 		
 		mLocationClient = new LocationClient(getApplicationContext());
 		
@@ -60,6 +70,8 @@ public class LocationApplication extends Application
 		mVibrator = (Vibrator) getApplicationContext().getSystemService(Service.VIBRATOR_SERVICE);
 		
 		mAppApplication = this;
+		
+		ConstantValues.isFirstRun = SharedPreferencesUtils.getBoolean(this, "isFirstRun");
 		
 		if (CommonUtil.isNetworkAvailable(getApplicationContext()) == 0) 
 		{
@@ -135,15 +147,18 @@ public class LocationApplication extends Application
 			logMsg(sb.toString());
 			
 			ConstantValues.LATITUDE = location.getLatitude() + "";// 初始化定位坐标
+			
 			ConstantValues.LONGITUDE = location.getLongitude() + "";
+			
 			final String add = location.getAddrStr();
+			
+			Log.e("addr", add);
+			
 			if (!CheckUtils.checkEmpty(add)) 
-			{				
-				
+			{								
 				ConstantValues.loactionadd = add.substring(add.indexOf("省") + 1);
 				
-				ConstantValues.LOACTIONCITY = location.getCity().replace("市", "");
-				
+				ConstantValues.LOACTIONCITY = location.getCity().replace("市", "");				
 			}
 			
 			ConstantValues.isloaction = true;
@@ -240,10 +255,15 @@ public class LocationApplication extends Application
 	/** 摧毁应用进程时候调用 */
 	public void onTerminate() 
 	{
+		UBKAd.destory();
+		
 		if (sqlHelper != null)
 			sqlHelper.close();
+		
 		super.onTerminate();
 	}
 
 	public void clearAppCache(){}
+
+	
 }

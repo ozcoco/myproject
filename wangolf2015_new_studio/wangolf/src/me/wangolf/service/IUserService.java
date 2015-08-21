@@ -11,8 +11,8 @@ package me.wangolf.service;
  * 
  * 创建日期 ： 2014年12月29日
  * 
- * 描述 ：  用户信息接口
- * 1、登录  、退出、获取用户信息 、修改用户信息、上传头像、修改密码、重置密码、注册用户、修改绑定的手机号、修改用户名
+ * 描述 ： 用户信息接口
+ * 1、登录 、退出、获取用户信息 、修改用户信息、上传头像、修改密码、重置密码、注册用户、修改绑定的手机号、修改用户名
  * 
  * 修订历史 ：
  * 
@@ -23,9 +23,78 @@ import me.wangolf.bean.usercenter.OrderpayBean;
 import me.wangolf.bean.usercenter.User;
 import me.wangolf.bean.usercenter.UserInfoEntity;
 
-public interface IUserService extends BaseService {
+
+public interface IUserService extends BaseService
+{
 
 	
+	/** 
+	* @Title: enter 
+	* @Description: 进入应用界面时调用接口(在已获取imei号时调用) 
+	* @param @throws Exception    设定文件 
+	* @return void    返回类型 
+	* @throws 
+	*/
+	public void enter(IOAuthCallBack iOAuthCallBack)throws Exception;
+	
+	/** 
+	* @Title: start 
+	* @Description: 启动应用时调用接口(在未获取imei号时调用) 
+	* @param @throws Exception    
+	* @return void    返回类型 
+	* @throws 
+	*/
+	public void start(IOAuthCallBack iOAuthCallBack)throws Exception;
+	
+	/** 
+	* @Title: verifyRecommendCode 
+	* @Description: 验证推荐码 
+	* @param @param mobile
+	* @param @param recommend_code
+	* @param @throws Exception     
+	* @return void    返回类型 
+	* @throws 
+	*/
+	public void verifyRecommendCode(String  mobile, String recommend_code, IOAuthCallBack iOAuthCallBack)throws Exception;
+	
+	/** 
+	* @Title: sendRecommendCode 
+	* @Description: 获取推荐码
+	* @param @param mobile 电话号码
+	* @param @throws Exception 
+	* @return void    返回类型 
+	* @throws 
+	*/
+	public void sendRecommendCode(String mobile, IOAuthCallBack iOAuthCallBack)throws Exception;
+	
+	/** 
+	* @Title: recharge 
+	* @Description: 获取充值列表
+	* @param @param user_id 用户ID
+	* @param @throws Exception    
+	* @return void    返回类型 
+	* @throws 
+	*/
+	public void getRechargeList(String user_id, IOAuthCallBack iOAuthCallBack)throws Exception;
+	
+	
+	
+	/** 
+	* @Title: payRecommend 
+	* @Description: 充值订单额外支付推荐码
+	* @param @param out_trade_no 订单号
+	* @param @param order_amount 订单金额
+	* @param @param recommend_amount 推荐金额
+	* @param @param recommend_code 推荐码
+	* @param @param return_amount 返利金额
+	* @param @param user_id 用户id
+	* @param @param mobile 用户电话号码
+	* @param @throws Exception   
+	* @return void    返回类型 
+	* @throws 
+	*/
+	public void payRecommend(String out_trade_no, String order_amount, String recommend_amount, String recommend_code, String return_amount, String user_id, String mobile,IOAuthCallBack iOAuthCallBack) throws Exception;
+
 	/**
 	 * 评论图片上传
 	 * 
@@ -35,7 +104,7 @@ public interface IUserService extends BaseService {
 	 */
 
 	public void upLoadCommentImages(String uid, String path, IOAuthCallBack iOAuthCallBack) throws Exception;
-	
+
 	/**
 	 * 订单生成成功调用接口
 	 * 
@@ -48,9 +117,8 @@ public interface IUserService extends BaseService {
 	 * @param iOAuthCallBack
 	 * @throws Exception
 	 */
-	public void topayExtra(String out_trade_no, Double self_amount, Double order_amount,IOAuthCallBack iOAuthCallBack) throws Exception;
+	public void topayExtra(String out_trade_no, Double self_amount, Double order_amount, IOAuthCallBack iOAuthCallBack) throws Exception;
 
-	
 	/**
 	 * 最新修改的红包接口
 	 * 
@@ -68,43 +136,42 @@ public interface IUserService extends BaseService {
 	 */
 	public void getPacksList(String uid, int page, int number, IOAuthCallBack iOAuthCallBack) throws Exception;
 
-	
 	/**
 	 * 
 	 * @author oz
 	 * 
-	 * 最新修的删除地址的接口
+	 *         最新修的删除地址的接口
 	 * 
 	 * @param address_id
 	 *            地址ID
-	 *            
+	 * 
 	 * @param user_id
-	 *            用户ID          
+	 *            用户ID
 	 * @param iOAuthCallBack
 	 * @throws Exception
 	 */
 	public void deleteAddrdata(String user_id, String address_id, IOAuthCallBack iOAuthCallBack) throws Exception;
 
-	
 	/**
 	 * 
 	 * @author oz
 	 * 
-	 * 最新修改的修改用户密码接口
-	 * @param mobile 手机号码
-	 * @param type 验证类型
+	 *         最新修改的修改用户密码接口
+	 * @param mobile
+	 *            手机号码
+	 * @param type
+	 *            验证类型
 	 * @throws Exception
 	 * 
 	 */
-	
-	public void getResetPwdCode(String mobile, String type, IOAuthCallBack iOAuthCallBack)throws Exception;
-	
-	
+
+	public void getResetPwdCode(String mobile, String type, IOAuthCallBack iOAuthCallBack) throws Exception;
+
 	/**
 	 * 
 	 * @author oz
 	 * 
-	 * 最新修改用户信息接口 
+	 *         最新修改用户信息接口
 	 * @param user_id
 	 * @param my_intro
 	 * @param gender
@@ -113,9 +180,8 @@ public interface IUserService extends BaseService {
 	 * @throws Exception
 	 * 
 	 */
-	public void updateUserInfo(String user_id,String nick_name, String my_intro, int gender, IOAuthCallBack iOAuthCallBack) throws Exception;
-	
-	
+	public void updateUserInfo(String user_id, String nick_name, String my_intro, int gender, IOAuthCallBack iOAuthCallBack) throws Exception;
+
 	/**
 	 * 1、用户登录验证
 	 * 
@@ -214,14 +280,13 @@ public interface IUserService extends BaseService {
 	 */
 	public void UpBindMobile(String uid, String mobile, IOAuthCallBack iOAuthCallBack) throws Exception;
 
-	
 	/**
 	 * 10、修改绑定的用户名
 	 * 
 	 * @param uid
 	 *            用户ID
 	 * @param
-	 *
+	 * 
 	 * @param iOAuthCallBack
 	 */
 	public void UpBindUserName(String uid, String username, IOAuthCallBack iOAuthCallBack) throws Exception;
@@ -276,8 +341,7 @@ public interface IUserService extends BaseService {
 	 * @param iOAuthCallBack
 	 * @throws Exception
 	 */
-	public void topayExtra(String sn, Double self_amount, String vouchers_sn, Double vouchers_amount, Double order_amount, String user_id,
-			IOAuthCallBack iOAuthCallBack) throws Exception;
+	public void topayExtra(String sn, Double self_amount, String vouchers_sn, Double vouchers_amount, Double order_amount, String user_id, IOAuthCallBack iOAuthCallBack) throws Exception;
 
 	/**
 	 * 订单付款成功调用接口()
@@ -353,7 +417,7 @@ public interface IUserService extends BaseService {
 	 * @param iOAuthCallBack
 	 * @throws Exception
 	 */
-	public void toCheckMobileRegist(String mobile,String type, IOAuthCallBack iOAuthCallBack) throws Exception;
+	public void toCheckMobileRegist(String mobile, String type, IOAuthCallBack iOAuthCallBack) throws Exception;
 
 	/**
 	 * 126密码重置发送验证码
@@ -471,8 +535,7 @@ public interface IUserService extends BaseService {
 	 * @param iOAuthCallBack
 	 * @throws Exception
 	 */
-	public void toEventJoin(String uid, String cid, String eid, String cusname, String sex, String option, String mobile,
-			IOAuthCallBack iOAuthCallBack) throws Exception;
+	public void toEventJoin(String uid, String cid, String eid, String cusname, String sex, String option, String mobile, IOAuthCallBack iOAuthCallBack) throws Exception;
 
 	/**
 	 * 121 我发布的活动
@@ -498,6 +561,7 @@ public interface IUserService extends BaseService {
 
 	/**
 	 * 通过code获取access_token
+	 * 
 	 * @param appid
 	 * @param secret
 	 * @param code
@@ -505,10 +569,11 @@ public interface IUserService extends BaseService {
 	 * @param iOAuthCallBack
 	 * @throws Exception
 	 */
-	public void getWxAccessToken(String appid, String secret, String code, String grant_type,IOAuthCallBack iOAuthCallBack)throws Exception;
+	public void getWxAccessToken(String appid, String secret, String code, String grant_type, IOAuthCallBack iOAuthCallBack) throws Exception;
 
 	/**
 	 * 1，微信登陆
+	 * 
 	 * @param weixin_open_id
 	 * @param weixin_avatar
 	 * @param weixin_nick_name
@@ -516,20 +581,22 @@ public interface IUserService extends BaseService {
 	 * @param iOAuthCallBack
 	 * @throws Exception
 	 */
-	public void toWxLogin(String weixin_open_id,String weixin_avatar,String weixin_nick_name,String weixin_gender,IOAuthCallBack iOAuthCallBack)throws Exception;
+	public void toWxLogin(String weixin_open_id, String weixin_avatar, String weixin_nick_name, String weixin_gender, IOAuthCallBack iOAuthCallBack) throws Exception;
 
 	/**
 	 * 3绑定手机号码
+	 * 
 	 * @param user_id
 	 * @param mobile
 	 * @param code
 	 * @param iOAuthCallBack
 	 * @throws Exception
 	 */
-	public void toBindMobile(int user_id,String mobile,String code,IOAuthCallBack iOAuthCallBack)throws Exception;
+	public void toBindMobile(int user_id, String mobile, String code, IOAuthCallBack iOAuthCallBack) throws Exception;
 
 	/**
 	 * 4，用户绑定微信号
+	 * 
 	 * @param user_id
 	 * @param password
 	 * @param weixin_open_id
@@ -539,10 +606,11 @@ public interface IUserService extends BaseService {
 	 * @param iOAuthCallBack
 	 * @throws Exception
 	 */
-public void bindWeixin(String user_id,String password, String weixin_open_id,String weixin_avatar,String weixin_nick_name,String weixin_gender,IOAuthCallBack iOAuthCallBack)throws Exception;
+	public void bindWeixin(String user_id, String password, String weixin_open_id, String weixin_avatar, String weixin_nick_name, String weixin_gender, IOAuthCallBack iOAuthCallBack) throws Exception;
 
 	/**
 	 * 编辑信息接口 新
+	 * 
 	 * @param user_id
 	 * @param password
 	 * @param my_intro
@@ -551,5 +619,5 @@ public void bindWeixin(String user_id,String password, String weixin_open_id,Str
 	 * @param iOAuthCallBack
 	 * @throws Exception
 	 */
-	public void updateUserInfo(String user_id,String password, String my_intro, int gender, String nick_name, IOAuthCallBack iOAuthCallBack) throws Exception;
+	public void updateUserInfo(String user_id, String password, String my_intro, int gender, String nick_name, IOAuthCallBack iOAuthCallBack) throws Exception;
 }

@@ -52,7 +52,7 @@ public class OrderpayBean implements Serializable
 	private String				product_attr		= "";	// 商品属性(购买商品选填项)
 	private String				recommend_code		= "";
 	private String				recommend_amount	= "";
-	private String				return_amount		= "";
+	private String				return_amount		= "";   //返利金额
 
 	@Override
 	public String toString()

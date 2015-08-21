@@ -21,6 +21,8 @@ package me.wangolf.service.impl;
 
 import java.io.File;
 
+import android.util.Log;
+
 import com.lidroid.xutils.http.RequestParams;
 
 import me.wangolf.ConstantValues;
@@ -385,15 +387,17 @@ public class UserServiceImpl implements IUserService
 
 	}
 
-	/**
-	 * 
-	 * topayExtra
-	 * 
-	 * 最新修改的修改订单添加余额的接口
-	 * 
-	 * @author oz
-	 * 
-	 * **/
+	
+	/* (非 Javadoc) 
+	* <p>Title: topayExtra</p> 
+	* <p>Description: 最新修改的修改订单添加余额的接口</p> 
+	* @param out_trade_no
+	* @param self_amount
+	* @param order_amount
+	* @param iOAuthCallBack
+	* @throws Exception 
+	* @see me.wangolf.service.IUserService#topayExtra(java.lang.String, java.lang.Double, java.lang.Double, me.wangolf.service.IOAuthCallBack) 
+	*/
 	@Override
 	public void topayExtra(String out_trade_no, Double self_amount, Double order_amount, IOAuthCallBack iOAuthCallBack) throws Exception
 	{
@@ -401,10 +405,10 @@ public class UserServiceImpl implements IUserService
 
 		params.addBodyParameter("out_trade_no", out_trade_no);
 
-		params.addBodyParameter("self_amount", self_amount + "");
+		params.addBodyParameter("self_amount", self_amount.intValue() + "");
 
-		params.addBodyParameter("order_amount", order_amount + "");
-
+		params.addBodyParameter("order_amount", order_amount.intValue() + "");
+		
 		String api = BaseUrl + "webOrderPrepay/payExtra";
 
 		Xutils.getDataFromServer(api, params, iOAuthCallBack);
@@ -913,5 +917,137 @@ public class UserServiceImpl implements IUserService
 		Xutils.getDataFromServer(api, params, iOAuthCallBack);
 
 	}
+
+	
+	
+	/* (非 Javadoc) 
+	* <p>Title: payRecommend</p> 
+	* <p>Description: 充值订单额外支付推荐码</p> 
+	* @param out_trade_no 订单号
+	* @param order_amount 订单金额
+	* @param recommend_amount 推荐金额
+	* @param recommend_code 推荐码
+	* @param return_amount 返利金额
+	* @param user_id 用户id
+	* @param mobile 用户电话号码
+	* @throws Exception 
+	* @see me.wangolf.service.IUserService#payRecommend(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String) 
+	*/
+	@Override
+	public void payRecommend(String out_trade_no, String order_amount, String recommend_amount, String recommend_code, String return_amount, String user_id, String mobile,IOAuthCallBack iOAuthCallBack) throws Exception
+	{
+		
+		String api = BaseUrl + "webOrderPrepay/payRecommend";
+
+		params = new RequestParams();
+
+		params.addBodyParameter("out_trade_no", out_trade_no);
+
+		params.addBodyParameter("order_amount", order_amount);
+
+		params.addBodyParameter("recommend_amount", recommend_amount);
+
+		params.addBodyParameter("recommend_code", recommend_code);
+			
+		params.addBodyParameter("return_amount", return_amount);
+
+		params.addBodyParameter("mobile", mobile);
+		
+		Xutils.getDataFromServer(api, params, iOAuthCallBack);
+				
+	}
+
+	
+	
+	/* (非 Javadoc) 
+	* <p>Title: enter</p> 
+	* <p>Description: 进入应用界面时调用接口(在已获取imei号时调用)</p> 
+	* @param iOAuthCallBack
+	* @throws Exception 
+	* @see me.wangolf.service.IUserService#enter(me.wangolf.service.IOAuthCallBack) 
+	*/
+	@Override
+	public void enter(IOAuthCallBack iOAuthCallBack) throws Exception
+	{
+		String api = BaseUrl + "webTourist/enter?";
+		
+		Xutils.getDataFromServer(api, iOAuthCallBack);		
+	}
+
+	/* (非 Javadoc) 
+	* <p>Title: start</p> 
+	* <p>Description: 启动应用时调用接口(在未获取imei号时调用)</p> 
+	* @param iOAuthCallBack
+	* @throws Exception 
+	* @see me.wangolf.service.IUserService#start(me.wangolf.service.IOAuthCallBack) 
+	*/
+	@Override
+	public void start(IOAuthCallBack iOAuthCallBack) throws Exception
+	{
+		
+		String api = BaseUrl + "webTourist/start?";
+		
+		Xutils.getDataFromServer(api, iOAuthCallBack);
+		
+	}
+
+	
+	/* (非 Javadoc) 
+	* <p>Title: verifyRecommendCode</p> 
+	* <p>Description: 验证推荐码</p> 
+	* @param mobile
+	* @param recommend_code
+	* @param iOAuthCallBack
+	* @throws Exception 
+	* @see me.wangolf.service.IUserService#verifyRecommendCode(java.lang.String, java.lang.String, me.wangolf.service.IOAuthCallBack) 
+	*/
+	@Override
+	public void verifyRecommendCode(String mobile, String recommend_code, IOAuthCallBack iOAuthCallBack) throws Exception
+	{
+		String api = BaseUrl + "webRecharge/verifyRecommendCode?" +
+				"mobile=" + mobile
+				+"&recommend_code=" + recommend_code;
+		
+		Xutils.getDataFromServer(api, iOAuthCallBack);
+		
+	}
+
+	/* (非 Javadoc) 
+	* <p>Title: sendRecommendCode</p> 
+	* <p>Description: 获取推荐码</p> 
+	* @param mobile
+	* @param iOAuthCallBack
+	* @throws Exception 
+	* @see me.wangolf.service.IUserService#sendRecommendCode(java.lang.String, me.wangolf.service.IOAuthCallBack) 
+	*/
+	@Override
+	public void sendRecommendCode(String mobile, IOAuthCallBack iOAuthCallBack) throws Exception
+	{		
+		String api = BaseUrl + "webRecharge/sendRecommendCode?" +
+				"mobile="+mobile;
+		
+		Xutils.getDataFromServer(api, iOAuthCallBack);
+	}
+
+	/* (非 Javadoc) 
+	* <p>Title: getRechargeList</p> 
+	* <p>Description: 获取充值列表</p> 
+	* @param user_id
+	* @param iOAuthCallBack
+	* @throws Exception 
+	* @see me.wangolf.service.IUserService#getRechargeList(java.lang.String, me.wangolf.service.IOAuthCallBack) 
+	*/
+	@Override
+	public void getRechargeList(String user_id, IOAuthCallBack iOAuthCallBack) throws Exception
+	{
+		
+		String api = BaseUrl + "webRecharge/list?";
+		
+		Xutils.getDataFromServer(api, iOAuthCallBack);
+		
+	}
+
+	
+
 
 }
