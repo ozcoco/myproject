@@ -241,7 +241,7 @@ public class ShowPickUtils {
 	/**
 	 * 选择提示对话框
 	 */
-	public static void ShowRegistDialog(RegistEntity bean,final Context context) {
+	public static void ShowRegistDialog(RegistEntity.DataEntity bean,final Context context) {
 		activity = (Activity) context;
 
 		con = context;
@@ -251,9 +251,9 @@ public class ShowPickUtils {
 		TextView mWwnprice = (TextView) view.findViewById(R.id.tv_wwnprice);
 		TextView mOtherinfo = (TextView) view.findViewById(R.id.tv_otherinfo);
 		if(bean!=null){
-			mInfo.setText(bean.getOwninfo());
-			mWwnprice.setText(bean.getOwnprice()+"元");
-			mOtherinfo.setText(bean.getOtherinfo());
+			mInfo.setText(bean.getSelf_info());
+			mWwnprice.setText(bean.getSelf_amount()+"元");
+			mOtherinfo.setText(bean.getRecommend_info());
 		}
 
 		dialog.setContentView(view);

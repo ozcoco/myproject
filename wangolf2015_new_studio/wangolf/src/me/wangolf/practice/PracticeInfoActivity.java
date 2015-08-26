@@ -10,6 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.util.LogUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.meigao.mgolf.R;
 
@@ -198,7 +199,7 @@ public class PracticeInfoActivity extends BaseActivity implements
 
 		getData();
 				
-		getWeather();
+//		getWeather();
 
 	}
 
@@ -231,7 +232,6 @@ public class PracticeInfoActivity extends BaseActivity implements
 					@Override
 					public void getIOAuthCallBack(String result)
 					{
-						// Log.i("wangolf",rgid+"************");
 						if (result.equals(ConstantValues.FAILURE))
 						{
 							ToastUtils.showInfo(PracticeInfoActivity.this, ConstantValues.NONETWORK);
@@ -357,7 +357,7 @@ public class PracticeInfoActivity extends BaseActivity implements
 
 	@Override
 	public void onClick(View v)
-	{
+	{			
 		switch (v.getId())
 		{
 			case R.id.common_back:
@@ -402,7 +402,7 @@ public class PracticeInfoActivity extends BaseActivity implements
 				if (data == null) { return; }
 
 				Intent route = new Intent(this, RoutePlan.class);
-
+				
 				route.putExtra("longitude", data.getLongitude());// 球场
 
 				route.putExtra("latitude", data.getLatitude());// 球场
@@ -423,6 +423,8 @@ public class PracticeInfoActivity extends BaseActivity implements
 
 				}
 
+				LogUtils.d("sharetitle="+sharetitle+",shareUrl="+shareUrl+",imagename="+imagename);
+				
 				ShareUtils
 						.showShareandUrl(sharetitle, shareUrl, this, CheckUtils
 								.checkEmpty(imagename) ? "" : imagename);
@@ -503,8 +505,6 @@ public class PracticeInfoActivity extends BaseActivity implements
 	*/
 	public void getWeather()
 	{
-		
-		ToastUtils.showInfo(this, cityname);
 	
 		String path = WeatherUtils.getWeatherUrl(cityname, this);
 		

@@ -2,14 +2,17 @@ package me.wangolf.usercenter;
 
 import java.io.File;
 
-import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.HttpHandler;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.view.annotation.ViewInject;
-
+import me.wangolf.ConstantValues;
+import me.wangolf.base.BaseActivity;
+import me.wangolf.bean.InfoEntity;
+import me.wangolf.bean.usercenter.ApkInfo;
+import me.wangolf.factory.ServiceFactory;
+import me.wangolf.newfragment.MainActivityNew;
+import me.wangolf.service.IOAuthCallBack;
+import me.wangolf.utils.CheckApkUtils;
+import me.wangolf.utils.GsonTools;
+import me.wangolf.utils.SharedPreferencesUtils;
+import me.wangolf.utils.ToastUtils;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -22,14 +25,18 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.meigao.mgolf.R;
-
-
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.sina.weibo.SinaWeibo;
-import me.wangolf.ConstantValues;
+
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.HttpHandler;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.view.annotation.ViewInject;
+import com.meigao.mgolf.R;
 /**
  * ============================================================
  *
@@ -48,15 +55,6 @@ import me.wangolf.ConstantValues;
  *
  * ============================================================
  **/
-import me.wangolf.base.BaseActivity;
-import me.wangolf.bean.InfoEntity;
-import me.wangolf.bean.usercenter.ApkInfo;
-import me.wangolf.factory.ServiceFactory;
-import me.wangolf.service.IOAuthCallBack;
-import me.wangolf.utils.CheckApkUtils;
-import me.wangolf.utils.GsonTools;
-import me.wangolf.utils.SharedPreferencesUtils;
-import me.wangolf.utils.ToastUtils;
 
 public class UserSet extends BaseActivity implements OnClickListener 
 {
@@ -131,15 +129,42 @@ public class UserSet extends BaseActivity implements OnClickListener
         mAccount.setOnClickListener(this);
         
         uid = ConstantValues.UID;
-
+        
     }
-
+ 
+    
     @Override
     public void getData(){}
 
+    
+    /** 
+    * @Title: isLogin 
+    * @Description: 判断是否登陆
+    * @param     设定文件 
+    * @return void    返回类型 
+    * @throws 
+    */
+    private void isLogin()
+    {
+    	
+    	if(!ConstantValues.ISLOGIN)
+		{			
+			// 去登录
+			Intent toLogin = new Intent(this, LoginActivity.class);
+
+			toLogin.putExtra("flag", "usercenter");
+
+			this.startActivityForResult(toLogin, 100);
+			
+			return;
+			
+		}
+    }
+    
     @Override
     public void onClick(View v) 
     {
+    	  	
         switch (v.getId()) 
         {
             case R.id.common_back:
@@ -181,10 +206,12 @@ public class UserSet extends BaseActivity implements OnClickListener
                 break;
                 
             case R.id.loginout:
-                // toLoginOut();
+                
+            	MainActivityNew.checkedRadioButtonId = MainActivityNew.SHOUYE_ID;
+            	
                 ConstantValues.ISLOGIN = false;
                 
-                ConstantValues.UID = null;
+                ConstantValues.UID = null;              
                 
                 SharedPreferencesUtils.saveString(this, "mgolf_n", null);
                 

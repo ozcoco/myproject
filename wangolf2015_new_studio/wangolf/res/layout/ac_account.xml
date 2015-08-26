@@ -74,7 +74,8 @@
                     android:background="@drawable/gray_light_selector"
                     android:clickable="true"
                     android:gravity="center_vertical"
-                    android:padding="@dimen/layout_height_8" >
+                    android:padding="@dimen/layout_height_8"
+                    android:visibility="gone" >
 
                     <TextView
                         android:id="@+id/TextView05"

@@ -20,7 +20,14 @@ package me.wangolf.service.impl;
  **/
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.nio.charset.Charset;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import android.renderscript.Sampler;
 import android.util.Log;
 
 import com.lidroid.xutils.http.RequestParams;
@@ -68,7 +75,7 @@ public class UserServiceImpl implements IUserService
 
 		String api = BaseUrl + "webImage/comment";
 
-		Xutils.getDataFromServer(api, params, iOAuthCallBack);
+		Xutils.getImageDataFromServer(api, params, iOAuthCallBack);
 
 	}
 
@@ -178,6 +185,8 @@ public class UserServiceImpl implements IUserService
 
 	}
 
+	
+	
 	/**
 	 * 
 	 * upLoad
@@ -190,17 +199,18 @@ public class UserServiceImpl implements IUserService
 	@Override
 	public void upLoad(String user_id, String path, IOAuthCallBack iOAuthCallBack)
 	{
-
-		params = new RequestParams();
-		
-		params.addBodyParameter("avatar_file", new File(path));
-
 		String api = BaseUrl + "webImage/avatar";
 
-		Xutils.getDataFromServer(api, params, iOAuthCallBack);
+		api += "?terminal=1&user_id="+ ConstantValues.UID+"&unique_key=" + ConstantValues.UNIQUE_KEY;
+				
+		params.addBodyParameter("avatar_file", new File(path));
+	
+		Xutils.getImageDataFromServer(api, params, iOAuthCallBack);
 
 	}
 
+	
+	
 	/**
 	 * 
 	 * upUserPassword
@@ -228,6 +238,8 @@ public class UserServiceImpl implements IUserService
 
 	}
 
+	
+	
 	/**
 	 * 
 	 * doResetPwd
@@ -337,7 +349,7 @@ public class UserServiceImpl implements IUserService
 	 */
 	@Override
 	public void toPrepay(OrderpayBean order_bean, IOAuthCallBack iOAuthCallBack) throws Exception
-	{
+	{	
 		params = new RequestParams();
 
 		params.addBodyParameter("type", order_bean.getType());
@@ -355,7 +367,7 @@ public class UserServiceImpl implements IUserService
 				.valueOf(order_bean.getProduct_id()));
 
 		params.addBodyParameter("order_amount", order_bean.getOrder_amount() == 0 ? "" : String
-				.valueOf(order_bean.getOrder_amount()));
+				.valueOf(order_bean.getOrder_amount().intValue()));
 
 		params.addBodyParameter("book", order_bean.getBook());
 
@@ -452,7 +464,6 @@ public class UserServiceImpl implements IUserService
 	@Override
 	public void toPay(String out_trade_no, String uid, String payment, IOAuthCallBack iOAuthCallBack) throws Exception
 	{
-
 		params = new RequestParams();
 
 		params.addBodyParameter("payment", payment);
@@ -742,7 +753,7 @@ public class UserServiceImpl implements IUserService
 		params.addBodyParameter("out_trade_no", out_trade_no);
 
 		String api = BaseUrl + "webUserOrder/orderCancel";
-
+		
 		Xutils.getDataFromServer(api, params, iOAuthCallBack);
 	}
 

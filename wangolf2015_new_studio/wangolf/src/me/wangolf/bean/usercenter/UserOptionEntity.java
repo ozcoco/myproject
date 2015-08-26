@@ -21,55 +21,67 @@ package me.wangolf.bean.usercenter;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class UserOptionEntity implements Serializable {
+public class UserOptionEntity implements Serializable
+{
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	private String status;
-	private String info;
-	private ArrayList<UserOptionEntity> data;
-	private int pack;// 推荐人0开启1关闭
-	private int regist;// 短信验证 0开启1关闭
+	private static final long			serialVersionUID	= 1L;
+	private String						status;
+	private String						info;
+	private ArrayList<UserOptionEntity>	data;
+	private int							pack;						// 推荐人0开启1关闭
+	private int							regist;						// 短信验证
+																	// 0开启1关闭
 
-	public String getStatus() {
+	public String getStatus()
+	{
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(String status)
+	{
 		this.status = status;
 	}
 
-	public String getInfo() {
+	public String getInfo()
+	{
 		return info;
 	}
 
-	public void setInfo(String info) {
+	public void setInfo(String info)
+	{
 		this.info = info;
 	}
 
-	public ArrayList<UserOptionEntity> getData() {
+	public ArrayList<UserOptionEntity> getData()
+	{
 		return data;
 	}
 
-	public void setData(ArrayList<UserOptionEntity> data) {
+	public void setData(ArrayList<UserOptionEntity> data)
+	{
 		this.data = data;
 	}
 
-	public int getPack() {
+	public int getPack()
+	{
 		return pack;
 	}
 
-	public void setPack(int pack) {
+	public void setPack(int pack)
+	{
 		this.pack = pack;
 	}
 
-	public int getRegist() {
+	public int getRegist()
+	{
 		return regist;
 	}
 
-	public void setRegist(int regist) {
+	public void setRegist(int regist)
+	{
 		this.regist = regist;
 	}
 

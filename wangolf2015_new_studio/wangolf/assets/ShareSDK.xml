@@ -67,8 +67,7 @@
         AppSecret="6678cecc0d2279e0d82fd8f949bfd872"
         Enable="true"
         Id="1"
-        RedirectUrl="
-    https://openapi.baidu.com/social/oauth/2.0/receiver"
+        RedirectUrl="https://openapi.baidu.com/social/oauth/2.0/receiver"
         ShareByAppClient="false"
         SortId="1" />
 
@@ -109,7 +108,7 @@
     <Wechat
         AppId="wxabfbba326a013705"
         AppSecret="b7505ee28dd40e3318126cfa1dbe1270"
-        BypassApproval="false"
+        BypassApproval="true"
         Enable="true"
         Id="4"
         SortId="4" />
@@ -117,7 +116,7 @@
     <WechatMoments
         AppId="wxabfbba326a013705"
         AppSecret="b7505ee28dd40e3318126cfa1dbe1270"
-        BypassApproval="false"
+        BypassApproval="true"
         Enable="true"
         Id="5"
         SortId="5" />

@@ -5,9 +5,9 @@ public class ConstantValues
 			
 	public static String BaseUrl = "http://192.168.1.222";
 	
-	public static String BaseApi = "http://192.168.1.222/golf/";
+//	public static String BaseApi = "http://192.168.1.222/golf/";
 	
-//	public static String BaseApi = "http://www.wangolf.me/golf/";
+	public static String BaseApi = "http://www.wangolf.me/golf/";
 		
 	public static boolean isFirstRun = true;
 	

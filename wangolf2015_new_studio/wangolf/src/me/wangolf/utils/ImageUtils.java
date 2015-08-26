@@ -158,11 +158,12 @@ public class ImageUtils {
      * @param path
      * @return
      */
-    public static String compressImage(String path) {
-        ArrayList<String> paths = new ArrayList<String>();
+    public static String compressImage(String path)
+    {        
         Bitmap bitmap = getSmallBitmap(path);
-        String s = FileUtils.saveBitToSD(bitmap, System.currentTimeMillis() + "");
-
+        
+        String s = FileUtils.saveBitToSD(bitmap, System.currentTimeMillis() + "");            
+        
         return s;
     }
     

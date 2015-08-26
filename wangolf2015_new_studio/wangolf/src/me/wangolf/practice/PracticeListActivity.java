@@ -3,28 +3,7 @@ package me.wangolf.practice;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.view.annotation.ViewInject;
-
-import android.app.Dialog;
-import android.content.Intent;
-import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
-
-import com.meigao.mgolf.R;
-
+import m.framework.ui.widget.pulltorefresh.Scrollable;
 import me.wangolf.ConstantValues;
 import me.wangolf.adapter.PracticesAdapter;
 import me.wangolf.base.BaseActivity;
@@ -38,12 +17,34 @@ import me.wangolf.utils.CheckUtils;
 import me.wangolf.utils.CommonUtil;
 import me.wangolf.utils.DialogUtil;
 import me.wangolf.utils.GsonTools;
-import me.wangolf.utils.LogUtils;
 import me.wangolf.utils.TelUtils;
 import me.wangolf.utils.ToastUtils;
 import me.wangolf.utils.viewUtils.PullToRefreshBase;
-import me.wangolf.utils.viewUtils.PullToRefreshListView;
 import me.wangolf.utils.viewUtils.PullToRefreshBase.OnRefreshListener;
+import me.wangolf.utils.viewUtils.PullToRefreshListView;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AbsListView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
+import com.meigao.mgolf.R;
 
 /***
  * 
@@ -97,6 +98,34 @@ public class PracticeListActivity extends BaseActivity implements
 	@ViewInject(R.id.relayout)
 	private RelativeLayout			relayout;			// 无相应数
 
+	private InputMethodManager		manager	= null;
+
+	
+	
+	/* (非 Javadoc) 
+	* <p>Title: onTouchEvent</p> 
+	* <p>Description: 点击空白处软盘隐藏</p> 
+	* @param event
+	* @return 
+	* @see android.app.Activity#onTouchEvent(android.view.MotionEvent) 
+	*/
+	@Override
+	public boolean onTouchEvent(MotionEvent event)
+	{
+		
+		if (event.getAction() == MotionEvent.ACTION_DOWN)
+		{
+			if (getCurrentFocus() != null && getCurrentFocus().getWindowToken() != null)
+			{
+				manager.hideSoftInputFromWindow(getCurrentFocus()
+						.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+			}
+		}
+		return super.onTouchEvent(event);
+	}
+
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -119,6 +148,8 @@ public class PracticeListActivity extends BaseActivity implements
 		}
 
 		initData();
+
+		manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
 		pull_refresh_list.setPullLoadEnabled(false);
 		// 滚动到底自动加载可用
@@ -149,7 +180,7 @@ public class PracticeListActivity extends BaseActivity implements
 									.getRange_name());
 
 							intent.putExtra("cityname", cityname);
-							
+
 							startActivity(intent);
 
 						}
@@ -157,6 +188,7 @@ public class PracticeListActivity extends BaseActivity implements
 
 				});
 
+		
 		// 设置下拉刷新的listener
 		pull_refresh_list
 				.setOnRefreshListener(new OnRefreshListener<ListView>()
@@ -174,6 +206,25 @@ public class PracticeListActivity extends BaseActivity implements
 						// getData();
 					}
 				});
+		
+			pull_refresh_list.setOnScrollListener(new OnScrollListener()
+			{
+				
+				@Override
+				public void onScrollStateChanged(AbsListView view, int scrollState)
+				{
+					
+					manager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+					
+				}
+				
+				@Override
+				public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
+				{
+				
+				}
+			});
+		
 
 	}
 

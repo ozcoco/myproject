@@ -142,12 +142,12 @@ public class RechargeActivity extends BaseActivity implements OnClickListener,
 			
 			Intent intent = new Intent(this, LoginActivity.class);
 			
-			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			
 			intent.putExtra("flag", "recharge");
 
-			startActivityForResult(intent, ConstantValues.ORDERPRAC);
+			startActivity(intent);
 				
+			finish();
+			
 		}
 		
 	}

@@ -18,8 +18,12 @@ package me.wangolf.usercenter;
  * 
  * ============================================================
  **/
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebView;
@@ -28,6 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.util.LogUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.meigao.mgolf.R;
 
@@ -39,6 +44,7 @@ import me.wangolf.service.IOAuthCallBack;
 import me.wangolf.utils.GsonTools;
 import me.wangolf.utils.ToastUtils;
 
+@SuppressLint("SetJavaScriptEnabled")
 public class AboutActivity extends BaseActivity implements OnClickListener 
 {
 	@ViewInject(R.id.common_back)
@@ -74,9 +80,12 @@ public class AboutActivity extends BaseActivity implements OnClickListener
 		
 		common_back.setOnClickListener(this);
 		
+		pre_webview.getSettings().setJavaScriptEnabled(true);
+		
 		getData();
 	}
 
+	
 	@Override
 	public void getData() 
 	{
@@ -87,7 +96,7 @@ public class AboutActivity extends BaseActivity implements OnClickListener
 			{
 				@SuppressLint("SetJavaScriptEnabled")
 				@Override
-				public void getIOAuthCallBack(String result) 
+				public void getIOAuthCallBack(String result)
 				{
 					if (result.equals(ConstantValues.FAILURE))
 					{
@@ -99,12 +108,13 @@ public class AboutActivity extends BaseActivity implements OnClickListener
 						AboutEntity bean = GsonTools.changeGsonToBean(result, AboutEntity.class);
 						
 						if ("1".equals(bean.getStatus())) 
-						{
+						{													
+							
 							AboutEntity data = bean.getData().get(0);
+
+							LogUtils.i(data.getContent());
 							
-							pre_webview.getSettings().setJavaScriptEnabled(true);
-							
-							pre_webview.loadData(data.getContent(), "text/html", "UTF-8");
+							pre_webview.loadDataWithBaseURL(null, data.getContent(), "text/html", "utf-8", null);
 							
 						}
 					}
@@ -118,6 +128,7 @@ public class AboutActivity extends BaseActivity implements OnClickListener
 
 	}
 
+	
 	@Override
 	public void onClick(View v)
 	{

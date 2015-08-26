@@ -18,7 +18,7 @@
             android:id="@+id/icon"
             android:layout_width="@dimen/h60"
             android:layout_height="@dimen/h60"
-            android:background="@drawable/ic_launcher"
+            android:background="@null"
             android:scaleType="fitXY" />
 
         <LinearLayout

@@ -95,7 +95,7 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 	@ViewInject(R.id.tv_kou_yue)
 	private TextView			tv_kou_yue;		// 使用余款
 	@ViewInject(R.id.btPay)
-	private Button				btPay;				// 支付
+	private Button				btPay;				// 立即支付
 	@ViewInject(R.id.checkbox)
 	private CheckBox			checkbox;			// 使用余款支付方式
 	@ViewInject(R.id.rgpay)
@@ -246,9 +246,9 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 			rdUnionPay.setCompoundDrawables(null, null, null, null);
 		}
 
-		tv_price.setText("￥" + order_amount);
+		tv_price.setText("￥" + (int)order_amount);
 
-		needpay.setText("￥" + order_amount);
+		needpay.setText("￥" + (int)order_amount);
 		// testBean();
 	}
 
@@ -268,7 +268,6 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 						{
 							if (result.equals(ConstantValues.FAILURE))
 							{
-
 								ToastUtils.showInfo(OrderPayActivity.this, ConstantValues.NONETWORK);
 							}
 							else
@@ -278,8 +277,6 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 
 								if ("1".equals(bean.getStatus()))
 								{
-									// ToastUtils.showInfo(getBaseContext(),
-									// result);///////////////////////
 
 									UserInfoEntity.DataEntity data = bean
 											.getData().get(0);
@@ -311,6 +308,8 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 
 	}
 
+	
+	
 	// 生成订单
 	public void Prepay()
 	{
@@ -327,15 +326,12 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 					{
 						@Override
 						public void getIOAuthCallBack(String result)
-						{
+						{							
+							
 							JSONObject jsonObj;
 							
 							try
 							{
-//							    ToastUtils.showInfo(getBaseContext(),
-//								 "result=" + result);
-//
-//								Log.e("result", result);
 								 
 								jsonObj = new JSONObject(result);
 
@@ -387,15 +383,13 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 		try
 		{
 			ServiceFactory.getIUserEngineInstatice()
-			// .topayExtra(sn, self_amount, vouchers_sn,
-			// vouchers_amount, order_amount, user_id, new
-			// IOAuthCallBack()
 					.topayExtra(sn, self_amount, order_amount, new IOAuthCallBack()
 					{
 
 						@Override
 						public void getIOAuthCallBack(String result)
 						{
+							
 							JSONObject jsonObj;
 							try
 							{
@@ -1150,6 +1144,9 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 	{
 		// 点击付款
 		// weipay("12111111111");// 微信支付
+		
+		Log.i("sn", "sn = " + sn);
+		
 		if (!CheckUtils.checkEmpty(sn))
 		{
 			toPay();// 生成订单后去支付
@@ -1161,15 +1158,28 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 
 	}
 
+	
+	
+	/** 
+	* @Title: toPay 
+	* @Description: 付款计算 
+	* @param     设定文件 
+	* @return void    返回类型 
+	* @throws 
+	*/
 	public void toPay()
 	{
-		if (vouchers_amount >= order_amount)
-		{
-			payment = "4";
-			pay_type = 4;
-			payExtra(self_amount);
-			return;
-		}
+//		if (vouchers_amount >= order_amount)
+//		{
+//			payment = "4";
+//			
+//			pay_type = 4;
+//			
+//			payExtra(self_amount);
+//			
+//			return;
+//		}
+		
 		if (self_amount >= order_amount)
 		{
 			// 余款大于订单总额
@@ -1177,8 +1187,11 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 			{
 				// 使用余款或余额+代金券
 				payment = "4";
-				pay_type = 4;
-				payExtra(self_amount);
+				
+				pay_type = 4;				
+				
+				payExtra(order_amount);
+				
 				// System.out.println("余额+代金");
 			}
 			else
@@ -1186,7 +1199,9 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 				// 使用网络支付或网银+代金券
 				// self_amount = 0;
 				payExtra(0.0);// 先使用代金券（余额传空给服务器）
+				
 				pay_amount = order_amount - vouchers_amount; // 减支余款
+				
 				switch (pay_type)
 				{
 					case 1:
@@ -1216,7 +1231,11 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 			{
 				// 使用余款+网银
 				payExtra(self_amount);// 余额或余款+代金券
-				pay_amount = order_amount - self_amount - vouchers_amount; // 减去余款
+				
+//				pay_amount = order_amount - self_amount - vouchers_amount; // 减去余款
+				
+				pay_amount = order_amount - self_amount;
+				
 				switch (pay_type)
 				{
 					case 1:
@@ -1240,6 +1259,7 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 			{
 				// payExtra(0.0);// 先使用代金券（余额传空给服务器）
 				pay_amount = order_amount - vouchers_amount; // 减去余额
+				
 				switch (pay_type)
 				{
 					case 1:
@@ -1264,6 +1284,7 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 		}
 	}
 
+	
 	/**
 	 * 防止重复点击
 	 * 
@@ -1271,8 +1292,11 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 	 */
 	protected void updateButton(final Button btn)
 	{
+		
 		btn.setBackgroundColor(getResources().getColor(R.color.gray));
+		
 		btn.setClickable(false);
+		
 		final Handler ha = new Handler()
 		{
 			@SuppressLint("NewApi")
@@ -1280,6 +1304,7 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 			public void handleMessage(Message msg)
 			{
 				super.handleMessage(msg);
+				
 				if (msg.what == 1)
 				{
 					// 更新按钮文本
@@ -1287,6 +1312,7 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 					if (time == 0)
 					{
 						btn.setClickable(true);
+						
 						btn.setBackground(getResources()
 								.getDrawable(R.drawable.bt_green_yuan_all_selector));
 					}
@@ -1294,6 +1320,7 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 
 			}
 		};
+		
 		new Thread()
 		{
 

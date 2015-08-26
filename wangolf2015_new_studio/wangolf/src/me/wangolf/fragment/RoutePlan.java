@@ -61,56 +61,58 @@ import com.lidroid.xutils.view.annotation.ViewInject;
  * @author Administrator
  * 
  */
-public class RoutePlan extends Activity implements OnClickListener {
+public class RoutePlan extends Activity implements OnClickListener
+{
 	// UI相关
-	private LocationClient mLocClient;
+	private LocationClient			mLocClient;
 	@ViewInject(R.id.common_back)
-	private Button common_back; // 后退
+	private Button					common_back;				// 后退
 	@ViewInject(R.id.common_title)
-	private TextView common_title;// 标题
+	private TextView				common_title;				// 标题
 	@ViewInject(R.id.common_bt)
-	private TextView common_bt;// 地图
+	private TextView				common_bt;					// 地图
 	// 浏览路线节点相关
-	Button mBtnPre = null;// 上一个节点
-	Button mBtnNext = null;// 下一个节点
-	int nodeIndex = -2;// 节点索引,供浏览节点时使用
-	MKRoute route = null;// 保存驾车/步行路线数据的变量，供浏览节点时使用
-	TransitOverlay transitOverlay = null;// 保存公交路线图层数据的变量，供浏览节点时使用
-	RouteOverlay routeOverlay = null;
-	boolean useDefaultIcon = false;
-	int searchType = -1;// 记录搜索的类型，区分驾车/步行和公交
-	private PopupOverlay pop = null;// 弹出泡泡图层，浏览节点时使用
-	private TextView popupText = null;// 泡泡view
-	private View viewCache = null;
+	Button							mBtnPre			= null;		// 上一个节点
+	Button							mBtnNext		= null;		// 下一个节点
+	int								nodeIndex		= -2;		// 节点索引,供浏览节点时使用
+	MKRoute							route			= null;		// 保存驾车/步行路线数据的变量，供浏览节点时使用
+	TransitOverlay					transitOverlay	= null;		// 保存公交路线图层数据的变量，供浏览节点时使用
+	RouteOverlay					routeOverlay	= null;
+	boolean							useDefaultIcon	= false;
+	int								searchType		= -1;		// 记录搜索的类型，区分驾车/步行和公交
+	private PopupOverlay			pop				= null;		// 弹出泡泡图层，浏览节点时使用
+	private TextView				popupText		= null;		// 泡泡view
+	private View					viewCache		= null;
 
 	// 地图相关，使用继承MapView的MyRouteMapView目的是重写touch事件实现泡泡处理
 	// 如果不处理touch事件，则无需继承，直接使用MapView即可
-	MapView mMapView = null; // 地图View
+	MapView							mMapView		= null;	// 地图View
 	// 搜索相关
-	MKSearch mSearch = null; // 搜索模块，也可去掉地图模块独立使用
-	private MapController mMapController;
-	private String city;
-	public GeoPoint startGeoPoint;
+	MKSearch						mSearch			= null;	// 搜索模块，也可去掉地图模块独立使用
+	private MapController			mMapController;
+	private String					city;
+	public GeoPoint					startGeoPoint;
 
-	private GeoPoint endPoint;
+	private GeoPoint				endPoint;
 
-	private ArrayList<OverlayItem> listOverlay;
+	private ArrayList<OverlayItem>	listOverlay;
 
-	private View popupInfo;
+	private View					popupInfo;
 
-	private TextView popdown;
+	private TextView				popdown;
 
-	private Button button;
+	private Button					button;
 
-	private MyOverlay mOverlay;
+	private MyOverlay				mOverlay;
 
-	public OverlayItem mCurItem;
+	public OverlayItem				mCurItem;
 
-	private String currentLocation;
+	private String					currentLocation;
 
-	private String endStr;
+	private String					endStr;
 
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 
 		mLocClient = new LocationClient(this);
@@ -123,7 +125,8 @@ public class RoutePlan extends Activity implements OnClickListener {
 		 * 并在地图地图模块销毁后销毁，只要还有地图模块在使用，BMapManager就不应该销毁
 		 */
 		LocationApplication app = (LocationApplication) this.getApplication();
-		if (app.mBMapManager == null) {
+		if (app.mBMapManager == null)
+		{
 			app.mBMapManager = new BMapManager(getApplicationContext());
 			/**
 			 * 如果BMapManager没有初始化则初始化BMapManager
@@ -173,23 +176,29 @@ public class RoutePlan extends Activity implements OnClickListener {
 		mBtnNext.setVisibility(View.INVISIBLE);
 
 		// 按键点击事件
-		OnClickListener clickListener = new OnClickListener() {
-			public void onClick(View v) {
+		OnClickListener clickListener = new OnClickListener()
+		{
+			public void onClick(View v)
+			{
 				// 发起搜索
 				SearchButtonProcess(v);
 			}
 		};
-		OnClickListener nodeClickListener = new OnClickListener() {
-			public void onClick(View v) {
+		OnClickListener nodeClickListener = new OnClickListener()
+		{
+			public void onClick(View v)
+			{
 				// 浏览路线节点
 				nodeClick(v);
 			}
 		};
 
-		OnClickListener changeRouteIconListener = new OnClickListener() {
+		OnClickListener changeRouteIconListener = new OnClickListener()
+		{
 
 			@Override
-			public void onClick(View arg0) {
+			public void onClick(View arg0)
+			{
 				changeRouteIcon();
 			}
 
@@ -201,35 +210,43 @@ public class RoutePlan extends Activity implements OnClickListener {
 		createPaopao();
 
 		// 地图点击事件处理
-		mMapView.regMapTouchListner(new MKMapTouchListener() {
+		mMapView.regMapTouchListner(new MKMapTouchListener()
+		{
 
 			@Override
-			public void onMapClick(GeoPoint point) {
+			public void onMapClick(GeoPoint point)
+			{
 				// 在此处理地图点击事件
 				// 消隐pop
-				if (pop != null) {
+				if (pop != null)
+				{
 					pop.hidePop();
 				}
 			}
 
 			@Override
-			public void onMapDoubleClick(GeoPoint point) {
+			public void onMapDoubleClick(GeoPoint point)
+			{
 
 			}
 
 			@Override
-			public void onMapLongClick(GeoPoint point) {
+			public void onMapLongClick(GeoPoint point)
+			{
 
 			}
 
 		});
 		// 初始化搜索模块，注册事件监听
 		mSearch = new MKSearch();
-		mSearch.init(app.mBMapManager, new MKSearchListener() {
+		mSearch.init(app.mBMapManager, new MKSearchListener()
+		{
 
-			public void onGetDrivingRouteResult(MKDrivingRouteResult res, int error) {
+			public void onGetDrivingRouteResult(MKDrivingRouteResult res, int error)
+			{
 				// 起点或终点有歧义，需要选择具体的城市列表或地址列表
-				if (error == MKEvent.ERROR_ROUTE_ADDR) {
+				if (error == MKEvent.ERROR_ROUTE_ADDR)
+				{
 					// 遍历所有地址
 					// ArrayList<MKPoiInfo> stPois =
 					// res.getAddrResult().mStartPoiList;
@@ -242,7 +259,8 @@ public class RoutePlan extends Activity implements OnClickListener {
 					return;
 				}
 				// 错误号可参考MKEvent中的定义
-				if (error != 0 || res == null) {
+				if (error != 0 || res == null)
+				{
 					Toast.makeText(RoutePlan.this, "请先允许GPS定位请求，再重试！",
 
 					Toast.LENGTH_SHORT).show();
@@ -260,9 +278,10 @@ public class RoutePlan extends Activity implements OnClickListener {
 				// 执行刷新使生效
 				mMapView.refresh();
 				// 使用zoomToSpan()绽放地图，使路线能完全显示在地图上
-				mMapView.getController().zoomToSpan(routeOverlay.getLatSpanE6(),
+				mMapView.getController()
+						.zoomToSpan(routeOverlay.getLatSpanE6(),
 
-				routeOverlay.getLonSpanE6());
+						routeOverlay.getLonSpanE6());
 				// 移动地图到起点
 				mMapView.getController().animateTo(res.getStart().pt);
 				// 将路线数据保存给全局变量
@@ -273,9 +292,11 @@ public class RoutePlan extends Activity implements OnClickListener {
 				mBtnNext.setVisibility(View.VISIBLE);
 			}
 
-			public void onGetTransitRouteResult(MKTransitRouteResult res, int error) {
+			public void onGetTransitRouteResult(MKTransitRouteResult res, int error)
+			{
 				// 起点或终点有歧义，需要选择具体的城市列表或地址列表
-				if (error == MKEvent.ERROR_ROUTE_ADDR) {
+				if (error == MKEvent.ERROR_ROUTE_ADDR)
+				{
 					// 遍历所有地址
 					// ArrayList<MKPoiInfo> stPois =
 					// res.getAddrResult().mStartPoiList;
@@ -287,7 +308,8 @@ public class RoutePlan extends Activity implements OnClickListener {
 					// res.getAddrResult().mEndCityList;
 					return;
 				}
-				if (error != 0 || res == null) {
+				if (error != 0 || res == null)
+				{
 					Toast.makeText(RoutePlan.this, "抱歉，未找到结果",
 
 					Toast.LENGTH_SHORT).show();
@@ -305,7 +327,8 @@ public class RoutePlan extends Activity implements OnClickListener {
 				// 执行刷新使生效
 				mMapView.refresh();
 				// 使用zoomToSpan()绽放地图，使路线能完全显示在地图上
-				mMapView.getController().zoomToSpan(transitOverlay.getLatSpanE6(),
+				mMapView.getController().zoomToSpan(transitOverlay
+						.getLatSpanE6(),
 
 				transitOverlay.getLonSpanE6());
 				// 移动地图到起点
@@ -316,9 +339,11 @@ public class RoutePlan extends Activity implements OnClickListener {
 				mBtnNext.setVisibility(View.VISIBLE);
 			}
 
-			public void onGetWalkingRouteResult(MKWalkingRouteResult res, int error) {
+			public void onGetWalkingRouteResult(MKWalkingRouteResult res, int error)
+			{
 				// 起点或终点有歧义，需要选择具体的城市列表或地址列表
-				if (error == MKEvent.ERROR_ROUTE_ADDR) {
+				if (error == MKEvent.ERROR_ROUTE_ADDR)
+				{
 					// 遍历所有地址
 					// ArrayList<MKPoiInfo> stPois =
 					// res.getAddrResult().mStartPoiList;
@@ -330,7 +355,8 @@ public class RoutePlan extends Activity implements OnClickListener {
 					// res.getAddrResult().mEndCityList;
 					return;
 				}
-				if (error != 0 || res == null) {
+				if (error != 0 || res == null)
+				{
 					Toast.makeText(RoutePlan.this, "抱歉，未找到结果",
 
 					Toast.LENGTH_SHORT).show();
@@ -348,9 +374,10 @@ public class RoutePlan extends Activity implements OnClickListener {
 				// 执行刷新使生效
 				mMapView.refresh();
 				// 使用zoomToSpan()绽放地图，使路线能完全显示在地图上
-				mMapView.getController().zoomToSpan(routeOverlay.getLatSpanE6(),
+				mMapView.getController()
+						.zoomToSpan(routeOverlay.getLatSpanE6(),
 
-				routeOverlay.getLonSpanE6());
+						routeOverlay.getLonSpanE6());
 				// 移动地图到起点
 				mMapView.getController().animateTo(res.getStart().pt);
 				// 将路线数据保存给全局变量
@@ -362,26 +389,32 @@ public class RoutePlan extends Activity implements OnClickListener {
 
 			}
 
-			public void onGetAddrResult(MKAddrInfo res, int error) {
+			public void onGetAddrResult(MKAddrInfo res, int error)
+			{
 			}
 
-			public void onGetPoiResult(MKPoiResult res, int arg1, int arg2) {
+			public void onGetPoiResult(MKPoiResult res, int arg1, int arg2)
+			{
 			}
 
-			public void onGetBusDetailResult(MKBusLineResult result, int iError) {
+			public void onGetBusDetailResult(MKBusLineResult result, int iError)
+			{
 			}
 
 			@Override
-			public void onGetSuggestionResult(MKSuggestionResult res, int arg1) {
+			public void onGetSuggestionResult(MKSuggestionResult res, int arg1)
+			{
 			}
 
 			@Override
-			public void onGetPoiDetailSearchResult(int type, int iError) {
+			public void onGetPoiDetailSearchResult(int type, int iError)
+			{
 				// TODO Auto-generated method stub
 			}
 
 			@Override
-			public void onGetShareUrlResult(MKShareUrlResult result, int type, int error) {
+			public void onGetShareUrlResult(MKShareUrlResult result, int type, int error)
+			{
 
 			}
 		});
@@ -393,7 +426,8 @@ public class RoutePlan extends Activity implements OnClickListener {
 	 * 
 	 * @return
 	 */
-	private BitmapDrawable getMyBitMapDrable(String name, String detail) {
+	private BitmapDrawable getMyBitMapDrable(String name, String detail)
+	{
 		LayoutInflater inflater = LayoutInflater.from(RoutePlan.this);
 		View view = inflater.inflate(R.layout.marker, null);
 		TextView tvTitle = (TextView) view.findViewById(R.id.marker_title);
@@ -411,13 +445,13 @@ public class RoutePlan extends Activity implements OnClickListener {
 	 * @author Administrator
 	 * 
 	 */
-	class MyLocationListener implements BDLocationListener {
+	class MyLocationListener implements BDLocationListener
+	{
 
 		@Override
-		public void onReceiveLocation(BDLocation location) {
-			if (location == null) {
-				return;
-			}
+		public void onReceiveLocation(BDLocation location)
+		{
+			if (location == null) { return; }
 			String c = location.getCity();
 			city = c;
 			String d = location.getDistrict();
@@ -450,7 +484,8 @@ public class RoutePlan extends Activity implements OnClickListener {
 
 		}
 
-		public void onReceivePoi(BDLocation arg0) {
+		public void onReceivePoi(BDLocation arg0)
+		{
 
 		}
 	}
@@ -460,7 +495,8 @@ public class RoutePlan extends Activity implements OnClickListener {
 	 * 
 	 * @param v
 	 */
-	void SearchButtonProcess(View v) {
+	void SearchButtonProcess(View v)
+	{
 		// 重置浏览节点的路线数据
 		route = null;
 		routeOverlay = null;
@@ -495,46 +531,56 @@ public class RoutePlan extends Activity implements OnClickListener {
 	 * 
 	 * @param v
 	 */
-	public void nodeClick(View v) {
-		viewCache = getLayoutInflater().inflate(R.layout.custom_text_view, null);
+	public void nodeClick(View v)
+	{
+		viewCache = getLayoutInflater()
+				.inflate(R.layout.custom_text_view, null);
 		popupText = (TextView) viewCache.findViewById(R.id.textcache);
-		if (searchType == 0 || searchType == 2) {
+		if (searchType == 0 || searchType == 2)
+		{
 			// 驾车、步行使用的数据结构相同，因此类型为驾车或步行，节点浏览方法相同
-			if (nodeIndex < -1 || route == null || nodeIndex >= route.getNumSteps())
-				return;
+			if (nodeIndex < -1 || route == null || nodeIndex >= route
+					.getNumSteps()) return;
 
 			// 上一个节点
-			if (mBtnPre.equals(v) && nodeIndex > 0) {
+			if (mBtnPre.equals(v) && nodeIndex > 0)
+			{
 				// 索引减
 				nodeIndex--;
 				// 移动到指定索引的坐标
-				mMapView.getController().animateTo(route.getStep(nodeIndex).getPoint());
+				mMapView.getController().animateTo(route.getStep(nodeIndex)
+						.getPoint());
 				// 弹出泡泡
 				popupText.setBackgroundResource(R.drawable.popup);
 				popupText.setText(route.getStep(nodeIndex).getContent());
-				pop.showPopup(BMapUtil.getBitmapFromView(popupText), route.getStep(nodeIndex).getPoint(), 5);
+				pop.showPopup(BMapUtil.getBitmapFromView(popupText), route
+						.getStep(nodeIndex).getPoint(), 5);
 			}
 			// 下一个节点
-			if (mBtnNext.equals(v) && nodeIndex < (route.getNumSteps() - 1)) {
+			if (mBtnNext.equals(v) && nodeIndex < (route.getNumSteps() - 1))
+			{
 				// 索引加
 				nodeIndex++;
 				// 移动到指定索引的坐标
-				mMapView.getController().animateTo(route.getStep(nodeIndex).getPoint());
+				mMapView.getController().animateTo(route.getStep(nodeIndex)
+						.getPoint());
 				// 弹出泡泡
 				popupText.setBackgroundResource(R.drawable.popup);
 				popupText.setText(route.getStep(nodeIndex).getContent());
-				pop.showPopup(BMapUtil.getBitmapFromView(popupText), route.getStep(nodeIndex).getPoint(), 5);
+				pop.showPopup(BMapUtil.getBitmapFromView(popupText), route
+						.getStep(nodeIndex).getPoint(), 5);
 			}
 		}
-		if (searchType == 1) {
+		if (searchType == 1)
+		{
 			// 公交换乘使用的数据结构与其他不同，因此单独处理节点浏览
 			if (nodeIndex < -1 || transitOverlay == null || nodeIndex >=
 
-			transitOverlay.getAllItem().size())
-				return;
+			transitOverlay.getAllItem().size()) return;
 
 			// 上一个节点
-			if (mBtnPre.equals(v) && nodeIndex > 1) {
+			if (mBtnPre.equals(v) && nodeIndex > 1)
+			{
 				// 索引减
 				nodeIndex--;
 				// 移动到指定索引的坐标
@@ -544,10 +590,13 @@ public class RoutePlan extends Activity implements OnClickListener {
 				// 弹出泡泡
 				popupText.setBackgroundResource(R.drawable.popup);
 				popupText.setText(transitOverlay.getItem(nodeIndex).getTitle());
-				pop.showPopup(BMapUtil.getBitmapFromView(popupText), transitOverlay.getItem(nodeIndex).getPoint(), 5);
+				pop.showPopup(BMapUtil.getBitmapFromView(popupText), transitOverlay
+						.getItem(nodeIndex).getPoint(), 5);
 			}
 			// 下一个节点
-			if (mBtnNext.equals(v) && nodeIndex < (transitOverlay.getAllItem().size() - 2)) {
+			if (mBtnNext.equals(v) && nodeIndex < (transitOverlay.getAllItem()
+					.size() - 2))
+			{
 				// 索引加
 				nodeIndex++;
 				// 移动到指定索引的坐标
@@ -557,7 +606,8 @@ public class RoutePlan extends Activity implements OnClickListener {
 				// 弹出泡泡
 				popupText.setBackgroundResource(R.drawable.popup);
 				popupText.setText(transitOverlay.getItem(nodeIndex).getTitle());
-				pop.showPopup(BMapUtil.getBitmapFromView(popupText), transitOverlay.getItem(nodeIndex).getPoint(), 5);
+				pop.showPopup(BMapUtil.getBitmapFromView(popupText), transitOverlay
+						.getItem(nodeIndex).getPoint(), 5);
 			}
 		}
 
@@ -566,12 +616,15 @@ public class RoutePlan extends Activity implements OnClickListener {
 	/**
 	 * 创建弹出泡泡图层
 	 */
-	public void createPaopao() {
+	public void createPaopao()
+	{
 
 		// 泡泡点击响应回调
-		PopupClickListener popListener = new PopupClickListener() {
+		PopupClickListener popListener = new PopupClickListener()
+		{
 			@Override
-			public void onClickedPopup(int index) {
+			public void onClickedPopup(int index)
+			{
 				Log.v("click", "clickapoapo");
 			}
 		};
@@ -581,28 +634,38 @@ public class RoutePlan extends Activity implements OnClickListener {
 	/**
 	 * 切换路线图标，刷新地图使其生效 注意： 起终点图标使用中心对齐.
 	 */
-	protected void changeRouteIcon() {
-		if (routeOverlay == null && transitOverlay == null) {
-			return;
-		}
-		if (useDefaultIcon) {
-			if (routeOverlay != null) {
+	protected void changeRouteIcon()
+	{
+		if (routeOverlay == null && transitOverlay == null) { return; }
+		if (useDefaultIcon)
+		{
+			if (routeOverlay != null)
+			{
 				routeOverlay.setStMarker(null);
 				routeOverlay.setEnMarker(null);
 			}
-			if (transitOverlay != null) {
+			if (transitOverlay != null)
+			{
 				transitOverlay.setStMarker(null);
 				transitOverlay.setEnMarker(null);
 			}
 			Toast.makeText(this, "将使用系统起终点图标", Toast.LENGTH_SHORT).show();
-		} else {
-			if (routeOverlay != null) {
-				routeOverlay.setStMarker(getResources().getDrawable(R.drawable.icon_st));
-				routeOverlay.setEnMarker(getResources().getDrawable(R.drawable.icon_en));
+		}
+		else
+		{
+			if (routeOverlay != null)
+			{
+				routeOverlay.setStMarker(getResources()
+						.getDrawable(R.drawable.icon_st));
+				routeOverlay.setEnMarker(getResources()
+						.getDrawable(R.drawable.icon_en));
 			}
-			if (transitOverlay != null) {
-				transitOverlay.setStMarker(getResources().getDrawable(R.drawable.icon_st));
-				transitOverlay.setEnMarker(getResources().getDrawable(R.drawable.icon_en));
+			if (transitOverlay != null)
+			{
+				transitOverlay.setStMarker(getResources()
+						.getDrawable(R.drawable.icon_st));
+				transitOverlay.setEnMarker(getResources()
+						.getDrawable(R.drawable.icon_en));
 			}
 			Toast.makeText(this, "将使用自定义起终点图标", Toast.LENGTH_SHORT).show();
 		}
@@ -612,27 +675,31 @@ public class RoutePlan extends Activity implements OnClickListener {
 	}
 
 	@Override
-	protected void onPause() {
+	protected void onPause()
+	{
 		mMapView.onPause();
 		super.onPause();
 	}
 
 	@Override
-	protected void onDestroy() {
+	protected void onDestroy()
+	{
 		mMapView.destroy();
 		mSearch.destory();
 		super.onDestroy();
 	}
 
 	@Override
-	protected void onSaveInstanceState(Bundle outState) {
+	protected void onSaveInstanceState(Bundle outState)
+	{
 		super.onSaveInstanceState(outState);
 		mMapView.onSaveInstanceState(outState);
 
 	}
 
 	@Override
-	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+	protected void onRestoreInstanceState(Bundle savedInstanceState)
+	{
 		super.onRestoreInstanceState(savedInstanceState);
 		mMapView.onRestoreInstanceState(savedInstanceState);
 	}
@@ -642,17 +709,17 @@ public class RoutePlan extends Activity implements OnClickListener {
 	 * 
 	 * @param view
 	 */
-	public void setMapMode(View view) {
+	public void setMapMode(View view)
+	{
 		boolean checked = ((RadioButton) view).isChecked();
-		switch (view.getId()) {
-		case R.id.normal:
-			if (checked)
-				mMapView.setSatellite(false);
-			break;
-		case R.id.statellite:
-			if (checked)
-				mMapView.setSatellite(true);
-			break;
+		switch (view.getId())
+		{
+			case R.id.normal:
+				if (checked) mMapView.setSatellite(false);
+				break;
+			case R.id.statellite:
+				if (checked) mMapView.setSatellite(true);
+				break;
 		}
 	}
 
@@ -661,7 +728,8 @@ public class RoutePlan extends Activity implements OnClickListener {
 	 * 
 	 * @param view
 	 */
-	public void setTraffic(View view) {
+	public void setTraffic(View view)
+	{
 		mMapView.setTraffic(((CheckBox) view).isChecked());
 	}
 
@@ -669,9 +737,11 @@ public class RoutePlan extends Activity implements OnClickListener {
 	 * 返回键事件
 	 */
 	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{
 		// TODO Auto-generated method stub
-		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)
+		{
 			// 需要处理
 			this.finish();
 		}
@@ -685,18 +755,20 @@ public class RoutePlan extends Activity implements OnClickListener {
 	/**
 	 * overlay 位置坐标
 	 */
-	double mLon1 = 116.400244;
-	double mLat1 = 39.963175;
+	double	mLon1	= 116.400244;
+	double	mLat1	= 39.963175;
 
 	/**
 	 * 由于MapView在setContentView()中初始化,所以它需要在BMapManager初始化之后
 	 */
-	public void initOverlay() {
+	public void initOverlay()
+	{
 		/**
 		 * 创建自定义overlay
 		 */
-		mOverlay = new MyOverlay(getResources().getDrawable(R.drawable.nav_turn_via_1), mMapView); // TODO
-																									// cccccccccccccc
+		mOverlay = new MyOverlay(getResources()
+				.getDrawable(R.drawable.nav_turn_via_1), mMapView); // TODO
+																	// cccccccccccccc
 		/**
 		 * 准备overlay 数据
 		 */
@@ -733,7 +805,8 @@ public class RoutePlan extends Activity implements OnClickListener {
 		/**
 		 * 向地图添加自定义View.
 		 */
-		viewCache = getLayoutInflater().inflate(R.layout.custom_text_view3, null);
+		viewCache = getLayoutInflater()
+				.inflate(R.layout.custom_text_view3, null);
 		popupInfo = (View) viewCache.findViewById(R.id.popinfo);
 		popupText = (TextView) viewCache.findViewById(R.id.textcache);
 		popdown = (TextView) viewCache.findViewById(R.id.popdown);
@@ -744,11 +817,14 @@ public class RoutePlan extends Activity implements OnClickListener {
 		/**
 		 * 创建一个popupoverlay
 		 */
-		PopupClickListener popListener = new PopupClickListener() {
+		PopupClickListener popListener = new PopupClickListener()
+		{
 			@Override
-			public void onClickedPopup(int index) {
+			public void onClickedPopup(int index)
+			{
 				// 更新图标
-				mCurItem.setMarker(getResources().getDrawable(R.drawable.nav_turn_via_1));
+				mCurItem.setMarker(getResources()
+						.getDrawable(R.drawable.nav_turn_via_1));
 				mOverlay.updateItem(mCurItem);
 				mMapView.refresh();
 			}
@@ -758,19 +834,23 @@ public class RoutePlan extends Activity implements OnClickListener {
 		mMapView.refresh();
 	}
 
-	public class MyOverlay extends ItemizedOverlay {
+	public class MyOverlay extends ItemizedOverlay
+	{
 
-		public MyOverlay(Drawable defaultMarker, MapView mapView) {
+		public MyOverlay(Drawable defaultMarker, MapView mapView)
+		{
 			super(defaultMarker, mapView);
 		}
 
 		@Override
-		public boolean onTap(int index) {
+		public boolean onTap(int index)
+		{
 			OverlayItem item = getItem(index);
 			mCurItem = item;
 			popupText.setText(getItem(index).getTitle());
 			popdown.setText(getItem(index).getSnippet());
-			Bitmap[] bitMaps = { BMapUtil.getBitmapFromView(popupInfo),
+			Bitmap[] bitMaps =
+			{ BMapUtil.getBitmapFromView(popupInfo),
 
 			};
 			pop.showPopup(bitMaps, item.getPoint(), 32);
@@ -778,8 +858,10 @@ public class RoutePlan extends Activity implements OnClickListener {
 		}
 
 		@Override
-		public boolean onTap(GeoPoint pt, MapView mMapView) {
-			if (pop != null) {
+		public boolean onTap(GeoPoint pt, MapView mMapView)
+		{
+			if (pop != null)
+			{
 				pop.hidePop();
 				mMapView.removeView(button);
 			}
@@ -789,7 +871,8 @@ public class RoutePlan extends Activity implements OnClickListener {
 	}
 
 	@Override
-	protected void onResume() {
+	protected void onResume()
+	{
 		mMapView.onResume();
 		LocationApplication app = (LocationApplication) getApplication();
 
@@ -797,14 +880,16 @@ public class RoutePlan extends Activity implements OnClickListener {
 	}
 
 	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.common_back:
-			this.finish();
-			break;
+	public void onClick(View v)
+	{
+		switch (v.getId())
+		{
+			case R.id.common_back:
+				this.finish();
+				break;
 
-		default:
-			break;
+			default:
+				break;
 		}
 
 	}

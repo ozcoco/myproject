@@ -115,12 +115,6 @@ public class OrderScuessActivity extends BaseActivity implements OnClickListener
                 @Override
                 public void getIOAuthCallBack(String result)
                 {
-                	Log.e("paraser", "sn="+sn+",user_id="+user_id+",payment="+payment+",unique_key="+ConstantValues.UNIQUE_KEY);
-                	
-                	Log.e("result", result);
-                	
-                	ToastUtils.showInfo(getBaseContext(), result);
-                	
                     PlaySuccessEntity beans = GsonTools.jsonToBean(result, PlaySuccessEntity.class);
                     
                     if (1 == beans.getStatus())

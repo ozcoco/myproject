@@ -505,6 +505,7 @@ public interface IUserService extends BaseService
 	 */
 	public void getPacksList(String uid, String type, int page, int number, IOAuthCallBack iOAuthCallBack) throws Exception;
 
+	
 	/**
 	 * 115 取消订单接口
 	 * 

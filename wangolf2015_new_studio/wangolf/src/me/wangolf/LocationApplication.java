@@ -152,8 +152,6 @@ public class LocationApplication extends Application
 			
 			final String add = location.getAddrStr();
 			
-			Log.e("addr", add);
-			
 			if (!CheckUtils.checkEmpty(add)) 
 			{								
 				ConstantValues.loactionadd = add.substring(add.indexOf("省") + 1);

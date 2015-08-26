@@ -1,12 +1,28 @@
 package me.wangolf.usercenter;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Date;
 
-import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.view.annotation.ViewInject;
-import com.meigao.mgolf.R;
-
+import me.wangolf.ConstantValues;
+import me.wangolf.adapter.UserImagesAdapter;
+import me.wangolf.base.BaseActivity;
+import me.wangolf.bean.InfoEntity;
+import me.wangolf.bean.community.ImgInfoEntity;
+import me.wangolf.bean.usercenter.UserInfoNewEntity;
+import me.wangolf.factory.ServiceFactory;
+import me.wangolf.service.IOAuthCallBack;
+import me.wangolf.utils.CheckUtils;
+import me.wangolf.utils.DialogUtil;
+import me.wangolf.utils.FileUtils;
+import me.wangolf.utils.GsonTools;
+import me.wangolf.utils.ImageUtils;
+import me.wangolf.utils.ToastUtils;
+import me.wangolf.utils.Xutils;
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -22,30 +38,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import me.wangolf.ConstantValues;
-import me.wangolf.adapter.UserImagesAdapter;
-import me.wangolf.base.BaseActivity;
-import me.wangolf.bean.InfoEntity;
-import me.wangolf.bean.community.ImgInfoEntity;
-import me.wangolf.bean.usercenter.UserInfoNewEntity;
-import me.wangolf.factory.ServiceFactory;
-import me.wangolf.service.IOAuthCallBack;
-import me.wangolf.utils.CheckUtils;
-import me.wangolf.utils.DateFormatUtils;
-import me.wangolf.utils.DialogUtil;
-import me.wangolf.utils.FileUtils;
-import me.wangolf.utils.GsonTools;
-import me.wangolf.utils.ImageUtils;
-import me.wangolf.utils.ToastUtils;
-import me.wangolf.utils.Xutils;
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
+import com.meigao.mgolf.R;
 
 public class UserInfoNewActivity extends BaseActivity implements
 		OnClickListener, OnItemClickListener
 {
 	@ViewInject(R.id.common_title)
-	private TextView				mTitle;			// 标题
+	private TextView				mTitle;		// 标题
 
 	@ViewInject(R.id.common_back)
 	private TextView				mBack;			// 返回
@@ -63,7 +65,7 @@ public class UserInfoNewActivity extends BaseActivity implements
 	private TextView				mMyfriendsNum;	// 我的关注数量
 
 	@ViewInject(R.id.myfans_num)
-	private TextView				mMyfansNum;		// 我的粉丝数量
+	private TextView				mMyfansNum;	// 我的粉丝数量
 
 	@ViewInject(R.id.myposts)
 	private RelativeLayout			mMyposts;		// 我的帖子
@@ -72,19 +74,19 @@ public class UserInfoNewActivity extends BaseActivity implements
 	private RelativeLayout			mMyreply;		// 回帖
 
 	@ViewInject(R.id.myfriends)
-	private RelativeLayout			mMyfriends;		// 我的关注
+	private RelativeLayout			mMyfriends;	// 我的关注
 
 	@ViewInject(R.id.myfans)
 	private RelativeLayout			mMyfans;		// 我的粉丝
 
 	@ViewInject(R.id.photo)
-	private ImageView				mPhoto;			// 头像
+	private ImageView				mPhoto;		// 头像
 
 	@ViewInject(R.id.user_name)
 	private TextView				mUserName;		// 昵称
 
 	@ViewInject(R.id.user_intro)
-	private TextView				mUserIntro;		// 签名
+	private TextView				mUserIntro;	// 签名
 
 	@ViewInject(R.id.gv_images)
 	private GridView				mGv;
@@ -109,7 +111,7 @@ public class UserInfoNewActivity extends BaseActivity implements
 
 	private ArrayList<String>		mList;
 
-	private String					images;			// 相册路径(上传多图以半角逗号隔开)
+	private String					images;		// 相册路径(上传多图以半角逗号隔开)
 
 	private int						mflag	= 1;	// 0表示已上传头像 1表示未上传
 
@@ -266,78 +268,117 @@ public class UserInfoNewActivity extends BaseActivity implements
 		}
 		catch(Exception e)
 		{
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
+	}
+
+	void upHead(String path)
+	{
+
+		String photo = ImageUtils.compressImage(path);
+		
+		FinalHttp finalHttp = new FinalHttp();
+
+		String api = ConstantValues.BaseApi + "webImage/avatar";	
+		
+		api += "?terminal=1&user_id="+ ConstantValues.UID+"&unique_key=" + ConstantValues.UNIQUE_KEY;
+		
+		AjaxParams params = new AjaxParams();
+		
+		try
+		{
+			params.put("avatar_file", new File(photo));
+		}
+		catch(FileNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		
+		finalHttp.post(api, params, new AjaxCallBack<String>()
+		{
+			@Override
+			public void onLoading(long count, long current)
+			{
+				
+				super.onLoading(count, current);
+				
+				Log.i("进度", current+"/"+count+"......");
+								
+				
+			}
+
+			@Override
+			public void onSuccess(String t)
+			{
+				
+				super.onSuccess(t);
+				
+				Log.i("结果", t);
+				
+				
+			}
+
+		});
+
 	}
 
 	// 更新头像
 	public void upLoad(String path)
 	{
-		final String photo = ImageUtils.compressImage(path);
-		final Date d = new Date();
-		try
-		{
-
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
 		
-		try
-		{
-			ServiceFactory.getIUserEngineInstatice()
-					.upLoad(user_id, photo, new IOAuthCallBack()
-					{
-						@Override
-						public void getIOAuthCallBack(String result)
-						{
-							if (result.equals(ConstantValues.FAILURE))
-							{
-								ToastUtils.showInfo(UserInfoNewActivity.this, ConstantValues.NONETWORK);
-							}
-							else
-							{
-								
-								InfoEntity bean = GsonTools
-										.changeGsonToBean(result, InfoEntity.class);
-								
-								if ("1".equals(bean.getStatus()))
-								{
-									getData();
-									
-									ToastUtils
-											.showInfo(UserInfoNewActivity.this, "更新" + bean
-													.getInfo());
-									try
-									{
+		upHead(path);
 
-									}
-									catch(Exception e)
-									{
-										e.printStackTrace();
-									}
-								}
-								else
-								{
-									ToastUtils
-											.showInfo(UserInfoNewActivity.this, bean
-													.getInfo());
-								}
-								
-								// 上传后清空图片
-								dialog.cancel();
-								
-								FileUtils.clearImage();
-							}
-						}
-					});
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
+//		String photo = ImageUtils.compressImage(path);
+//
+//		Log.i("头像地址", photo);
+//
+//		try
+//		{
+//			ServiceFactory.getIUserEngineInstatice()
+//					.upLoad(user_id, photo, new IOAuthCallBack()
+//					{
+//						@Override
+//						public void getIOAuthCallBack(String result)
+//						{
+//							if (result.equals(ConstantValues.FAILURE))
+//							{
+//								ToastUtils.showInfo(UserInfoNewActivity.this, ConstantValues.NONETWORK);
+//							}
+//							else
+//							{
+//								Log.i("调用头像接口返回结果", result);
+//
+//								InfoEntity bean = GsonTools
+//										.changeGsonToBean(result, InfoEntity.class);
+//
+//								if ("1".equals(bean.getStatus()))
+//								{
+//									getData();
+//
+//									ToastUtils
+//											.showInfo(UserInfoNewActivity.this, "更新" + bean
+//													.getInfo());
+//								}
+//								else
+//								{
+//									ToastUtils
+//											.showInfo(UserInfoNewActivity.this, bean
+//													.getInfo());
+//								}
+//
+//								// 上传后清空图片
+//								dialog.cancel();
+//
+//								FileUtils.clearImage();
+//							}
+//						}
+//					});
+//		}
+//		catch(Exception e)
+//		{
+//			e.printStackTrace();
+//		}
 	}
 
 	// ***图片上传
@@ -407,26 +448,26 @@ public class UserInfoNewActivity extends BaseActivity implements
 				path = FileUtils.getPhotoPath(path);
 				mflag = 0;
 			}
-			
+
 			// ImageViewUtil.loadimg(path, mPhoto, this);
 			Xutils.getBitmap(this, mPhoto, path);
-			
+
 			mUpImage.setVisibility(bean.getImages().size() >= 10 ? View.GONE : View.VISIBLE);
-			
+
 			imagesize = bean.getImages().size();
-			
+
 			adapter.setmList(bean.getImages());
-			
+
 			mGv.setNumColumns(adapter.getCount());
 
 			int width = ConstantValues.SCREENWIDTH;
 
 			LayoutParams params = new LayoutParams(width < 800 ? width < 720 ? adapter.getCount() * 115 : adapter.getCount() * 155 : adapter.getCount() * 230, LayoutParams.WRAP_CONTENT);
-			
+
 			mGv.setLayoutParams(params);
-			
+
 			adapter.notifyDataSetChanged();
-			
+
 			mHsview.smoothScrollTo(1, 1);
 		}
 	}
@@ -523,19 +564,19 @@ public class UserInfoNewActivity extends BaseActivity implements
 				selectpir.putExtra("imagesize", imagesize);
 				startActivityForResult(selectpir, 100);
 				break;
-				
+
 			case R.id.photo:
-				
+
 				mflag = 1;
-				
+
 				Intent photo = new Intent(UserInfoNewActivity.this, SelectPhotoImages.class);
-				
+
 				photo.putExtra("flag", mflag);
-				
+
 				startActivityForResult(photo, 100);
-				
+
 				break;
-				
+
 			default:
 				break;
 		}
@@ -553,16 +594,16 @@ public class UserInfoNewActivity extends BaseActivity implements
 			case 200:
 				// 上传相册片后
 				String type = data.getStringExtra("type");
-				
+
 				if ("photo".equals(type) & data != null)
 				{
 					Bundle bundle2 = data.getExtras();
-					
+
 					ArrayList<String> datalist = (ArrayList<String>) bundle2
 							.getSerializable("dataList");
-					
+
 					tDataList = new ArrayList<String>();
-					
+
 					for (int i = 0; i < datalist.size(); i++)
 					{
 						Bitmap bitmap = ImageUtils.getSmallBitmap(datalist
@@ -578,33 +619,33 @@ public class UserInfoNewActivity extends BaseActivity implements
 				{
 					String cameraImagePath = data
 							.getStringExtra("cameraImagePath");
-					
+
 					tDataList = new ArrayList<String>();
-					
+
 					tDataList.add(cameraImagePath);
 				}
-				
+
 				selectPhotoImage();
-				
+
 				break;
 			case 101:
 				// 上传头像
 				String type1 = data.getStringExtra("type");
-				
+
 				if ("photo".equals(type1) & data != null)
 				{
 					Bundle bundle3 = data.getExtras();
-					
+
 					ArrayList<String> datalist = (ArrayList<String>) bundle3
 							.getSerializable("dataList");
-					
+
 					tDataList = new ArrayList<String>();
-					
+
 					for (int i = 0; i < datalist.size(); i++)
 					{
 						Bitmap bitmap = ImageUtils.getSmallBitmap(datalist
 								.get(i));
-						
+
 						String string = FileUtils.saveBitToSD(bitmap, System
 								.currentTimeMillis() + "");
 
@@ -615,12 +656,12 @@ public class UserInfoNewActivity extends BaseActivity implements
 				{
 					String cameraImagePath = data
 							.getStringExtra("cameraImagePath");
-					
+
 					tDataList = new ArrayList<String>();
-					
+
 					tDataList.add(cameraImagePath);
 				}
-				
+
 				selectPhotoImage();
 
 				break;
@@ -630,7 +671,7 @@ public class UserInfoNewActivity extends BaseActivity implements
 			default:
 				break;
 		}
-		
+
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 }

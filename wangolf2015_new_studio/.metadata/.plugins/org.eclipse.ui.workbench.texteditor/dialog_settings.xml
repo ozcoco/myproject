@@ -2,27 +2,27 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="273" key="DIALOG_WIDTH"/>
-		<item value="177" key="DIALOG_Y_ORIGIN"/>
-		<item value="1298" key="DIALOG_X_ORIGIN"/>
+		<item value="338" key="DIALOG_Y_ORIGIN"/>
 		<item value="399" key="DIALOG_HEIGHT"/>
+		<item value="1129" key="DIALOG_X_ORIGIN"/>
 		<item value="1|微软雅黑|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|微软雅黑" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="true" key="wrap"/>
-		<item value="false" key="casesensitive"/>
 		<item value="false" key="isRegEx"/>
+		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="loginout" key="selection"/>
+		<item value="loadPostsImg" key="selection"/>
 		<list key="findhistory">
-			<item value="loginout"/>
-			<item value="my_set"/>
-			<item value="getRechargeList"/>
-			<item value="flag"/>
-			<item value="tvOrder"/>
-			<item value="item_order"/>
-			<item value="mRadioGroup"/>
-			<item value="initActionBar"/>
+			<item value="loadPostsImg"/>
+			<item value="Photo"/>
+			<item value="photo"/>
+			<item value="user_new_info"/>
+			<item value="orderlist"/>
+			<item value="Rpage"/>
+			<item value="urlList"/>
+			<item value="getUserInfo"/>
 		</list>
 		<list key="replacehistory">
 			<item value="&gt;7sp&lt;"/>

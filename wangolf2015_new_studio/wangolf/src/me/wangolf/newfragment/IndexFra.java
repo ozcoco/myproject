@@ -37,13 +37,16 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.topnewgrid.bean.ChannelManage;
 import com.example.topnewgrid.bean.KnowledgeChannelManage;
@@ -57,30 +60,6 @@ public class IndexFra extends BaseFragment implements OnClickListener
 
 	@ViewInject(R.id.pull_refresh_list)
 	private PullToRefreshListView				pull_refresh_list;
-
-	// @ViewInject(R.id.practice)
-	// private TextView practice; // 练习场
-	//
-	// @ViewInject(R.id.ballsearch)
-	// private TextView ballsearch; // 球场
-	//
-	// @ViewInject(R.id.knowledge)
-	// private TextView mKnowledge; // 高球常识
-
-	// @ViewInject(R.id.event)
-	// private TextView event; // 最新活动
-
-	// @ViewInject(R.id.more_event)
-	// private RelativeLayout more_event; // 更多活动
-
-	// @ViewInject(R.id.main_shop)
-	// private TextView mShop;
-
-	// @ViewInject(R.id.common_title)
-	// private TextView mLogo;
-
-	// @ViewInject(R.id.ball_main)
-	// private TextView mBall;
 
 	@ViewInject(R.id.index_list)
 	private ListView							mList;
@@ -151,32 +130,11 @@ public class IndexFra extends BaseFragment implements OnClickListener
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		// View view = inflater.inflate(R.layout.ac_index, null);
 
-		// View head = inflater.inflate(R.layout.head_main_new, null);
 
 		View head = inflater.inflate(R.layout.fragment_index_new, null);
 
-		// View foot = inflater.inflate(R.layout.main_list_foot, null);
-
-		// ViewUtils.inject(this, view);
-
 		ViewUtils.inject(this, head);
-
-		// ViewUtils.inject(this, foot);
-
-		// if (adapter == null)
-		// {
-		// adapter = new MainAdapter(getActivity());
-		// }
-		// else
-		// {
-		// adapter.notifyDataSetChanged();
-		// }
-
-		// mList.addHeaderView(head);
-		//
-		// mList.setAdapter(adapter);
 
 		initData();
 
@@ -191,24 +149,6 @@ public class IndexFra extends BaseFragment implements OnClickListener
 		SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 		time = sDateFormat.format(new java.util.Date());
-
-		// practice.setOnClickListener(this);
-		//
-		// ballsearch.setOnClickListener(this);
-		//
-		// event.setOnClickListener(this);
-
-		// more_event.setOnClickListener(this);
-
-		// mShop.setOnClickListener(this);
-		//
-		// mKnowledge.setOnClickListener(this);
-		//
-		// mBall.setOnClickListener(this);
-		//
-		// mSaleexchange.setOnClickListener(this);
-		//
-		// mLogo.setBackground(getResources().getDrawable(R.drawable.logo));
 
 		txt_action.setOnClickListener(this);
 
@@ -491,7 +431,7 @@ public class IndexFra extends BaseFragment implements OnClickListener
 						switch (type)
 						{
 							case 0:
-
+								
 								Intent ball = new Intent(getActivity(), BallInfoActivity.class); // 球场ID跳转到球场
 
 								ball.putExtra("ballid", advid);
@@ -568,6 +508,14 @@ public class IndexFra extends BaseFragment implements OnClickListener
 
 		shop_viewpager.addView(Rpage);
 
+		ImageView img = new ImageView(getActivity());
+		
+		img.setImageResource(R.drawable.banner_05);
+		
+		img.setScaleType(ImageView.ScaleType.FIT_XY);
+		
+		shop_viewpager.addView(img);
+		
 	}
 
 	// ===========滚动图片view=============
@@ -648,7 +596,7 @@ public class IndexFra extends BaseFragment implements OnClickListener
 		{
 			HomePageAdsEntity bean = GsonTools
 					.changeGsonToBean(result, HomePageAdsEntity.class);
-
+			
 			if ("1".equals(bean.getStatus()))
 			{
 				data = bean.getData();
@@ -661,8 +609,8 @@ public class IndexFra extends BaseFragment implements OnClickListener
 
 					urlList.add(path);
 
-				}
-
+				}		
+				
 				initDot(urlList.size());// 初始化滚动图
 
 				initRoll();
@@ -756,6 +704,7 @@ public class IndexFra extends BaseFragment implements OnClickListener
 
 	}
 
+	
 	/**
 	 * @Title: onBallpark
 	 * @Description: 球场按钮单击事件回调事件
@@ -787,6 +736,7 @@ public class IndexFra extends BaseFragment implements OnClickListener
 		getActivity().startActivity(myTeam);
 	}
 
+	
 	/**
 	 * @Title: onAction
 	 * @Description: 活动按钮单击事件回调事件
@@ -812,7 +762,7 @@ public class IndexFra extends BaseFragment implements OnClickListener
 	public void onCollege(View view)
 	{
 		
-		Intent college = new Intent(getActivity(), CollegeCollegePage.class);
+		Intent college = new Intent(getActivity(), CollegePage.class);
 
 		getActivity().startActivity(college);;
 

@@ -1,13 +1,18 @@
 package me.wangolf.usercenter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -41,49 +46,55 @@ import me.wangolf.utils.viewUtils.PullToRefreshBase.OnRefreshListener;
 public class OrderListActivity extends BaseActivity implements OnClickListener
 {
 	@ViewInject(R.id.common_back)
-	private Button											common_back;		// 后退
+	private Button											common_back;									// 后退
 
 	@ViewInject(R.id.common_title)
-	private TextView										common_title;		// 标题
+	private TextView										common_title;									// 标题
 
 	@ViewInject(R.id.common_bt)
-	private TextView										common_bt;			// 地图
+	private TextView										common_bt;										// 地图
 
-	private String											user_id;			// 用户ID
+	private String											user_id;										// 用户ID
 
-	private int												type	= 0;		// 类型0练习场1球场2商品
+	private int												type				= 0;						// 类型0练习场1球场2商品
 
-	private int												page	= 1;		// 页码
+	private int												page				= 1;						// 页码
 
-	private int												number	= 10;		// 大小
+	private int												number				= 10;						// 大小
 
 	@ViewInject(R.id.pull_refresh_list)
-	private PullToRefreshListView							pull_refresh_list;	// 下拉刷新
+	private PullToRefreshListView							pull_refresh_list;								// 下拉刷新
 
 	private OrderListAdapter<OrBallListEntity.DataEntity>	adapter;
 
-	private List<OrBallListEntity.DataEntity>				data;
+	private List<OrBallListEntity.DataEntity>				data = new ArrayList<OrBallListEntity.DataEntity>();
 
 	@ViewInject(R.id.rb_practice)
-	private RadioButton										rb_practice;		// 练习场
+	private RadioButton										rb_practice;									// 练习场
 
 	@ViewInject(R.id.rb_ball)
-	private RadioButton										rb_ball;			// 球场
+	private RadioButton										rb_ball;										// 球场
 
 	@ViewInject(R.id.rb_shop)
-	private RadioButton										rb_shop;			// 商品
+	private RadioButton										rb_shop;										// 商品
 
 	@ViewInject(R.id.relayout)
-	private RelativeLayout									relayout;			// 没有更多
-																				// 数据
+	private RelativeLayout									relayout;										// 没有更多
+																											// 数据
+	private boolean											ismore;										// 是否有更多数据
 
-	private boolean											ismore;				// 是否有更多数据
+	private boolean											isR;											// 是否上拉刷新
 
-	private boolean											isR;				// 是否上拉刷新
-
-	private boolean											ismoredata;			// 是否下拉加载
+	private boolean											ismoredata;									// 是否下拉加载
 
 	private Dialog											dialog;
+
+	/**
+	 * @Fields mRefreshReceiver : 更新数据
+	 */
+	RefreshReceiver											mRefreshReceiver	= null;
+
+	public static String									ACTION_REFRESH_DATA	= "action.refresh.data";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -98,6 +109,8 @@ public class OrderListActivity extends BaseActivity implements OnClickListener
 		{
 			adapter = new OrderListAdapter<OrBallListEntity.DataEntity>(this);
 
+			adapter.setmListItems(data);
+			
 			pull_refresh_list.getRefreshableView().setAdapter(adapter);
 		}
 		else
@@ -168,6 +181,7 @@ public class OrderListActivity extends BaseActivity implements OnClickListener
 				});
 	}
 
+	
 	@Override
 	public void initData()
 	{
@@ -231,6 +245,8 @@ public class OrderListActivity extends BaseActivity implements OnClickListener
 		getData();
 	}
 
+
+	
 	@Override
 	public void getData()
 	{
@@ -246,7 +262,6 @@ public class OrderListActivity extends BaseActivity implements OnClickListener
 
 						private List<DataEntity>	list;
 
-						@SuppressWarnings("unchecked")
 						@Override
 						public void getIOAuthCallBack(String result)
 						{
@@ -257,6 +272,7 @@ public class OrderListActivity extends BaseActivity implements OnClickListener
 							}
 							else
 							{
+								
 								OrBallListEntity bean = GsonTools
 										.changeGsonToBean(result, OrBallListEntity.class);
 
@@ -270,13 +286,9 @@ public class OrderListActivity extends BaseActivity implements OnClickListener
 
 									Toast.makeText(getApplicationContext(), ConstantValues.NOMORE, 0)
 											.show();
-
 								}
 								else
-								{
-									data = (List<OrBallListEntity.DataEntity>) bean
-											.getData();
-
+								{		
 									list = adapter.getmListItems();
 
 									relayout.setVisibility(8);
@@ -285,18 +297,17 @@ public class OrderListActivity extends BaseActivity implements OnClickListener
 									{
 										list.clear();
 
-										list.addAll(data);
-
+										list.addAll(bean.getData());
 									}
 									else
 									{
 										if (list != null & ismoredata)
 										{
-											list.addAll(data);
+											list.addAll(bean.getData());
 										}
 										else
 										{
-											adapter.setmListItems(data);
+											adapter.setmListItems(bean.getData());
 										}
 									}
 
@@ -392,7 +403,9 @@ public class OrderListActivity extends BaseActivity implements OnClickListener
 				break;
 
 			case R.id.common_back:
+				
 				finish();
+				
 			default:
 				break;
 		}
@@ -425,9 +438,8 @@ public class OrderListActivity extends BaseActivity implements OnClickListener
 											.showInfo(getApplicationContext(), bean
 													.getInfo());
 
-									getData();
-
-									adapter.notifyDataSetChanged();
+									getBaseContext()
+											.sendBroadcast(new Intent(ACTION_REFRESH_DATA));
 
 								}
 								else
@@ -509,6 +521,98 @@ public class OrderListActivity extends BaseActivity implements OnClickListener
 		pull_refresh_list.onPullDownRefreshComplete();
 
 		pull_refresh_list.onPullUpRefreshComplete();
+	}
+
+	/**
+	 * @Title: initRefreshReceiver
+	 * @Description: 更新数据
+	 * @param 设定文件
+	 * @return void 返回类型
+	 * @throws
+	 */
+	private void initRefreshReceiver()
+	{
+
+		mRefreshReceiver = new RefreshReceiver();
+
+		IntentFilter filter = new IntentFilter(ACTION_REFRESH_DATA);
+
+		registerReceiver(mRefreshReceiver, filter);
+
+	}
+
+	/**
+	 * @Title: refreshData
+	 * @Description: 刷新数据
+	 * @param 设定文件
+	 * @return void 返回类型
+	 * @throws
+	 */
+	void refreshData()
+	{
+
+		dialog.show();
+		
+		try
+		{
+			ServiceFactory
+					.getIUserEngineInstatice()
+					.getOrderList(user_id, type, page, number, new IOAuthCallBack()
+					{
+
+						@Override
+						public void getIOAuthCallBack(String result)
+						{
+							OrBallListEntity bean = GsonTools
+									.changeGsonToBean(result, OrBallListEntity.class);
+							
+							adapter.getmListItems().clear();
+							
+							adapter.getmListItems().addAll(bean.getData());
+							
+							adapter.notifyDataSetChanged();
+							
+							dialog.cancel();
+						}
+
+					});
+		}
+		catch(Exception e)
+		{
+
+			e.printStackTrace();
+		}
+
+	}
+
+	@Override
+	protected void onStart()
+	{
+		initRefreshReceiver();
+
+		super.onStart();
+	}
+
+	@Override
+	protected void onDestroy()
+	{
+
+		unregisterReceiver(mRefreshReceiver);
+
+		super.onDestroy();
+	}
+
+	public final class RefreshReceiver extends BroadcastReceiver
+	{
+
+		@Override
+		public void onReceive(Context context, Intent intent)
+		{
+
+			refreshData();
+
+		}
+
 	}
 
 }

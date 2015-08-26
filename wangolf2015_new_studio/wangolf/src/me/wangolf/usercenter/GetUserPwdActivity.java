@@ -142,18 +142,32 @@ public class GetUserPwdActivity extends BaseActivity implements OnClickListener
 					Toast.makeText(this, "请输入正确的手机号码", 0).show();
 					return;
 				}
+
 				if (CheckUtils.checkEmpty(code))
 				{
 					Toast.makeText(this, "验证码不能为空", 0).show();
 					return;
 				}
-				if (CheckUtils.checkEmpty(password))
+
+				if (ed_npassword.getText().toString().isEmpty())
 				{
 					Toast.makeText(this, "新密码不能为空", 0).show();
 					return;
 				}
+				else
+				{
+					if (ed_npassword.getText().toString().length() < 6 || ed_npassword
+							.getText().toString().length() > 16)
+					{
+						Toast.makeText(this, "密码必须为6-16位字符", 0).show();
+						return;
+					}
+				}
+				
 				doResetPwd();
+
 				break;
+				
 			default:
 				break;
 		}
@@ -224,9 +238,9 @@ public class GetUserPwdActivity extends BaseActivity implements OnClickListener
 										.show();
 							}
 							else
-							{								
+							{
 								InfoEntity bean = GsonTools.changeGsonToBean(result, InfoEntity.class);
-								
+
 								if ("1".equals(bean.getStatus()))
 								{
 									Toast.makeText(getApplicationContext(), bean

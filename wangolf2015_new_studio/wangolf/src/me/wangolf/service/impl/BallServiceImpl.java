@@ -48,16 +48,9 @@ public class BallServiceImpl implements IBallService
 	@Override
 	public void getBallInfo(String court_id, String date, IOAuthCallBack iOAuthCallBack) throws Exception
 	{
-
-//		params = new RequestParams();
-//		params.addBodyParameter("m", "Ball");
-//		params.addBodyParameter("a", "ballinfo");
-//		params.addBodyParameter("ballid", ballid);
-//		params.addBodyParameter("date", date);
-//		Xutils.getDataFromServer(params, iOAuthCallBack);
 		
 		String api = BaseUrl + "webCourt/detail?"				
-				+ "&date=" + date
+				+ "date=" + date
 				+ "&court_id=" + court_id;	
 		
 		Xutils.getDataFromServer(api, iOAuthCallBack);

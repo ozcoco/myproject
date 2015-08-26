@@ -22,6 +22,11 @@ import java.util.ArrayList;
  * ============================================================
  **/
 public interface ICommunityService {
+	
+	
+	public void getSelfPostsList(String user_id, String praise_user_id, String tags_id, int page, int number, IOAuthCallBack iOAuthCallBack) throws Exception;
+	
+	
 	/**
 	 * 1置顶接口
 	 * 

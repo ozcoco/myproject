@@ -11,6 +11,7 @@ import me.wangolf.utils.CheckUtils;
 import me.wangolf.utils.Xutils;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -35,26 +36,7 @@ public class OrderListAdapter<T> extends BaseAdapter
 
 	private OrderListActivity	order_activity;
 
-	private class ViewHolder
-	{
-		public TextView		title;
-
-		public TextView		sn;
-
-		public TextView		attime;
-
-		public TextView		info;
-
-		public TextView		status;
-
-		public TextView		amount;
-
-		public ImageView	icon;
-
-		public TextView		orderCancel;
-
-	}
-
+	
 	public OrderListAdapter(Context context)
 	{
 		this.context = context;
@@ -63,11 +45,13 @@ public class OrderListAdapter<T> extends BaseAdapter
 
 	}
 
+	
 	public List<T> getmListItems()
 	{
 		return mListItems;
 	}
 
+	
 	public void setmListItems(List<T> mListItems)
 	{
 		this.mListItems = mListItems;
@@ -91,29 +75,40 @@ public class OrderListAdapter<T> extends BaseAdapter
 		return position;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent)
 	{
-		View view = convertView;
-		final ViewHolder holder;
+		
+		ViewHolder holder = null;
+		
 		if (convertView == null)
 		{
-			view = View.inflate(context, R.layout.item_order_list, null);
+			convertView = View.inflate(context, R.layout.item_order_list, null);
+			
 			holder = new ViewHolder();
-			holder.title = (TextView) view.findViewById(R.id.title);
-			holder.sn = (TextView) view.findViewById(R.id.sn);
-			holder.attime = (TextView) view.findViewById(R.id.attime);
-			holder.info = (TextView) view.findViewById(R.id.info);
-			holder.status = (TextView) view.findViewById(R.id.status);
-			holder.amount = (TextView) view.findViewById(R.id.amount);
-			holder.icon = (ImageView) view.findViewById(R.id.icon);
-			holder.orderCancel = (TextView) view.findViewById(R.id.orderCancel);
-
-			view.setTag(holder);
+			
+			holder.title = (TextView) convertView.findViewById(R.id.title);
+			
+			holder.sn = (TextView) convertView.findViewById(R.id.sn);
+			
+			holder.attime = (TextView) convertView.findViewById(R.id.attime);
+			
+			holder.info = (TextView) convertView.findViewById(R.id.info);
+			
+			holder.status = (TextView) convertView.findViewById(R.id.status);
+			
+			holder.amount = (TextView) convertView.findViewById(R.id.amount);
+			
+			holder.icon = (ImageView) convertView.findViewById(R.id.icon);
+			
+			holder.orderCancel = (TextView) convertView.findViewById(R.id.orderCancel);
+			
+			convertView.setTag(holder);
 		}
 		else
 		{
-			holder = (ViewHolder) view.getTag();
+			holder = (ViewHolder) convertView.getTag();
 		}
 
 		OrBallListEntity.DataEntity bean = (DataEntity) mListItems
@@ -131,6 +126,8 @@ public class OrderListAdapter<T> extends BaseAdapter
 
 		String path_1 = bean.getIcon();
 
+		Log.i("图片网址", path_1);
+		
 		if (!CheckUtils.checkEmpty(path_1))
 		{
 			path_1 = path_1.substring(0, path_1.lastIndexOf(".")) + "_180_180" + path_1
@@ -143,7 +140,7 @@ public class OrderListAdapter<T> extends BaseAdapter
 
 		String status = "";
 
-		holder.orderCancel.setVisibility(8);
+		holder.orderCancel.setVisibility(View.VISIBLE);
 
 		holder.status.setBackgroundResource(R.drawable.tv_all_round_white_s);
 
@@ -197,9 +194,10 @@ public class OrderListAdapter<T> extends BaseAdapter
 			holder.orderCancel.setOnClickListener(new OrderOnClickListener(bean
 					.getOut_trade_no()));
 		}
+		
 		holder.status.setText(status);
 
-		return view;
+		return convertView;
 	}
 
 	/**
@@ -251,4 +249,26 @@ public class OrderListAdapter<T> extends BaseAdapter
 		}
 	}
 
+	
+	
+	private class ViewHolder
+	{
+		public TextView		title;
+
+		public TextView		sn;
+
+		public TextView		attime;
+
+		public TextView		info;
+
+		public TextView		status;
+
+		public TextView		amount;
+
+		public ImageView	icon;
+
+		public TextView		orderCancel;
+
+	}
+	
 }
