@@ -102,9 +102,16 @@ public class WeComeActivity extends BaseActivity
                 } 
                 else 
                 {
-//                	start = new Intent(getApplicationContext(), me.wangolf.newfragment.MainActivity.class);
                 	
+                	if (ConstantValues.isFirstRun)
+                		
+                	start = new Intent(getApplicationContext(), NavigationActivity.class);
+                	
+                	else
+                		
                     start = new Intent(getApplicationContext(), me.wangolf.newfragment.MainActivityNew.class);
+                    
+                    
                 }
                 
                 startActivity(start);

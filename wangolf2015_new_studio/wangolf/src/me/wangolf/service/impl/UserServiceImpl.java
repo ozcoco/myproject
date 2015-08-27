@@ -199,12 +199,14 @@ public class UserServiceImpl implements IUserService
 	@Override
 	public void upLoad(String user_id, String path, IOAuthCallBack iOAuthCallBack)
 	{
-		String api = BaseUrl + "webImage/avatar";
+//		String api = BaseUrl + "webImage/avatar";
 
+		String api = "http://192.168.1.239:8080/golf/" + "webImage/avatar";
+		
 		api += "?terminal=1&user_id="+ ConstantValues.UID+"&unique_key=" + ConstantValues.UNIQUE_KEY;
 				
-		params.addBodyParameter("avatar_file", new File(path));
-	
+		params.addBodyParameter("avatar_file", new File(path), "multipart/form-data");			
+		
 		Xutils.getImageDataFromServer(api, params, iOAuthCallBack);
 
 	}

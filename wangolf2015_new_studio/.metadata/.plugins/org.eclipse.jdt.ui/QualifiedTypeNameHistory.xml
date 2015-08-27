@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.lang.Thread.UncaughtExceptionHandler"/>
-<fullyQualifiedTypeName name="com.meigao.mgolf.R"/>
 <fullyQualifiedTypeName name="me.wangolf.utils.ImageViewUtil"/>
 <fullyQualifiedTypeName name="android.widget.PopupWindow"/>
 <fullyQualifiedTypeName name="me.wangolf.view.LoopView"/>
@@ -22,7 +20,6 @@
 <fullyQualifiedTypeName name="com.meigao.mgolf.R.layout"/>
 <fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
 <fullyQualifiedTypeName name="me.wangolf.newfragment.MainActivityNew"/>
-<fullyQualifiedTypeName name="me.wangolf.ConstantValues"/>
 <fullyQualifiedTypeName name="android.widget.ImageView"/>
 <fullyQualifiedTypeName name="android.widget.ImageView.ScaleType"/>
 <fullyQualifiedTypeName name="com.meigao.mgolf.R.drawable"/>
@@ -59,5 +56,8 @@
 <fullyQualifiedTypeName name="net.tsz.afinal.http.AjaxCallBack"/>
 <fullyQualifiedTypeName name="net.tsz.afinal.http.AjaxParams"/>
 <fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="org.apache.http.HttpEntity"/>
+<fullyQualifiedTypeName name="com.lidroid.xutils.http.RequestParams"/>
 <fullyQualifiedTypeName name="java.io.FileInputStream"/>
+<fullyQualifiedTypeName name="me.wangolf.ConstantValues"/>
 </qualifiedTypeNameHistroy>

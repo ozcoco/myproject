@@ -108,8 +108,6 @@ public class Xutils
 			public void onLoading(long total, long current, boolean isUploading)
 			{
 				
-				Log.i("进度", current + "/" + total+"......");
-				
 			}
 
 			@Override

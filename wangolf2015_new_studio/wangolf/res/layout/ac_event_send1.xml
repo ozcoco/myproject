@@ -18,7 +18,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:orientation="vertical"
@@ -47,7 +47,7 @@
                 </EditText>
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/textView1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -64,7 +64,7 @@
                 android:clickable="true" >
 
                 <TextView
-                    android:id="@+id/TextView03"
+                    android:id="@+id/TextView02"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -79,7 +79,7 @@
                     android:layout_height="@dimen/layout_height_40"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/TextView03"
+                    android:layout_toRightOf="@+id/TextView02"
                     android:background="@drawable/tv_all_round"
                     android:clickable="true"
                     android:gravity="center_vertical"
@@ -90,7 +90,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/relaytoshowDate"
+                android:id="@+id/relaytoshowDate_"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/layout_height_50"
                 android:clickable="true" >
@@ -190,7 +190,6 @@
                     android:layout_height="@dimen/layout_height_40"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/TextView05"
                     android:background="@drawable/tv_all_round"
                     android:hint="请填写参加人数"
                     android:inputType="text"
@@ -198,7 +197,7 @@
                     android:textSize="@dimen/m_font" />
 
                 <TextView
-                    android:id="@+id/TextView05"
+                    android:id="@+id/TextView06"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -218,7 +217,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_toRightOf="@+id/TextView05"
                     android:background="@drawable/tv_all_round"
                     android:gravity="top"
                     android:hint="不能少于10字"
@@ -229,7 +227,7 @@
                     android:textSize="@dimen/m_font" />
 
                 <TextView
-                    android:id="@+id/TextView05"
+                    android:id="@+id/TextView07"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -245,7 +243,7 @@
                 android:layout_marginTop="8dp" >
 
                 <TextView
-                    android:id="@+id/TextView05"
+                    android:id="@+id/TextView08"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -257,7 +255,6 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_alignParentLeft="true"
-                    android:layout_below="@+id/TextView05"
                     android:layout_margin="8dp"
                     android:background="@drawable/textlines_all"
                     android:clickable="true"

@@ -15,12 +15,13 @@ public class ShareUtils
 	public static void showShare(String sharetitle, Context context, String picfile)
 	{
 		ShareSDK.initSDK(context);
+		
 		OnekeyShare oks = new OnekeyShare();
 		// 关闭sso授权
 		oks.disableSSOWhenAuthorize();
 
 		// 分享时Notification的图标和文字
-		oks.setNotification(R.drawable.ic_launcher, context
+		oks.setNotification(R.drawable.logo_new, context
 				.getString(R.string.app_name));
 		// title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
 		oks.setTitle(context.getString(R.string.share));
@@ -51,7 +52,7 @@ public class ShareUtils
 		// 关闭sso授权
 		oks.disableSSOWhenAuthorize();
 		// 分享时Notification的图标和文字
-		oks.setNotification(R.drawable.ic_launcher, context
+		oks.setNotification(R.drawable.logo_new, context
 				.getString(R.string.app_name));
 		// title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
 		oks.setTitle(CheckUtils.checkEmpty(sharetitle) ? context

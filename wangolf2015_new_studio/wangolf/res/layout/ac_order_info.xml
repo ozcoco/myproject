@@ -274,6 +274,7 @@
             android:layout_marginTop="5dp">
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/expire_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -286,6 +287,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="此二维码供商家验证消费时使用，请勿向外泄露。"
+                android:textColor="@color/common_text_h1"
+                android:visibility="gone" />
+
             <ImageView
                 android:id="@+id/iv_qrcode"
                 android:layout_width="130dp"
@@ -293,14 +304,6 @@
                 android:clickable="true"
 
                 android:layout_gravity="center_horizontal" />
-        <TextView
-            android:id="@+id/tv_info"
-            android:layout_width="match_parent"
-            android:gravity="center_horizontal"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:textColor="@color/common_text_h1"
-            android:text="此二维码供商家验证消费时使用，请勿向外泄露。"/>
 
         </LinearLayout>
         <RelativeLayout

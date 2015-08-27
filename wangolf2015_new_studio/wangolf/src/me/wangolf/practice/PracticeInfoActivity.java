@@ -423,7 +423,7 @@ public class PracticeInfoActivity extends BaseActivity implements
 
 				}
 
-				LogUtils.d("sharetitle="+sharetitle+",shareUrl="+shareUrl+",imagename="+imagename);
+				Log.i("分享内容", "sharetitle="+sharetitle+",shareUrl="+shareUrl+",imagename="+imagename);
 				
 				ShareUtils
 						.showShareandUrl(sharetitle, shareUrl, this, CheckUtils

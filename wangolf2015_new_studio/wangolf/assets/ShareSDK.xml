@@ -116,7 +116,7 @@
     <WechatMoments
         AppId="wxabfbba326a013705"
         AppSecret="b7505ee28dd40e3318126cfa1dbe1270"
-        BypassApproval="true"
+        BypassApproval="false"
         Enable="true"
         Id="5"
         SortId="5" />

@@ -21,7 +21,7 @@
 
 
 
-
+-libraryjars libs/afinal_0.5.1_bin.jar
 -libraryjars libs/xUtils-2.6.14.jar
 -libraryjars libs/android-support-v4.jar
 -libraryjars libs/BaiduLBS_Android.jar
@@ -68,8 +68,8 @@
 -keep class com.alibaba.fastjson..** { *; } 
 -keep class com.google.gson..** { *; } 
 -keep class org.apache..** { *; } 
- -keep class cn.sharesdk.** { *; }
- -keep class kankan.wheel..** { *; }
+-keep class cn.sharesdk.** { *; }
+-keep class kankan.wheel..** { *; }
 -keep class  com.alipay.android.app..** { *; } 
 #银联
 -libraryjars libs/UPPayAssistEx.jar

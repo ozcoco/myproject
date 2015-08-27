@@ -3,6 +3,7 @@ package me.wangolf.usercenter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import me.wangolf.ConstantValues;
@@ -39,7 +40,13 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.meigao.mgolf.R;
 
@@ -180,6 +187,7 @@ public class UserInfoNewActivity extends BaseActivity implements
 		// getUserImages();
 	}
 
+	
 	// 获取用户数据
 	@Override
 	public void getData()
@@ -202,6 +210,8 @@ public class UserInfoNewActivity extends BaseActivity implements
 							}
 							else
 							{
+								Log.i("初始化结果", result);
+								
 								UserInfoNewEntity bean = GsonTools
 										.changeGsonToBean(result, UserInfoNewEntity.class);
 								if (bean.getStatus() == 1)
@@ -273,14 +283,18 @@ public class UserInfoNewActivity extends BaseActivity implements
 		}
 	}
 
+	
+	
 	void upHead(String path)
 	{
 
 		String photo = ImageUtils.compressImage(path);
-		
+				
 		FinalHttp finalHttp = new FinalHttp();
-
-		String api = ConstantValues.BaseApi + "webImage/avatar";	
+		
+		finalHttp.configCharset("utf-8");				
+		
+		String api = "http://192.168.1.239:8080/golf/" + "webImage/avatar";	
 		
 		api += "?terminal=1&user_id="+ ConstantValues.UID+"&unique_key=" + ConstantValues.UNIQUE_KEY;
 		
@@ -292,7 +306,7 @@ public class UserInfoNewActivity extends BaseActivity implements
 		}
 		catch(FileNotFoundException e)
 		{
-			e.printStackTrace();
+			e.printStackTrace();			
 		}
 		
 		finalHttp.post(api, params, new AjaxCallBack<String>()
@@ -304,8 +318,7 @@ public class UserInfoNewActivity extends BaseActivity implements
 				super.onLoading(count, current);
 				
 				Log.i("进度", current+"/"+count+"......");
-								
-				
+												
 			}
 
 			@Override
@@ -315,23 +328,102 @@ public class UserInfoNewActivity extends BaseActivity implements
 				super.onSuccess(t);
 				
 				Log.i("结果", t);
-				
-				
+								
 			}
 
 		});
 
 	}
 
+	
+	
+	 void upImageNative(String path)
+	{
+		final String photo = ImageUtils.compressImage(path);
+		
+		String api = ConstantValues.BaseApi + "webImage/avatar";	
+		
+		api += "?terminal=1&user_id="+ ConstantValues.UID+"&unique_key=" + ConstantValues.UNIQUE_KEY;
+			
+		HttpUtils http = new HttpUtils();
+		
+		RequestParams params = new RequestParams("utf-8");
+					
+		params.addBodyParameter("avatar_file", new File(photo), "image/jpeg");	
+
+//		params.setHeader("contentType", "multipart/form-data");
+		
+		http.send(HttpRequest.HttpMethod.POST, api, params, new RequestCallBack<String>()
+		{
+
+			@Override
+			public void onStart()
+			{
+
+			}
+
+			@Override
+			public void onLoading(long total, long current, boolean isUploading)
+			{
+				
+				Log.i("进度", current+"/"+total+"......");
+				
+			}
+
+			@Override
+			public void onSuccess(ResponseInfo<String> responseInfo)
+			{				
+
+				Log.i("结果", responseInfo.result);
+
+				InfoEntity bean = GsonTools
+						.changeGsonToBean(responseInfo.result, InfoEntity.class);
+
+				Log.i("解析结果", bean.getData().get(0).getUrl());
+				
+				if ("1".equals(bean.getStatus()))
+				{
+					getData();
+			
+					ToastUtils
+							.showInfo(UserInfoNewActivity.this, "更新" + bean
+									.getInfo());
+				}
+				else
+				{
+					ToastUtils
+							.showInfo(UserInfoNewActivity.this, bean
+									.getInfo());
+				}
+
+				// 上传后清空图片
+				dialog.cancel();
+
+				FileUtils.clearImage();				
+				
+			}
+
+			@Override
+			public void onFailure(HttpException error, String msg)
+			{
+			
+				ToastUtils.showInfo(UserInfoNewActivity.this, ConstantValues.NONETWORK);
+				
+			}
+		});
+		
+		
+	}
+	
 	// 更新头像
 	public void upLoad(String path)
 	{
 		
-		upHead(path);
-
-//		String photo = ImageUtils.compressImage(path);
+		upImageNative(path);
+		
+//		upHead(path);
 //
-//		Log.i("头像地址", photo);
+//		String photo = ImageUtils.compressImage(path);
 //
 //		try
 //		{
@@ -341,13 +433,16 @@ public class UserInfoNewActivity extends BaseActivity implements
 //						@Override
 //						public void getIOAuthCallBack(String result)
 //						{
+//							
+//							Log.i("结果", result);
+//							
 //							if (result.equals(ConstantValues.FAILURE))
 //							{
 //								ToastUtils.showInfo(UserInfoNewActivity.this, ConstantValues.NONETWORK);
 //							}
 //							else
 //							{
-//								Log.i("调用头像接口返回结果", result);
+//								Log.i("结果", result);
 //
 //								InfoEntity bean = GsonTools
 //										.changeGsonToBean(result, InfoEntity.class);
@@ -381,6 +476,7 @@ public class UserInfoNewActivity extends BaseActivity implements
 //		}
 	}
 
+	
 	// ***图片上传
 	public void loadPostsImg(ArrayList<String> avatar_file, int i)
 	{

@@ -34,6 +34,18 @@ public class InfoEntity implements Serializable
 	
 	private ArrayList<InfoEntity> data;
 
+	private String url;
+	
+	public String getUrl()
+	{
+		return url;
+	}
+
+	public void setUrl(String url)
+	{
+		this.url = url;
+	}
+
 	public String getStatus() 
 	{
 		return status;

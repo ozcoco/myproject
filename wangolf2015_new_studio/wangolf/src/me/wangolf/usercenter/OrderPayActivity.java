@@ -284,16 +284,16 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 									self_amount = Double.valueOf(data
 											.getAccount());
 									// self_amount=10;
-									pamount.setText("￥" + self_amount);
+									pamount.setText("￥" + (int)self_amount);
 
 									if (self_amount > order_amount)
 									{
 										tv_kou_yue
-												.setText("使用￥" + order_amount);
+												.setText("使用￥" + (int)order_amount);
 									}
 									else
 									{
-										tv_kou_yue.setText("使用￥" + self_amount);
+										tv_kou_yue.setText("使用￥" + (int)self_amount);
 									}
 
 								}
@@ -645,17 +645,17 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 					{
 						needpay.setText("￥" + ("0"));
 						tv_kou_yue
-								.setText("使用￥" + (order_amount - vouchers_amount));
+								.setText("使用￥" + (int)(order_amount - vouchers_amount));
 					}
 					else
 					{
-						tv_kou_yue.setText("使用￥" + (self_amount));
-						needpay.setText("￥" + ((order_amount - self_amount - vouchers_amount) > 0.0 ? order_amount - self_amount - vouchers_amount : "0"));
+						tv_kou_yue.setText("使用￥" + (int)(self_amount));
+						needpay.setText("￥" + (int)((order_amount - self_amount - vouchers_amount) > 0.0 ? order_amount - self_amount - vouchers_amount : 0));
 					}
 				}
 				else
 				{
-					needpay.setText("￥" + ((order_amount - vouchers_amount) > 0 ? (order_amount - vouchers_amount) : "0"));
+					needpay.setText("￥" + (int)((order_amount - vouchers_amount) > 0 ? (order_amount - vouchers_amount) : 0));
 					if (order_amount - vouchers_amount < 0)
 					{
 						pamount_pay.setClickable(false);
@@ -687,12 +687,12 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 					}
 					else
 					{
-						needpay.setText("￥" + (order_amount - self_amount - vouchers_amount));
+						needpay.setText("￥" + (int)(order_amount - self_amount - vouchers_amount));
 					}
 				}
 				else
 				{
-					needpay.setText("￥" + (order_amount - vouchers_amount));
+					needpay.setText("￥" + (int)(order_amount - vouchers_amount));
 				}
 				snprice.setText("");
 			}
@@ -1012,7 +1012,7 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 					{
 						// 网银支付
 						tv_kou_yue.setVisibility(View.GONE);
-						needpay.setText("￥" + (order_amount - vouchers_amount));
+						needpay.setText("￥" + (int)(order_amount - vouchers_amount));
 						payment = "1";
 						setDrawable(rdWeipay);
 						use_amount = true;
@@ -1022,11 +1022,11 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 						// 使用余额
 						tv_kou_yue.setVisibility(View.VISIBLE);
 						tv_kou_yue
-								.setText("使用￥" + (order_amount - vouchers_amount));
+								.setText("使用￥" + (int)(order_amount - vouchers_amount));
 						setDrawable(rd);
 						payment = "4";
 						use_amount = false;
-						needpay.setText(self_amount > order_amount ? "￥0" : "￥" + (order_amount - self_amount - vouchers_amount));
+						needpay.setText(self_amount > order_amount ? "￥0" : "￥" + (int)(order_amount - self_amount - vouchers_amount));
 					}
 				}
 				else if (self_amount > 0)
@@ -1035,7 +1035,7 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 					if (!checkbox.isChecked())
 					{
 						tv_kou_yue.setVisibility(View.GONE);
-						needpay.setText("￥" + (order_amount - vouchers_amount));
+						needpay.setText("￥" + (int)(order_amount - vouchers_amount));
 						payment = "1";
 						setDrawable(rdWeipay);
 						use_amount = true;// 使用余款+网银
@@ -1046,7 +1046,7 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 						tv_kou_yue.setVisibility(View.VISIBLE);
 						payment = "1";
 						use_amount = false;// 使用余额
-						needpay.setText(self_amount > order_amount ? "￥0" : "￥" + (order_amount - self_amount - vouchers_amount));
+						needpay.setText(self_amount > order_amount ? "￥0" : "￥" + (int)(order_amount - self_amount - vouchers_amount));
 					}
 
 				}
@@ -1062,7 +1062,7 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 
 			case R.id.rdUnionPay:
 				// 点击网银支付
-				needpay.setText(self_amount > order_amount ? "￥" + (order_amount - vouchers_amount) : "￥" + (order_amount - self_amount - vouchers_amount));
+				needpay.setText(self_amount > order_amount ? "￥" + (int)(order_amount - vouchers_amount) : "￥" + (int)(order_amount - self_amount - vouchers_amount));
 				if (!use_amount)
 				{
 					checkbox.setChecked(self_amount > order_amount ? false : true);
@@ -1072,7 +1072,7 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 				}
 				else
 				{
-					needpay.setText("￥" + (order_amount - vouchers_amount));
+					needpay.setText("￥" + (int)(order_amount - vouchers_amount));
 					checkbox.setChecked(false);
 					tv_kou_yue.setVisibility(View.GONE);
 				}
@@ -1087,7 +1087,7 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 
 			case R.id.rdAlipay:
 				// 点击支付宝支付
-				needpay.setText(self_amount > order_amount ? "￥" + (order_amount - vouchers_amount) : "￥" + (order_amount - self_amount - vouchers_amount));
+				needpay.setText(self_amount > order_amount ? "￥" + (int)(order_amount - vouchers_amount) : "￥" + (int)(order_amount - self_amount - vouchers_amount));
 				if (!use_amount)
 				{
 					checkbox.setChecked(self_amount > order_amount ? false : true);
@@ -1097,7 +1097,7 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 				}
 				else
 				{
-					needpay.setText("￥" + (order_amount - vouchers_amount));
+					needpay.setText("￥" + (int)(order_amount - vouchers_amount));
 					checkbox.setChecked(false);
 					tv_kou_yue.setVisibility(View.GONE);
 				}
@@ -1110,7 +1110,7 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 				// 点击微信支付
 				if (!use_amount)
 				{
-					needpay.setText(self_amount > order_amount ? "￥" + (order_amount - vouchers_amount) : "￥" + (order_amount - self_amount - vouchers_amount));
+					needpay.setText(self_amount > order_amount ? "￥" + (int)(order_amount - vouchers_amount) : "￥" + (int)(order_amount - self_amount - vouchers_amount));
 					checkbox.setChecked(self_amount > order_amount ? false : true);
 					use_amount = self_amount > order_amount ? true : false;
 					tv_kou_yue
@@ -1118,7 +1118,7 @@ public class OrderPayActivity extends BaseActivity implements OnClickListener
 				}
 				else
 				{
-					needpay.setText("￥" + (order_amount - vouchers_amount));
+					needpay.setText("￥" + (int)(order_amount - vouchers_amount));
 					checkbox.setChecked(false);
 					tv_kou_yue.setVisibility(View.GONE);
 				}

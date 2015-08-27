@@ -9,9 +9,9 @@
         android:id="@+id/pop_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="#DFDFDF"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:background="#DFDFDF"
         android:orientation="vertical" >
 
         <TextView
@@ -34,18 +34,18 @@
                 android:id="@+id/orderBy1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-               android:paddingLeft="15dp"
                 android:button="@drawable/complain"
+                android:paddingLeft="15dp"
                 android:text="广告"
                 android:textColor="@color/common_text" />
 
             <RadioButton
-                android:layout_marginLeft="15dp"
                 android:id="@+id/orderBy2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-             android:paddingLeft="15dp"
+                android:layout_marginLeft="15dp"
                 android:button="@drawable/complain"
+                android:paddingLeft="15dp"
                 android:text="色情"
                 android:textColor="@color/common_text" />
 
@@ -53,19 +53,19 @@
                 android:id="@+id/orderBy3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-       android:paddingLeft="15dp"
-        android:layout_marginLeft="15dp"
+                android:layout_marginLeft="15dp"
                 android:button="@drawable/complain"
+                android:paddingLeft="15dp"
                 android:text="反动"
                 android:textColor="@color/common_text" />
 
             <RadioButton
-                android:id="@+id/orderBy3"
+                android:id="@+id/orderBy4"
                 android:layout_width="wrap_content"
-            android:paddingLeft="15dp"
-             android:layout_marginLeft="15dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
                 android:button="@drawable/complain"
+                android:paddingLeft="15dp"
                 android:text="其他"
                 android:textColor="@color/common_text" />
         </RadioGroup>

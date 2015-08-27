@@ -44,6 +44,7 @@ import cn.sharesdk.wechat.utils.WechatHandlerActivity;
 				Toast.makeText(this, obj.extInfo, Toast.LENGTH_SHORT).show();
 			}
 		}
+		
 //	@Override
 //	protected boolean handleIntent() {
 //		if (super.handleIntent()) {

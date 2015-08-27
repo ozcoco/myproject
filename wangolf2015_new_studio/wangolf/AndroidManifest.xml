@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.meigao.mgolf"
-    android:versionCode="18"
-    android:versionName="1.8" >
+    android:versionCode="19"
+    android:versionName="1.9" >
 
     <!-- 需测试的包 -->
 
@@ -77,13 +77,13 @@
         <!-- 非零无限UBK Android SDK是非零无限官方推出的移动终端上换量平台接入程序参数配置 -->
         <meta-data
             android:name="UBK_APPID"
-            android:value="10000" />
+            android:value="10049" />
         <meta-data
             android:name="UBK_APPKEY"
-            android:value="KEHTHJHJ4IWJ3I9J" />
+            android:value="ABCBF8BD3DCBED72" />
         <meta-data
             android:name="UBK_CHANNEL"
-            android:value="Tencent" />
+            android:value="MeiGao" />
 
         <!-- android:debuggable="false" -->
 
@@ -179,8 +179,7 @@
         <!-- android:value="dtNpXT1eGt0msj8w409EgPse" /> -->
 
         <activity
-            android:name="me.wangolf.NavigationActivity"
-            android:label="@string/app_name"
+            android:name="me.wangolf.WeComeActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar" >
             <intent-filter>
@@ -190,7 +189,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="me.wangolf.WeComeActivity"
+            android:name="me.wangolf.NavigationActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
@@ -434,8 +433,9 @@
             android:theme="@style/MyDialogTheme" />
         <!-- 用户微信回调的 activity -->
         <activity
-            android:name="com.meigao.mgolf.wxapi.WXEntryActivity"
+            android:name=".wxapi.WXEntryActivity"
             android:exported="true"
+            android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
@@ -444,7 +444,7 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.meigao.mgolf.wxapi.WXPayEntryActivity"
+            android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
@@ -529,6 +529,7 @@
         <activity
             android:name="me.wangolf.community.CommunitySendPostsAddressActivity"
             android:screenOrientation="portrait" />
+
         <!-- 个人中心新增 -->
         <activity
             android:name="me.wangolf.usercenter.UserNotificationMessageActivity"
@@ -601,7 +602,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             
-        </activity>
+        </activity>
         -->
 
     </application>

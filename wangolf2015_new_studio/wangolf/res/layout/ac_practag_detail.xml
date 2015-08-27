@@ -76,7 +76,7 @@
                         android:background="#999999" />
 
                     <RelativeLayout
-                        android:id="@+id/RelativeLayout1"
+                        android:id="@+id/RelativeLayout2"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/layout_height_50"
                         android:layout_weight="1"
